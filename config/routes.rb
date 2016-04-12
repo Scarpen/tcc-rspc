@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-
+  resources :topics
   resources :interests
   resources :abilities
   resources :projects do
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       end
     end
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
+  get 'projects/:id/forum/create_topic' => 'topics#new'
   devise_for :users
   root :to => "homee#index"
 

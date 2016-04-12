@@ -1,0 +1,9 @@
+<%= simple_form_for(@topic) do |f| %>
+
+<%= f.input :topic_title%>
+<%= f.input :description%>
+<%= f.input :project_id, :as => :hidden, :input_html => { :value =>  @project } %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

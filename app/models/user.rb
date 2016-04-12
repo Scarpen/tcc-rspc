@@ -19,4 +19,6 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :members, :through => :projects
   
+  has_many :topics
+
 end

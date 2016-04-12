@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  topic_title: MyString
+  descrption: MyString
+  date_created: 2016-04-12
+  project_id: 1
+  user_id: 1
+
+two:
+  topic_title: MyString
+  descrption: MyString
+  date_created: 2016-04-12
+  project_id: 1
+  user_id: 1

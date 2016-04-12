@@ -6,4 +6,6 @@ class Project < ActiveRecord::Base
 
 	has_many :users
   	has_many :members, :through => :users
+
+  	has_many :topics
 end
