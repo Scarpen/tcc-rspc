@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     end
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
   get 'projects/:id/forum/create_topic' => 'topics#new'
+  get 'cep/:cep' => 'cep#verificar'
   devise_for :users
   root :to => "homee#index"
 
