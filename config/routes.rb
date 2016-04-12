@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       end
     end
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
+  get 'cep/:cep' => 'cep#verificar'
   devise_for :users
   root :to => "homee#index"
 
