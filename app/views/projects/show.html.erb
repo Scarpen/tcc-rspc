@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @project.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @project.description %>
+</p>
+
+<p>
+  <strong>Avatar:</strong>
+  <%= @project.avatar %>
+</p>
+
+<p>
+  <strong>Date time start:</strong>
+  <%= @project.date_time_start %>
+</p>
+
+<p>
+  <strong>Date time end:</strong>
+  <%= @project.date_time_end %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @project.place %>
+</p>
+
+
+
+
+  <% if Member.where(project_id: @project.id, situation: '1').count == @project.number_members %>
+    
+    Grupo Cheio!
+  <%end%>
+  <%else%>
+    <% if @participate == nil %>
+    <%= link_to 'Participar', send_request_projects_path(project: @project.id) %>
+  <% end %>
+
+  
+
+  <% if @participate == 0 %>
+  Aguardando aceitação do administrador
+  <% end %>
+  <% if @participate == 1 %>
+  Você já faz parte do projeto
+  <% end %>
+<%= link_to 'Edit', edit_project_path(@project) %> 
+<%= link_to 'Back', projects_path %>
+
+<% if @project.creator_id == current_user.id %>
+<%= link_to 'Verificar Requisicoes', request_list_path(@project) %>
+<%end%>
+
+<%= @address[:city] %>

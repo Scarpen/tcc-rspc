@@ -1,0 +1,23 @@
+<table>
+  <thead>
+    <tr>
+      <th>user_id</th>
+      <th>Description</th>
+      <th>Ação</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% Member.where(project_id: @project.id).each do |member| %>
+      <tr>
+        <td><%= member.user_id %></td>
+        <td><%= member.situation %></td>
+        <td><%= link_to 'Aceitar', accept_request_projects_path(member: member.id) %>
+        <%= link_to 'Recusar', refuse_request_projects_path(member: member.id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
