@@ -12,12 +12,11 @@ class User < ActiveRecord::Base
  		self.confirmed_at = Time.now
 	 end
 
-	has_and_belongs_to_many :projects
 	has_and_belongs_to_many :abilities
 	has_and_belongs_to_many :interests
 
-  has_many :projects
-  has_many :members, :through => :projects
+  has_many :members
+  has_many :projects, :through => :members
   
   has_many :topics
 
