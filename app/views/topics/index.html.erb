@@ -1,0 +1,19 @@
+<h1> Forum </h1>
+
+<% @topics.each do |p| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= p.topic_title%></h3>
+  </div>
+  <div class="panel-body">
+    <%= p.description %>
+  </div>
+</div>
+
+<% end %>
+
+
+<br>
+<br>
+
+<%= link_to "Criar novo Topico",create_topic_path %>

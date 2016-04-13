@@ -1,9 +1,9 @@
 class TopicsController < ApplicationController
 
   def index
-
+    project = Project.find(params[:id])
+    @topics = project.topics
   end
-
 
 def new
 	@topic = Topic.new

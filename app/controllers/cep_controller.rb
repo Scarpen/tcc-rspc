@@ -8,7 +8,7 @@ respond_to :json
 
     render :status => 200,
            	 :json => { :success => true,
-                      :info => "Registered",
+                      :info => "Found",
                       :address => address,
                       :data => { :address => address,
                       

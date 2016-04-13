@@ -52,9 +52,8 @@
   <% end %>
 <%= link_to 'Edit', edit_project_path(@project) %> 
 <%= link_to 'Back', projects_path %>
-
+<% if current_user %>
 <% if @project.creator_id == current_user.id %>
 <%= link_to 'Verificar Requisicoes', request_list_path(@project) %>
 <%end%>
-
-<%= @address[:city] %>
+<%end%>

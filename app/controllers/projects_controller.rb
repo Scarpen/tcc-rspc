@@ -49,9 +49,6 @@ class ProjectsController < ApplicationController
     Member.where(project_id: @project.id, user_id: current_user.id).each do |p|
       @participate = p.situation
     end
-
-    finder = Correios::CEP::AddressFinder.new
-    @address = finder.get("66040100")
   end
 
   end
