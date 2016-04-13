@@ -52,7 +52,6 @@ ActiveRecord::Schema.define(version: 20160413201154) do
 
   create_table "posts", force: :cascade do |t|
     t.string   "description", limit: 255
-    t.date     "date_post"
     t.integer  "topic_id",    limit: 4
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",              null: false
@@ -83,13 +82,12 @@ ActiveRecord::Schema.define(version: 20160413201154) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string   "topic_title",  limit: 255
-    t.string   "description",  limit: 255
-    t.date     "date_created"
-    t.integer  "project_id",   limit: 4
-    t.integer  "user_id",      limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "topic_title", limit: 255
+    t.string   "description", limit: 255
+    t.integer  "project_id",  limit: 4
+    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "user_has_abilities", force: :cascade do |t|
