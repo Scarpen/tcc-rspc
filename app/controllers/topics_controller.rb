@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-
+before_action :set_topic_id, only: [:show_topic]
   def index
     project = Project.find(params[:id])
     @topics = project.topics
@@ -10,10 +10,19 @@ def new
 	@project = params[:id]
 end
 
+def new_post
+  @post = Post.new
+  @topic = params(:id_topic)
+end
+
+
+def show_topic
+end
+
+
 def create
     @topic = Topic.new(topic_params)
     @topic.user_id = current_user.id
-    @topic.date_created = Time.now
     project = Project.find(@topic.project_id)
     respond_to do |format|
       if @topic.save
@@ -26,11 +35,21 @@ def create
     end
   end
 
+def create_topic
+  @post = Post.new(post_params)
+  @post.user_id = current_user.id
+  
+
+end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_topic
       @topic = Topic.find(params[:id])
+    end
+
+     def set_topic_id
+      @topic = Topic.find(params[:id_topic])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

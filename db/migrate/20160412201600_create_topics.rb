@@ -3,7 +3,6 @@ class CreateTopics < ActiveRecord::Migration
     create_table :topics do |t|
       t.string :topic_title
       t.string :description
-      t.date :date_created
       t.integer :project_id
       t.integer :user_id
 

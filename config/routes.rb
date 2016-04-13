@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
   get 'projects/:id/forum/create_topic' => 'topics#new', as: :create_topic
   get 'projects/:id/forum/' => 'topics#index', as: :list_topics
-  get 'projects/:id/forum/:id_topic' => 'topics#show', as: :show_topic
+  get 'projects/:id/forum/:id_topic' => 'topics#show_topic', as: :show_topic
+  get 'projects/:id/forum/:id_topic/new_posts' => 'topics#new_post', as: :new_post
+
   get 'cep/:cep' => 'cep#verificar'
   devise_for :users
   root :to => "homee#index"

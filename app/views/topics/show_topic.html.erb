@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Título:</strong>
+  <%= @topic.topic_title %>
+</p>
+
+<p>
+  <strong>Descrição:</strong>
+  <%= @topic.description %>
+</p>
+
+<%= link_to 'Postar', create_post_path(@topic) %>
