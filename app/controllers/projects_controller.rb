@@ -8,7 +8,8 @@ class ProjectsController < ApplicationController
   end
 
   def list_projects
-    @projects = Project.all
+    @projects = current_user.projects
+    @myprojects = Project.where(creator_id: current_user.id)
   end
 
   def request_list 

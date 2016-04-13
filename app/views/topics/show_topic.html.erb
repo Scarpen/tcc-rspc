@@ -11,7 +11,6 @@
 </p>
 
 
-
 <table>
   <thead>
     <tr>
@@ -24,7 +23,7 @@
   <tbody>
     <% @topic.posts.each do |posts| %>
       <tr>
-        <td><%= posts.user_id %></td>
+        <td><%= posts.user.email %></td>
         <td><%= posts.description %></td>
         <td><%= link_to 'Show' %></td>
         <td><%= link_to 'Edit' %></td>
@@ -36,4 +35,4 @@
 
 
 
-<%= link_to 'Postar', new_post_path(@topic) %>
+<%= link_to 'Postar', new_post_path%>
