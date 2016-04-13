@@ -1,8 +1,0 @@
-<%= simple_form_for(@post) do |f| %>
-
-<%= f.input :description%>
-<%= f.input :project_id, :as => :hidden, :input_html => { :value =>  @project } %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

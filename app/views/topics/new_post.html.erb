@@ -1,0 +1,8 @@
+<%= simple_form_for @post, :url => create_post_topics_path(@post) do |f| %>
+
+<%= f.input :description%>
+<%= f.input :topic_id, :as => :hidden, :input_html => { :value =>  @topic} %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
