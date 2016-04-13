@@ -9,9 +9,9 @@
   </thead>
 
   <tbody>
-    <% Member.where(project_id: @project.id).each do |member| %>
+    <% @project.members.each do |member| %>
       <tr>
-        <td><%= member.user_id %></td>
+        <td><%= member.user.id %></td>
         <td><%= member.situation %></td>
         <td><%= link_to 'Aceitar', accept_request_projects_path(member: member.id) %>
         <%= link_to 'Recusar', refuse_request_projects_path(member: member.id) %></td>
