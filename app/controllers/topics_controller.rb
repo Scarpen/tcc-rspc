@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-before_action :set_topic_id, only: [:show_topic]
+before_action :set_topic_id, only: [:show_topic, :edit, :destroy]
 before_action :set_post_id, only: [:edit_post]
   def index
     project = Project.find(params[:id])
@@ -29,6 +29,23 @@ def create
     end
   end
 
+def edit
+end
+
+def update
+  @topic = Topic.find(params[:id])
+  @topic.update(topic_params)
+  redirect_to controller: 'topics', action: 'index', id: @topic.project.id, notice: 'Topic was successfully updated.'
+end
+
+def destroy
+  project = @topic.project
+  @topic.destroy
+  redirect_to controller: 'topics', action: 'index', id: project.id, notice: 'Topic was successfully destroyed.' 
+end
+
+
+
 
 def new_post
   @post = Post.new
@@ -55,7 +72,7 @@ def edit_post
 end
 
 def update_post
-  @post = Post.find(params[:id])
+  @post = Post.find(params[:id_post])
   @post.update(post_params)
   redirect_to controller: 'topics', action: 'show_topic', id: @post.topic.project.id, id_topic: @post.topic.id, notice: 'Post was successfully updated.'
 end

@@ -1,0 +1,8 @@
+<%= simple_form_for @topic, :id => @topic.id do |f| %>
+
+<%= f.input :topic_title%>
+<%= f.input :description%>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
