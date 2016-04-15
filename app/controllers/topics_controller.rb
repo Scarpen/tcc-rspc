@@ -12,7 +12,7 @@ end
 
 def new_post
   @post = Post.new
-  @topic = params(:id_topic)
+  @topic = params[:id_topic]
 end
 
 
@@ -26,7 +26,7 @@ def create
     project = Project.find(@topic.project_id)
     respond_to do |format|
       if @topic.save
-        format.html { redirect_to project, notice: 'Topic was successfully created.' }
+        format.html { redirect_to list_topics_path(project), notice: 'Topic was successfully created.' }
         format.json { render :show, status: :created, location: project}
       else
         format.html { render :new }
@@ -35,11 +35,19 @@ def create
     end
   end
 
-def create_topic
+def create_post
   @post = Post.new(post_params)
   @post.user_id = current_user.id
-  
-
+  topic = Topic.find(@post.topic_id)
+  respond_to do |format|
+    if @post.save
+      format.html { redirect_to controller: 'topics', action: 'show_topic', id: @post.topic.project.id, id_topic: @post.topic.id, notice: 'Post was successfully created.' }
+      format.json { render :show, status: :created, location: topic}
+    else
+      format.html { render :new }
+      format.json { render json: @topic.errors, status: :unprocessable_entity }
+    end
+  end
 end
 
   private
@@ -57,4 +65,7 @@ end
       params.require(:topic).permit(:topic_title, :description, :user_id, :project_id)
     end
 
+    def post_params
+      params.require(:post).permit(:description, :user_id, :topic_id)
+    end
 end
