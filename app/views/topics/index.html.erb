@@ -8,6 +8,11 @@
   <div class="panel-body">
     <%= p.description %>
   </div>
+  <div class="panel-body">
+  	<%= link_to "Editar", edit_topic_path(id_topic: p.id) %>
+  	<br>
+  	<%= link_to "Deletar", topic_path(id_topic: p.id), method: :delete, data: { confirm: 'Are you sure?'} %>
+  </div>
 </div>
 
 <% end %>

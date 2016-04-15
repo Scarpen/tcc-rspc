@@ -22,13 +22,12 @@
   </thead>
 
   <tbody>
-    <% @topic.posts.each do |posts| %>
+    <% @topic.posts.each do |post| %>
       <tr>
-        <td><%= posts.user.email %></td>
-        <td><%= posts.description %></td>
-        <td><%= link_to 'Show' %></td>
-        <td><%= link_to 'Edit' %></td>
-        <td><%= link_to 'Destroy' %></td>
+        <td><%= post.user.email %></td>
+        <td><%= post.description %></td>
+        <td><%= link_to 'Editar', controller: 'topics', action: 'edit_post', id: post.topic.project.id, id_topic: post.topic.id, id_post: post.id %></td>
+        <td><%= link_to 'Excluir', destroy_post_topics_path(id: post.id), method: :delete, data: { confirm: 'Are you sure?'}  %></td>
       </tr>
     <% end %>
   </tbody>

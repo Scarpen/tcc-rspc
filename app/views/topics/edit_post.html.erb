@@ -1,0 +1,8 @@
+<%= simple_form_for @post, :url => update_post_topics_path(@post, :id => @post_id) do |f| %>
+
+<%= f.input :description%>
+<%= f.input :project_id, :as => :hidden, :input_html => { :value =>  @project } %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
