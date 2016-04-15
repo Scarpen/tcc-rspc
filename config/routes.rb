@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       post 'create_post'
     end
   end
+  resources :publications
   resources :interests
   resources :abilities
   resources :projects do
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
     end
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
   get 'projects/:id/forum/create_topic' => 'topics#new', as: :create_topic
+  get 'projects/:id/new_publication' => 'publications#new', as: :create_publication
   get 'projects/:id/forum/' => 'topics#index', as: :list_topics
   get 'projects/:id/forum/:id_topic' => 'topics#show_topic', as: :show_topic
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post

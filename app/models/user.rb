@@ -19,5 +19,5 @@ class User < ActiveRecord::Base
   has_many :projects, :through => :members
   
   has_many :topics
-
+  has_many :publications
 end

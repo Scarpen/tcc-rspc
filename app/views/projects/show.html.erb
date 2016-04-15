@@ -57,3 +57,20 @@
 <%= link_to 'Verificar Requisicoes', request_list_path(@project) %>
 <%end%>
 <%end%>
+
+<% if current_user %>
+<%= link_to "Fazer nova publicacao", create_publication_path %>
+
+<%end%>
+<br>
+<%@project.publications.each do |pub| %>
+<div>
+  <br>
+<%= pub.description%>
+<%= pub.user.email %>
+<%= link_to "Mostrar", publication_path(pub) %>
+<%= link_to "Editar", edit_publication_path(pub) %>
+<%= link_to "Deletar", publication_path(pub), method: :delete, data:{confirm: "Certeza?" }%>
+
+</div>
+<%end%>
