@@ -10,4 +10,11 @@
   <%= @topic.description %>
 </p>
 
+<% @topic.posts.each do |post| %>
+<% post.description %>
+<% post.user.email %>
+<br>
+<% end %>
+
+
 <%= link_to 'Postar', create_post_path(@topic) %>
