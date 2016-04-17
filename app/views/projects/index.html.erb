@@ -25,7 +25,13 @@
         <td><%= link_to project.id, project_path(project) %></td>
         <td><%= project.name %></td>
         <td><%= project.description %></td>
-        <td><%= project.avatar %></td>
+
+
+        <% if project.avatar.to_s == ''%>
+        <td>Não possue imagem</td>
+        <%else %>
+        <td>  <%= image_tag(project.avatar)%></td>
+        <% end %>
         <td><%= project.date_time_start %></td>
         <td><%= project.date_time_end %></td>
         <td><%= project.place %></td>
@@ -34,13 +40,16 @@
         <td><%= project.visible_project %></td>
         <td><%=l project.created_at %></td>
         <td>
+          <% if project.creator_id == current_user.id %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_project_path(project), :class => 'btn btn-default btn-xs' %>
+
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       project_path(project),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-xs btn-danger' %>
+                      <% end %>
         </td>
       </tr>
     <% end %>
