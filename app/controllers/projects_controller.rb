@@ -71,6 +71,16 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.creator_id = current_user.id
 
+    puts @project.visible_project
+
+    if @project.visible_project = "Privado"
+      puts "ooi1"
+      @project.visible_project = true
+    else
+      puts "oii2"
+      @project.visible_project = false
+    end
+
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }

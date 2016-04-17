@@ -1,10 +1,27 @@
 class TopicsController < ApplicationController
 before_action :set_topic_id, only: [:show_topic, :edit, :destroy]
 before_action :set_post_id, only: [:edit_post]
-  def index
+
+def index
     project = Project.find(params[:id])
-    @topics = project.topics
-  end
+    @topics = project.topics.order(important: :desc)
+end
+
+def make_important
+    topic = Topic.find(params[:topic])
+    topic.important = true
+    project = Project.find(topic.project_id)
+    topic.save
+    redirect_to list_topics_path(project)
+end
+
+def make_not_important
+    topic = Topic.find(params[:topic])
+    topic.important = false
+    project = Project.find(topic.project_id)
+    topic.save
+    redirect_to list_topics_path(project)
+end
 
 def new
 	@topic = Topic.new
@@ -101,7 +118,7 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def topic_params
-      params.require(:topic).permit(:topic_title, :description, :user_id, :project_id)
+      params.require(:topic).permit(:topic_title, :description, :important, :user_id, :project_id)
     end
 
     def post_params

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       post 'create_post'
       patch 'update_post'
       delete 'destroy_post'
+      get 'make_important'
+      get 'make_not_important'
     end
   end
   resources :publications

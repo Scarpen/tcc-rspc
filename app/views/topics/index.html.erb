@@ -9,9 +9,19 @@
     <%= p.description %>
   </div>
   <div class="panel-body">
+    <%= p.important %>
+  </div>
+  <div class="panel-body">
   	<%= link_to "Editar", edit_topic_path(id_topic: p.id) %>
   	<br>
   	<%= link_to "Deletar", topic_path(id_topic: p.id), method: :delete, data: { confirm: 'Are you sure?'} %>
+    <br>
+    <% if p.important == false %>
+    <%= link_to 'Fixar como importante', make_important_topics_path(topic: p.id) %>
+    <% else %>
+    <%= link_to 'Desmarcar como Importante', make_not_important_topics_path(topic: p.id) %>
+    <% end %>
+
   </div>
 </div>
 

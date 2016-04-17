@@ -1,8 +1,9 @@
+<h1>Lista de Requisições</h1>
 <table>
   <thead>
     <tr>
-      <th>user_id</th>
-      <th>Description</th>
+      <th>Usuario</th>
+      <th>Situação</th>
       <th>Ação</th>
       <th colspan="3"></th>
     </tr>
@@ -11,10 +12,22 @@
   <tbody>
     <% @project.members.each do |member| %>
       <tr>
-        <td><%= member.user.id %></td>
-        <td><%= member.situation %></td>
-        <td><%= link_to 'Aceitar', accept_request_projects_path(member: member.id) %>
-        <%= link_to 'Recusar', refuse_request_projects_path(member: member.id) %></td>
+        <td><%= member.user.email %></td>
+
+        <% if member.situation == 0 %>
+        <td> Pendente </td>
+        <% else %>
+        <td> Membro do Projeto</td>
+        <%end%>
+
+        <td>
+        <% if member.situation == 1 %>
+        <%= link_to 'Remover Membro', refuse_request_projects_path(member: member.id) %>
+        <% else %>
+        <%= link_to 'Aceitar', accept_request_projects_path(member: member.id) %>
+        <%= link_to 'Recusar', refuse_request_projects_path(member: member.id) %>
+        <% end %>
+      </td>
       </tr>
     <% end %>
   </tbody>

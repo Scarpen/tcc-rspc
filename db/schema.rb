@@ -84,10 +84,11 @@ ActiveRecord::Schema.define(version: 20160413201154) do
   create_table "topics", force: :cascade do |t|
     t.string   "topic_title", limit: 255
     t.string   "description", limit: 255
+    t.boolean  "important",               default: false
     t.integer  "project_id",  limit: 4
     t.integer  "user_id",     limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "user_has_abilities", force: :cascade do |t|

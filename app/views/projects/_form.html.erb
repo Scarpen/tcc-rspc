@@ -37,6 +37,10 @@
   </div>
 
   <div class="field">
+    <%= f.input :visible_project, collection: ["Visivel", "Privado"], prompt: "Selecione..."%>
+  </div>
+
+  <div class="field">
     <%= f.association :abilities, collection: Ability.order(:name) %>
   </div>
 
