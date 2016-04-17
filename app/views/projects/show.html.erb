@@ -77,9 +77,12 @@
   <br>
 <%= pub.description%>
 <%= pub.user.email %>
+<%= image_tag(pub.image)%>
 <%= link_to "Mostrar", publication_path(pub) %>
+
+<% if pub.user_id == current_user.id %>
 <%= link_to "Editar", edit_publication_path(pub) %>
 <%= link_to "Deletar", publication_path(pub), method: :delete, data:{confirm: "Certeza?" }%>
-
+<% end %>
 </div>
 <%end%>
