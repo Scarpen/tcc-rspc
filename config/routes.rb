@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
   end
   resources :publications
+  resources :tasks
   resources :interests
   resources :abilities
   resources :projects do
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
   get 'projects/:id/forum/create_topic' => 'topics#new', as: :create_topic
   get 'projects/:id/new_publication' => 'publications#new', as: :create_publication
+  get 'projects/:id/new_task' => 'tasks#new', as: :create_task
   get 'projects/:id/forum/' => 'topics#index', as: :list_topics
   get 'projects/:id/forum/:id_topic' => 'topics#show_topic', as: :show_topic
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post

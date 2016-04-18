@@ -22,4 +22,5 @@ class User < ActiveRecord::Base
   
   has_many :topics
   has_many :publications
+  has_many :tasks
 end

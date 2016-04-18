@@ -55,10 +55,12 @@
 <%= link_to 'Back', projects_path %>
 <br>
 <% if current_user %>
-  <% if @participate == 1 %>
+  <% if @participate == 1 || @project.creator_id == current_user.id  %>
     <%= link_to 'Forum do Projeto', list_topics_path(@project) %>
     <br>
     <%= link_to "Fazer nova publicacao", create_publication_path %>
+    <br>
+    <%= link_to "Fazer nova Tarefa", create_task_path %>
   <% end %>
 <% end %>
 
@@ -86,3 +88,22 @@
 <% end %>
 </div>
 <%end%>
+
+
+<h2> Tarefas </h2>
+<% @project.tasks.each do |task| %>
+  <div>
+    <br>
+    <%= task.description %>
+    <%= task.location %>
+    <%= task.date_start %>
+    <%= task.date_end %>
+    <%= task.situation %>
+    <%= link_to "Mostrar", task_path(task) %>
+
+    <% if task.user_id == current_user.id || @project.creator_id == current_user.id %>
+      <%= link_to "Editar", edit_task_path(task) %>
+      <%= link_to "Deletar", task_path(task), method: :delete, data:{confirm: "Certeza?" }%>
+    <% end %>
+  </div>
+<% end %>

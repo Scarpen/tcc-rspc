@@ -40,7 +40,6 @@ class ProjectsController < ApplicationController
     member.user_id = current_user.id
     member.save
     redirect_to list_projects_projects_path
-
   end
 
   # GET /projects/1
@@ -71,13 +70,9 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.creator_id = current_user.id
 
-    puts @project.visible_project
-
     if @project.visible_project = "Privado"
-      puts "ooi1"
       @project.visible_project = true
     else
-      puts "oii2"
       @project.visible_project = false
     end
 
