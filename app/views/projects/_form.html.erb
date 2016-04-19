@@ -40,11 +40,11 @@
   </div>
 
   <div class="field">
-    <%= f.association :abilities, collection: Ability.order(:name) %>
+    <%= f.association :abilities, collection: Ability.order(:name), as: :check_boxes %>
   </div>
 
   <div class="field">
-    <%= f.association :interests, collection: Interest.order(:name) %>
+    <%= f.association :interests, collection: Interest.order(:name), as: :check_boxes %>
   </div>
 
   <div class="actions">

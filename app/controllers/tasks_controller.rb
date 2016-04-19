@@ -4,6 +4,8 @@ class TasksController < ApplicationController
 	def new
 		@task = Task.new
 		@project = params[:id]
+		@users = Project.find(params[:id]).users.includes(:members).where("situation = 1")
+
 	end
 
     def create
@@ -58,6 +60,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:description, :user_id, :project_id, :location, :date_start, :date_end, :situation)
+      params.require(:task).permit(:description, :user_id, :project_id, :location, :date_start, :date_end, :situation, :user_ids => [])
     end   
 end      

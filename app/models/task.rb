@@ -6,4 +6,5 @@ class Task < ActiveRecord::Base
 	has_many :assists
   	has_many :users, :through => :assists
 
+
 end
