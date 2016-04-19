@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
   has_many :tasks, :through => :assists
 
   has_many :friends
-  has_many :users, :through => :friends
-  
+  has_many :users, through: :friends
+
   has_many :topics
   has_many :publications
   has_many :tasks

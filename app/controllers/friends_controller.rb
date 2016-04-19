@@ -1,19 +1,17 @@
 class FriendsController < ApplicationController
-
-
 	def friend_request
 	    user_destiny = User.find(params[:user])
 	    friend = Friend.new
 	    friend.destiny_id = user_destiny.id
 	    friend.requester_id = current_user.id
-	    friend.status = 0
+	    friend.status = 'request'
 	    friend.save
 	    redirect_to root_path
 	end
 
 	def accept_request
 		friend = Friend.find(params[:friend])
-		friend.status = 1
+		friend.status = 'accepted'
 		friend.save
 	    redirect_to root_path
   	end
@@ -22,7 +20,7 @@ class FriendsController < ApplicationController
 		requester = User.find(params[:requester])
 		destiny = User.find(params[:destiny])
 		status = User.find(params[:status])
-		friend = Friend.where(requester_id: requester, destiny_id: destiny, status: status)
+		friend = Friend.where(user_id: requester, friend_id: destiny, status: status)
 		friend.delete
 	    redirect_to root_path
  	 end

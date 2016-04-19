@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+ 
+  resources :users, only: [:show] 
 
   resources :topics do
     collection do
@@ -14,6 +16,7 @@ Rails.application.routes.draw do
       get 'friend_request'
       get 'cancel_request'
     end
+
   end
   resources :publications
   resources :tasks
@@ -48,6 +51,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
