@@ -19,6 +19,12 @@ class User < ActiveRecord::Base
 
   has_many :members
   has_many :projects, :through => :members
+
+  has_many :assists
+  has_many :tasks, :through => :assists
+
+  has_many :friends
+  has_many :users, :through => :friends
   
   has_many :topics
   has_many :publications

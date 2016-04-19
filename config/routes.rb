@@ -9,6 +9,12 @@ Rails.application.routes.draw do
       get 'make_not_important'
     end
   end
+  resources :friends do
+    collection do
+      get 'friend_request'
+      get 'cancel_request'
+    end
+  end
   resources :publications
   resources :tasks
   resources :interests
