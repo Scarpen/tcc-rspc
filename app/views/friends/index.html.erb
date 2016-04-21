@@ -1,11 +1,8 @@
-My Friends:
-	<% unless @user == current_user %>
-		You do not have permission to access this page!
-	<% else %>
-		Current Friends:
+<h2>My Friends</h2>
+	<br>
+		<h3>Current Friends</h3>
 		<%= render :partial => 'friends/friends' %>
-		Requested Friends:
+		<h3>Requested Friends</h3>
 		<%= render :partial => 'friends/requested_friends' %>
-		Pending Friends:
+		<h3>Pending Friends</h3>
 		<%= render :partial => 'friends/pending_friends' %>
-	<% end %>

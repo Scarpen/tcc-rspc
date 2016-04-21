@@ -1,29 +1,67 @@
 class FriendsController < ApplicationController
+	before_action :set_friend, only: [:destroy]
+	def index
+	end
+
 	def friend_request
-	    user_destiny = User.find(params[:user])
+	    user_friend = User.find(params[:user])
+	    #Criando a solicitação de amizade do usuário on-line
 	    friend = Friend.new
-	    friend.destiny_id = user_destiny.id
-	    friend.requester_id = current_user.id
+	   	friend.user_id = current_user.id
+	    friend.friend_id = user_friend.id
 	    friend.status = 'request'
 	    friend.save
-	    redirect_to root_path
+
+	    #Criando a solicitação de amizade que fica pendente da
+	    #aprovação do outro usuário
+	    friend2 = Friend.new
+	    friend2.user_id = user_friend.id
+	    friend2.friend_id = current_user.id
+	    friend2.status = 'pending'
+	    friend2.save
+	    redirect_to users_path
 	end
 
 	def accept_request
 		friend = Friend.find(params[:friend])
-		friend.status = 'accepted'
-		friend.save
+		friend.status = 'accept'
+		
+
+		friendship = Friend.where(user_id: friend.friend_id, friend_id: current_user.id, status: 'request').first
+		puts 'aqui'
+		puts friendship
+		friendship.status = 'accept'
+		puts 'poha'
+		
+		friendship.save
+	    friend.save
+	    redirect_to root_path
+  	end
+
+  	def refuse_request
+  		friend = Friend.find(params[:friend])
+  		friendship = Friend.where(user_id: friend.friend_id, friend_id: current_user.id, status: 'request').first
+		friendship.delete
+		friend.delete
 	    redirect_to root_path
   	end
 
   	def cancel_request
-		requester = User.find(params[:requester])
-		destiny = User.find(params[:destiny])
-		status = User.find(params[:status])
-		friend = Friend.where(user_id: requester, friend_id: destiny, status: status)
+		friend = Friend.find(params[:friend])
+		friendship = Friend.where(user_id: friend.friend_id, friend_id: friend.user_id, status: 'accept').first
+		friendship.delete
 		friend.delete
 	    redirect_to root_path
  	 end
+
+
+	def destroy
+	   @friend.destroy
+	   respond_to do |format|
+	      format.html { redirect_to root_path, notice: 'Friend was successfully destroyed.' }
+	      format.json { head :no_content }
+	   end
+	 end
 
   private
     # Use callbacks to share common setup or constraints between actions.

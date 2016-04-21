@@ -1,6 +1,11 @@
 oi!
 <% if current_user %>
 	<%= image_tag(current_user.avatar)%>
+
+	<br>
+	<%= link_to 'Lista de Pessoas', users_path%>
+	<br>
+	<%= link_to 'Lista de Amigos', friends_path%>
 <% end %>
 
 
