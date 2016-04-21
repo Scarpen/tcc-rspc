@@ -1,6 +1,21 @@
 oi!
 <% if current_user %>
-	<%= image_tag(current_user.avatar)%>
+	<%= image_tag(current_user.avatar)%><br><br>
+	<% current_user.projects.each do |project|%>
+		<%= project.name %><br>
+		<% project.tasks.each do |t|%>
+			<% t.assists.where("status = 0 and user_id = ?", current_user.id).each do |a| %>
+			<%= t.description %>
+			<%= link_to "Aceitar Tarefa", accept_tasks_path(assist: a.id) %>
+			<% end %>
+		<% end %>
+
+		<br><br>
+
+	<% end %>
+
 <% end %>
+
+
 
 

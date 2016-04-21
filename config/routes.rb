@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+  devise_for :users
   resources :users, only: [:show] 
 
   resources :topics do
@@ -19,7 +19,12 @@ Rails.application.routes.draw do
 
   end
   resources :publications
-  resources :tasks
+  resources :tasks do
+    collection do
+      get 'accept'
+
+    end
+  end
   resources :interests
   resources :abilities
   resources :projects do
@@ -38,8 +43,9 @@ Rails.application.routes.draw do
   get 'projects/:id/forum/:id_topic' => 'topics#show_topic', as: :show_topic
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post
   get 'projects/:id/forum/:id_topic/show_topic/:id_post' => 'topics#edit_post', as: :edit_post
+  get 'projects/:id/tasks/' => 'tasks#index', as: :list_tasks
   get 'cep/:cep' => 'cep#verificar'
-  devise_for :users
+
   root :to => "homee#index"
 
   namespace :api do

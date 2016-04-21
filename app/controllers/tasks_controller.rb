@@ -8,6 +8,10 @@ class TasksController < ApplicationController
 
 	end
 
+	def index
+		@tasks = Project.find(params[:id]).tasks
+	end
+
     def create
 	    @task = Task.new(task_params)
 	    @task.user_id = current_user.id
@@ -27,6 +31,13 @@ class TasksController < ApplicationController
     end
 
     def edit
+    end
+
+    def accept
+	    assist = Assist.find(params[:assist])
+	    assist.status = 1
+	    assist.save
+	    redirect_to root_path
     end
 
     def update

@@ -3,7 +3,7 @@ class CreateAssists < ActiveRecord::Migration
     create_table :assists do |t|
       t.integer :task_id
       t.integer :user_id
-      t.integer :status
+      t.integer :status, :default => 0
 
       t.timestamps null: false
     end
