@@ -1,0 +1,15 @@
+<% if Friend.where(user_id: current_user.id, status: 'request') %>
+	<% Friend.where(user_id: current_user.id, status: 'request').each do |friend| %>
+		<br>
+		<%= User.find(friend.friend_id).avatar %>
+		<br>
+		<%= User.find(friend.friend_id).name %>
+		<br>
+		<%= friend.status %>
+		<br>
+		<%= link_to 'Cancelar Solicitação', refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'} %>
+		<br>
+	<% end %>
+<% else %>
+	Sem solicitações de amizade
+<% end %>

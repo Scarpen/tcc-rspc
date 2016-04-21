@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-	before_action :set_task, only: [:show, :edit, :update, :destroy]
+	before_action :set_task, only: [:show, :update, :destroy]
 	
 	def new
 		@task = Task.new
@@ -31,6 +31,7 @@ class TasksController < ApplicationController
     end
 
     def edit
+    	  @post_id = params[:id_post]
     end
 
     def accept

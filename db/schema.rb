@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 20160419182556) do
   create_table "friends", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "friend_id",  limit: 4
-    t.integer  "status",     limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.string   "status",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "interests", force: :cascade do |t|
@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 20160419182556) do
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "name",                   limit: 255, default: "", null: false
     t.string   "gender",                 limit: 255
     t.string   "avatar",                 limit: 255
     t.string   "phone",                  limit: 255
@@ -159,7 +160,6 @@ ActiveRecord::Schema.define(version: 20160419182556) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",      limit: 255
     t.string   "authentication_token",   limit: 255
-    t.string   "name",                   limit: 255, default: "", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

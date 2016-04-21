@@ -1,0 +1,17 @@
+<% if Friend.where(user_id: current_user.id, status: 'pending') %>
+	<% Friend.where(user_id: current_user.id, status: 'pending').each do |friend| %>
+		<br>
+		<%= friend.user_id %>
+		<br>
+		<%= friend.friend_id %>
+		<br>
+		<%= friend.status %>
+		<br>
+		<%= link_to 'Aceitar', accept_request_friends_path(friend: friend), data: { confirm: 'Are you sure?'} %>
+		<br>
+		<%= link_to 'Recusar', refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'} %>
+		<br>
+	<% end %>
+<% else %>
+	Não há novas solicitações de amizade para você
+<% end %>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+
+
   devise_for :users
-  resources :users, only: [:show] 
+  resources :users, only: [:index, :show]
 
   resources :topics do
     collection do
@@ -14,7 +16,9 @@ Rails.application.routes.draw do
   resources :friends do
     collection do
       get 'friend_request'
-      get 'cancel_request'
+      delete 'cancel_request'
+      delete 'refuse_request'
+      get 'accept_request'
     end
 
   end
@@ -44,8 +48,13 @@ Rails.application.routes.draw do
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post
   get 'projects/:id/forum/:id_topic/show_topic/:id_post' => 'topics#edit_post', as: :edit_post
   get 'projects/:id/tasks/' => 'tasks#index', as: :list_tasks
+  get 'projects/:id/tasks/:id_task' => 'tasks#edit', as: :edit_tasks
   get 'cep/:cep' => 'cep#verificar'
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 309a875769ea75ac0cbf4f5340b45d98f0531e69
   root :to => "homee#index"
 
   namespace :api do
