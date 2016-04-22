@@ -31,6 +31,8 @@
       } %>
     <%= f.input :complement %>
   </div>
+  <%= f.association :abilities, collection: Ability.order(:name), as: :check_boxes %>
+  <%= f.association :interests, collection: Interest.order(:name), as: :check_boxes %>
   </div>
 
 

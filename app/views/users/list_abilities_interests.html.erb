@@ -1,0 +1,17 @@
+<h3> Meus Interesses </h3>
+
+<% @user.interests.each do |interest| %>
+<%= interest.description %>
+<br>
+<% end %>
+
+<h3> Minhas Habilidades </h3>
+
+<% @user.abilities.each do |ability| %>
+<%= ability.description %>
+<br>
+<% end %>
+
+
+<%= link_to 'Voltar', root_path %>
+

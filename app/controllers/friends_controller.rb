@@ -25,14 +25,8 @@ class FriendsController < ApplicationController
 	def accept_request
 		friend = Friend.find(params[:friend])
 		friend.status = 'accept'
-		
-
 		friendship = Friend.where(user_id: friend.friend_id, friend_id: current_user.id, status: 'request').first
-		puts 'aqui'
-		puts friendship
 		friendship.status = 'accept'
-		puts 'poha'
-		
 		friendship.save
 	    friend.save
 	    redirect_to root_path
@@ -40,10 +34,10 @@ class FriendsController < ApplicationController
 
   	def refuse_request
   		friend = Friend.find(params[:friend])
-  		friendship = Friend.where(user_id: friend.friend_id, friend_id: current_user.id, status: 'request').first
-		friendship.delete
+  		friend1 = Friend.where(user_id: friend.friend_id, friend_id: friend.user_id, status: 'pending').first
+		friend1.delete
 		friend.delete
-	    redirect_to root_path
+		redirect_to root_path
   	end
 
   	def cancel_request

@@ -1,6 +1,6 @@
 class CreateUserHasInterests < ActiveRecord::Migration
   def change
-    create_table :user_has_interests do |t|
+    create_table :interests_users do |t|
       t.integer :user_id
       t.integer :interest_id
 

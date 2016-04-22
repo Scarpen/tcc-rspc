@@ -2,7 +2,7 @@ Rails.application.routes.draw do
  
 
   devise_for :users
-  resources :users, only: [:index, :show]
+  resources :users, only: [:index, :show, :list_abilities_interests]
 
   resources :topics do
     collection do
@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post
   get 'projects/:id/forum/:id_topic/show_topic/:id_post' => 'topics#edit_post', as: :edit_post
   get 'cep/:cep' => 'cep#verificar'
+  get 'user/:id' => 'users#list_abilities_interests', as: :list_preferences
   
   root :to => "homee#index"
 

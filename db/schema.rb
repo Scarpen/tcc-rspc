@@ -27,6 +27,13 @@ ActiveRecord::Schema.define(version: 20160419182556) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "abilities_users", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.integer  "ability_id", limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "assists", force: :cascade do |t|
     t.integer  "task_id",    limit: 4
     t.integer  "user_id",    limit: 4
@@ -52,6 +59,13 @@ ActiveRecord::Schema.define(version: 20160419182556) do
 
   create_table "interests_projects", force: :cascade do |t|
     t.integer  "project_id",  limit: 4
+    t.integer  "interest_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "interests_users", force: :cascade do |t|
+    t.integer  "user_id",     limit: 4
     t.integer  "interest_id", limit: 4
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
@@ -117,20 +131,6 @@ ActiveRecord::Schema.define(version: 20160419182556) do
     t.integer  "user_id",     limit: 4
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
-  end
-
-  create_table "user_has_abilities", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "ability_id", limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  create_table "user_has_interests", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.integer  "interest_id", limit: 4
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
   end
 
   create_table "users", force: :cascade do |t|
