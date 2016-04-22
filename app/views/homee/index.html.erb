@@ -6,7 +6,8 @@ oi!
 		<% project.tasks.each do |t|%>
 			<% t.assists.where("status = 0 and user_id = ?", current_user.id).each do |a| %>
 			<%= t.description %>
-			<%= link_to "Aceitar Tarefa", accept_tasks_path(assist: a.id) %>
+			<%= link_to "Aceitar Tarefa", accept_tasks_path(id_assist: a.id) %>
+			<%= link_to "Recusar Tarefa", refuse_tasks_path(id_assist: a.id) %>
 			<% end %>
 		<% end %>
 

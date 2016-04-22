@@ -10,4 +10,4 @@
     <br>
     <%= @task.user.email %>
 
-<%= link_to 'Editar', controller: 'tasks', action: 'edit', id: @task.project.id, id_task: @task.id %>
+<%= link_to "Editar", edit_tasks_path(id_task: @task.id) %>

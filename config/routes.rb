@@ -26,7 +26,11 @@ Rails.application.routes.draw do
   resources :tasks do
     collection do
       get 'accept'
-
+      get 'enter_request'
+      get 'quit_request'
+      get 'quit_accept'
+      get 'quit_refuse'
+      get 'refuse'
     end
   end
   resources :interests
@@ -48,13 +52,10 @@ Rails.application.routes.draw do
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post
   get 'projects/:id/forum/:id_topic/show_topic/:id_post' => 'topics#edit_post', as: :edit_post
   get 'projects/:id/tasks/' => 'tasks#index', as: :list_tasks
-  get 'projects/:id/tasks/:id_task' => 'tasks#edit', as: :edit_tasks
+  get 'projects/:id/tasks/:id_task/edit' => 'tasks#edit', as: :edit_tasks
+  get 'projects/:id/tasks/:id_task' => 'tasks#show', as: :show_tasks
   get 'cep/:cep' => 'cep#verificar'
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> 309a875769ea75ac0cbf4f5340b45d98f0531e69
   root :to => "homee#index"
 
   namespace :api do
