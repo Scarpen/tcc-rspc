@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
 
   devise_for :users
   resources :users, only: [:index, :show, :list_abilities_interests]
@@ -23,7 +23,16 @@ Rails.application.routes.draw do
 
   end
   resources :publications
-  resources :tasks
+  resources :tasks do
+    collection do
+      get 'accept'
+      get 'enter_request'
+      get 'quit_request'
+      get 'quit_accept'
+      get 'quit_refuse'
+      get 'refuse'
+    end
+  end
   resources :interests
   resources :abilities
   resources :projects do
@@ -42,9 +51,11 @@ Rails.application.routes.draw do
   get 'projects/:id/forum/:id_topic' => 'topics#show_topic', as: :show_topic
   get 'projects/:id/forum/:id_topic/new_post' => 'topics#new_post', as: :new_post
   get 'projects/:id/forum/:id_topic/show_topic/:id_post' => 'topics#edit_post', as: :edit_post
+  get 'projects/:id/tasks/' => 'tasks#index', as: :list_tasks
+  get 'projects/:id/tasks/:id_task/edit' => 'tasks#edit', as: :edit_tasks
+  get 'projects/:id/tasks/:id_task' => 'tasks#show', as: :show_tasks
   get 'cep/:cep' => 'cep#verificar'
   get 'user/:id' => 'users#list_abilities_interests', as: :list_preferences
-  
   root :to => "homee#index"
 
   namespace :api do

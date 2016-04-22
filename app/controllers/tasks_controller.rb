@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-	before_action :set_task, only: [:show, :edit, :update, :destroy]
+	before_action :set_task, only: [:update, :destroy]
 	
 	def new
 		@task = Task.new
@@ -7,6 +7,12 @@ class TasksController < ApplicationController
 		@users = Project.find(params[:id]).users.includes(:members).where("situation = 1")
 
 	end
+
+	def index
+		@tasks = Project.find(params[:id]).tasks
+	end
+
+	
 
     def create
 	    @task = Task.new(task_params)
@@ -24,10 +30,62 @@ class TasksController < ApplicationController
   	end
 
     def show
+    	@task = Task.find(params[:id_task])
     end
 
     def edit
+    	  @task = Task.find(params[:id_task])
+    	  @users = Project.find(params[:id]).users.includes(:members).where("situation = 1")
     end
+
+    def accept
+	    assist = Assist.find(params[:id_assist])
+	    assist.status = 1
+	    assist.save
+	    redirect_to root_path
+    end
+
+
+
+	def quit_request
+		assist = Assist.find(params[:id_assist])
+		assist.status = 3
+		assist.save
+		redirect_to assist.task.project
+	end
+
+	def enter_request
+		assist = Assist.new
+		assist.user_id = current_user.id
+		assist.task_id = params[:id_task]
+		assist.status = 2
+		assist.save
+		redirect_to assist.task.project
+	end
+
+	def quit_accept
+		assist = Assist.find(params[:id_assist])
+		project = assist.task.project
+		assist.destroy
+		redirect_to project
+
+	end
+
+	def quit_refuse
+		assist = Assist.find(params[:id_assist])
+		assist.status = 1
+		assist.save
+		redirect_to assist.task.project
+
+	end
+
+	def refuse
+		assist = Assist.find(params[:id_assist])
+		project = assist.task.project
+		assist.destroy
+		redirect_to project
+
+	end
 
     def update
     	  respond_to do |format|

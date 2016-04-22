@@ -9,3 +9,5 @@
     <%= @task.situation %>
     <br>
     <%= @task.user.email %>
+
+<%= link_to "Editar", edit_tasks_path(id_task: @task.id) %>

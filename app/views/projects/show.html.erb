@@ -61,6 +61,8 @@
     <%= link_to "Fazer nova publicacao", create_publication_path %>
     <br>
     <%= link_to "Fazer nova Tarefa", create_task_path %>
+    <br>
+    <%= link_to 'Tarefas', list_tasks_path(@project) %>
   <% end %>
 <% end %>
 
@@ -99,10 +101,25 @@
     <%= task.date_start %>
     <%= task.date_end %>
     <%= task.situation %>
-    <%= link_to "Mostrar", task_path(task) %>
+    <% if current_user %>
+    <% if Assist.where(task_id: task.id, user_id: current_user.id).first %>
+        <% if Assist.where(task_id: task.id, user_id: current_user.id).first.status == 1 %>
+          Voce faz parte dessa tarefa
+           <%= link_to "Solicitar saida", quit_request_tasks_path(id_task: Assist.where(task_id: task.id, user_id: current_user.id).first.id) %>
+        <% elsif Assist.where(task_id: task.id, user_id: current_user.id).first.status == 2 %>
+          Voce solicitou participar dessa tarefa, aguardando resposta
+        <% elsif Assist.where(task_id: task.id, user_id: current_user.id).first.status == 3 %>
+          Voce solicitou sair dessa tarefa, aguardando resposta
 
+        <%end%>
+                <% else %>
+          <%= link_to "Solicitar participacao", enter_request_tasks_path(id_task: task.id) %>
+      <% end %>
+
+    <% end %>
+    <%= link_to "Mostrar", show_tasks_path(id_task: task.id) %>
     <% if task.user_id == current_user.id || @project.creator_id == current_user.id %>
-      <%= link_to "Editar", edit_task_path(task) %>
+      <%= link_to "Editar", edit_tasks_path(id_task: task.id) %>
       <%= link_to "Deletar", task_path(task), method: :delete, data:{confirm: "Certeza?" }%>
     <% end %>
   </div>

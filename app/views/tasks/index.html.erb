@@ -1,0 +1,57 @@
+<h1> Forum </h1>
+
+<% @tasks.each do |p| %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= p.description %></h3>
+  </div>
+  <div class="panel-body">
+    <%= p.location %>
+  </div>
+  <div class="panel-body">
+    <%= p.situation %>
+  </div>
+  <div>
+  <%= p.user.email %>
+  </div>
+  <div>
+    <% p.users.each do |user| %>
+      <%= user.email %>
+    <% end %>
+  </div>
+
+
+  <div class="panel-body">
+  	<%= link_to "Editar", edit_tasks_path(id_task: p.id) %>
+  	<br>
+  	<%= link_to "Deletar", task_path(id_task: p.id), method: :delete, data: { confirm: 'Are you sure?'} %>
+    <br>
+    <br><br>
+  
+    Solicitacoes para Participar:<br>
+    <% p.assists.where(status: 2).each do |a|%>
+      <%= a.user.email %>
+      <%= link_to "Aceitar participacao", accept_tasks_path(id_assist: a.id) %>
+      <%= link_to "Recusar participacao", refuse_tasks_path(id_assist: a.id) %>
+      <br>
+    <% end %>
+<br>
+    Solicitacoes para Sair:<br>
+    <% p.assists.where(status: 3).each do |a|%>
+      <%= a.user.email %>
+      <%= link_to "Aceitar saida", quit_accept_tasks_path(id_assist: a.id) %>
+      <%= link_to "Recusar saida", quit_refuse_tasks_path(id_assist: a.id) %>
+      <br>
+    <% end %>
+
+  </div>
+
+</div>
+
+<% end %>
+
+
+<br>
+<br>
+
+<%= link_to "Criar nova Tarefa",create_task_path %>
