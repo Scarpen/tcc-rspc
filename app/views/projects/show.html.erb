@@ -82,13 +82,25 @@
 <%= pub.description%>
 <%= pub.user.email %>
 <%= image_tag(pub.image)%>
-<%= link_to "Mostrar", publication_path(pub) %>
+<%= link_to 'Mostrar', publication_path(pub) %>
+<%= link_to 'Comentar', new_comment_path(id_publication: pub.id, id_project: pub.project_id)%>
 
 <% if pub.user_id == current_user.id %>
-<%= link_to "Editar", edit_publication_path(pub) %>
-<%= link_to "Deletar", publication_path(pub), method: :delete, data:{confirm: "Certeza?" }%>
+<%= link_to 'Editar', edit_publication_path(pub) %>
+<%= link_to 'Deletar', publication_path(pub), method: :delete, data:{confirm: "Tem certeza?" }%>
 <% end %>
 </div>
+
+  <h4>Comentarios</h4>
+  <% Comment.where(publication_id: pub.id).each do |comment| %>
+
+  <%= User.find(comment.user_id).name %>
+  <%= comment.description %>
+  <%= link_to 'Editar', edit_comment_path(id_publication: comment.publication_id, id_project: comment.publication.project.id, id: comment.id) %>
+  <%= link_to 'Excluir', destroy_comment_publications_path(id: comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
+  <br><br>
+  <% end %>
+
 <%end%>
 
 

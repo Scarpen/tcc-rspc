@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
 
   has_many :topics
   has_many :publications
+  has_many :comments
   has_many :tasks
 
   accepts_nested_attributes_for :interests

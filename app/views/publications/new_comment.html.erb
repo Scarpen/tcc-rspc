@@ -1,0 +1,8 @@
+<%= simple_form_for @comment, :url => create_comment_publications_path(@comment) do |f| %>
+
+<%= f.input :description%>
+<%= f.input :publication_id, :as => :hidden, :input_html => {:value =>  @publication} %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

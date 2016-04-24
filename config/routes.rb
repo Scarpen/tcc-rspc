@@ -20,9 +20,15 @@ Rails.application.routes.draw do
       delete 'refuse_request'
       get 'accept_request'
     end
-
   end
-  resources :publications
+  resources :publications do
+    collection do
+      post 'create_comment'
+      patch 'update_comment'
+      delete 'destroy_comment'
+    end
+  end
+
   resources :tasks do
     collection do
       get 'accept'
@@ -46,6 +52,8 @@ Rails.application.routes.draw do
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list
   get 'projects/:id/forum/create_topic' => 'topics#new', as: :create_topic
   get 'projects/:id/new_publication' => 'publications#new', as: :create_publication
+  get 'projects/:id/new_comment' => 'publications#new_comment', as: :new_comment
+  get 'projects/:id_project/publications/:id_publication/edit_comment' => 'publications#edit_comment', as: :edit_comment
   get 'projects/:id/new_task' => 'tasks#new', as: :create_task
   get 'projects/:id/forum/' => 'topics#index', as: :list_topics
   get 'projects/:id/forum/:id_topic' => 'topics#show_topic', as: :show_topic
@@ -56,6 +64,7 @@ Rails.application.routes.draw do
   get 'projects/:id/tasks/:id_task' => 'tasks#show', as: :show_tasks
   get 'cep/:cep' => 'cep#verificar'
   get 'user/:id' => 'users#list_abilities_interests', as: :list_preferences
+
   root :to => "homee#index"
 
   namespace :api do

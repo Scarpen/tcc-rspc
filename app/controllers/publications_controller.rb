@@ -1,7 +1,8 @@
 class PublicationsController < ApplicationController
 	before_action :set_publication, only: [:show, :request_list, :edit, :update, :destroy]
-
-	def new
+  before_action :set_comment, only: [:edit_comment, :destroy_comment]
+	
+  def new
 		@publication = Publication.new
     @project = params[:id]
 	end
@@ -56,6 +57,47 @@ class PublicationsController < ApplicationController
 
 
 
+  def new_comment
+    @comment = Comment.new
+    @project = params[:id_project]
+    @publication = params[:id_publication]
+  end
+
+  def create_comment
+    @comment = Comment.new(comment_params)
+    @comment.user_id = current_user.id
+    publication = Publication.find(@comment.publication_id)
+
+    respond_to do |format|
+      if @comment.save
+        format.html { redirect_to project_path(publication.project_id), notice: 'Comment was successfully created.' }
+        format.json { render :show, status: :created, location: @comment}
+      else
+        format.html { render :new }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def edit_comment
+    @comment = Comment.find(params[:id])
+    @project = params[:id_project]
+    @publication = params[:id_publication]
+  end
+
+  def update_comment
+    @comment = Comment.find(params[:id])
+    publication = Publication.find(@comment.publication_id)
+    @comment.update(comment_params)
+    redirect_to project_path(publication.project_id), notice: 'Comment was successfully updated.'
+  end
+
+  def destroy_comment
+    @comment = Comment.find(params[:id])
+    publication = Publication.find(@comment.publication_id)
+    @comment.destroy
+    redirect_to project_path(publication.project_id), notice: 'Comment was successfully destroyed.'
+  end 
 
 	private
     # Use callbacks to share common setup or constraints between actions.
@@ -63,9 +105,15 @@ class PublicationsController < ApplicationController
       @publication = Publication.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def set_comment
+      @comment = Comment.find(params[:id])
+    end
+    
     def publication_params
       params.require(:publication).permit(:description, :user_id, :project_id, :image)
     end
-
+    
+    def comment_params
+      params.require(:comment).permit(:description, :user_id, :publication_id, :project_id)
+    end
 end
