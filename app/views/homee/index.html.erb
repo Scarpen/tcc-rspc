@@ -28,4 +28,28 @@ oi!
 
 
 
+<br><br>
+<h2>Lista de Publicações de Projetos Publicos</h2>
+<% Project.where(visible_project: true).each do |project| %>
+	<% Publication.where(project_id: project.id).each do |pub| %>
+		<%= Project.find(pub.project_id).name %>
+		<br>
+		<%= image_tag(User.find(pub.user_id).avatar) %>
+		<%= User.find(pub.user_id).name %>
+		<%= pub.description %>
+	<% end %>
+<% end %>
 
+<br><br>
+<h2>Lista de Publicações de Projetos que sigo e participo</h2>
+<% Member.where(user_id: current_user.id).each do |project| %>
+	<% if project.situation == 1 || project.situation == 2 %>
+		<% Publication.where(project_id: project.id).each do |pub| %>
+			<%= Project.find(pub.project_id).name %>
+			<br>
+			<%= image_tag(User.find(pub.user_id).avatar) %>
+			<%= User.find(pub.user_id).name %>
+			<%= pub.description %>
+		<% end %>
+	<% end %>
+<% end %>

@@ -40,6 +40,8 @@
         <td><%= project.visible_project %></td>
         <td><%=l project.created_at %></td>
         <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      project_path(project), :class => 'btn btn-default btn-xs' %>
           <% if project.creator_id == current_user.id %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_project_path(project), :class => 'btn btn-default btn-xs' %>

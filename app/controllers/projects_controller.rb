@@ -29,7 +29,6 @@ class ProjectsController < ApplicationController
     project = Project.find(member.project_id)
     member.delete
     redirect_to request_list_path(project)
-
   end
 
 
@@ -42,6 +41,23 @@ class ProjectsController < ApplicationController
     redirect_to list_projects_projects_path
   end
 
+
+  def follow
+    project = Project.find(params[:project])
+    member = Member.new
+    member.project_id = project.id
+    member.user_id = current_user.id
+    member.situation = 2
+    member.save
+    redirect_to project_path(project)
+  end
+
+  def unfollow
+    project = Project.find(params[:project])
+    member = Member.where(project_id: project.id, user_id: current_user.id, situation: 2).first
+    member.delete
+    redirect_to project_path(project)
+  end
   # GET /projects/1
   # GET /projects/1.json
   def show
@@ -69,15 +85,18 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.creator_id = current_user.id
-
     if @project.visible_project = "Privado"
       @project.visible_project = true
     else
       @project.visible_project = false
     end
-
+    member = Member.new
+    member.user_id = current_user.id
+    member.situation = 1
     respond_to do |format|
       if @project.save
+        member.project_id = @project.id
+        member.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else

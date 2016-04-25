@@ -47,6 +47,8 @@ Rails.application.routes.draw do
         get 'send_request'
         get 'accept_request'
         get 'refuse_request'
+        get 'follow'
+        delete 'unfollow'
       end
     end
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list

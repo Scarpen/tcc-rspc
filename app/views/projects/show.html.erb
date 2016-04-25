@@ -36,10 +36,17 @@
   <% if Member.where(project_id: @project.id, situation: '1').count == @project.number_members %>
     
     Grupo Cheio!
-  <%end%>
-  <%else%>
+    <%else%>
     <% if @participate == nil %>
     <%= link_to 'Participar', send_request_projects_path(project: @project.id) %>
+    <br>
+    <%= link_to 'Seguir', follow_projects_path(project: @project.id) %>
+    <% end %>
+    <% if @participate == 2 %>
+    <%= link_to 'Participar', send_request_projects_path(project: @project.id) %>
+    <br>
+    <%= link_to 'unfollow', unfollow_projects_path(project: @project.id), method: :delete, data:{confirm: "Tem certeza?" } %>
+    <% end %>   
   <% end %>
 
   
@@ -92,7 +99,7 @@
 </div>
 
   <h4>Comentarios</h4>
-  <% Comment.where(publication_id: pub.id).each do |comment| %>
+  <% pub.comments.order(created_at: :desc).each do |comment| %>
 
   <%= User.find(comment.user_id).name %>
   <%= comment.description %>
