@@ -29,9 +29,7 @@ class TasksController < ApplicationController
 	    end
   	end
 
-    def show
-    	@task = Task.find(params[:id_task])
-    end
+
 
     def edit
     	  @task = Task.find(params[:id_task])
@@ -45,10 +43,9 @@ class TasksController < ApplicationController
 	    redirect_to root_path
     end
 
-
-
 	def quit_request
 		assist = Assist.find(params[:id_assist])
+		assist.reason = params[:assist][:reason]
 		assist.status = 3
 		assist.save
 		redirect_to assist.task.project
@@ -65,6 +62,7 @@ class TasksController < ApplicationController
 
 	def quit_accept
 		assist = Assist.find(params[:id_assist])
+
 		project = assist.task.project
 		assist.destroy
 		redirect_to project
@@ -109,6 +107,10 @@ class TasksController < ApplicationController
 	    end
     end
 
+    def show
+    	@task = Task.find(params[:id_task])
+    end
+
 
     private
     # Use callbacks to share common setup or constraints between actions.
@@ -118,6 +120,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:description, :user_id, :project_id, :location, :date_start, :date_end, :situation, :user_ids => [])
+      params.require(:task).permit(:description, :user_id, :project_id, :location, :date_start, :date_end, :situation,:reason, :user_ids => [])
     end   
 end      

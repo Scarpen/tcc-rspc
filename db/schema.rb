@@ -37,9 +37,10 @@ ActiveRecord::Schema.define(version: 20160423141208) do
   create_table "assists", force: :cascade do |t|
     t.integer  "task_id",    limit: 4
     t.integer  "user_id",    limit: 4
-    t.integer  "status",     limit: 4, default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.integer  "status",     limit: 4,   default: 0
+    t.string   "reason",     limit: 255, default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   create_table "comments", force: :cascade do |t|

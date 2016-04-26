@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get 'enter_request'
       get 'quit_request'
       get 'quit_accept'
+      patch 'quit_request'
       get 'quit_refuse'
       get 'refuse'
     end

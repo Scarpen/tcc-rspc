@@ -121,13 +121,60 @@
     <%= task.date_end %>
     <%= task.situation %>
     <% if current_user %>
-    <% if Assist.where(task_id: task.id, user_id: current_user.id).first %>
-        <% if Assist.where(task_id: task.id, user_id: current_user.id).first.status == 1 %>
+    <% assist = Assist.where(task_id: task.id, user_id: current_user.id).first %>
+
+    <% if assist %>
+        <% if assist.status == 1 %>
           Voce faz parte dessa tarefa
-           <%= link_to "Solicitar saida", quit_request_tasks_path(id_task: Assist.where(task_id: task.id, user_id: current_user.id).first.id) %>
-        <% elsif Assist.where(task_id: task.id, user_id: current_user.id).first.status == 2 %>
+
+           <!--<%= link_to "Solicitar saida", quit_request_tasks_path(id_assist: assist.id) %>-->
+
+           <%= link_to "Solicitar Saida","#myModal#{assist.id}", :data => {:toggle=>"modal"}, :class=>"btn btn-primary btn-lg"%>
+        
+          <div class="modal fade" id="myModal<%=assist.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Modal title <%=assist.id%></h4>
+                </div>
+                <div class="modal-body">
+                    <% @assist = assist %>
+                    <%= simple_form_for @assist, :url => quit_request_tasks_path(:id_assist => @assist.id, :id_task => @assist.task_id) do |f| %>
+                      <% if @assist.errors.any? %>
+                        <div id="error_explanation">
+                          <h2><%= pluralize(@assist.errors.count, "error") %> prohibited this assist from being saved:</h2>
+
+                          <ul>
+                          <% @assist.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                          <% end %>
+                          </ul>
+                        </div>
+                    <% end %>
+
+                    <div class="field">
+                      <%= f.input :reason %>
+                    </div>
+                    <div class="actions">
+                      <%= f.submit %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+          </div><!-- /.modal -->
+
+
+
+
+        <% elsif assist.status == 2 %>
           Voce solicitou participar dessa tarefa, aguardando resposta
-        <% elsif Assist.where(task_id: task.id, user_id: current_user.id).first.status == 3 %>
+        <% elsif assist.status == 3 %>
           Voce solicitou sair dessa tarefa, aguardando resposta
 
         <%end%>
@@ -143,3 +190,7 @@
     <% end %>
   </div>
 <% end %>
+
+
+
+

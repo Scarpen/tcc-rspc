@@ -62,14 +62,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1.json
   def show
     if current_user
-    Member.where(project_id: @project.id, user_id: current_user.id).each do |p|
-      @participate = p.situation
+      Member.where(project_id: @project.id, user_id: current_user.id).each do |p|
+        @participate = p.situation
+      end
     end
-  end
-
-  end
-
-  
+  end  
 
   # GET /projects/new
   def new

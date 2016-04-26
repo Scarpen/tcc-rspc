@@ -4,6 +4,7 @@ class CreateAssists < ActiveRecord::Migration
       t.integer :task_id
       t.integer :user_id
       t.integer :status, :default => 0
+      t.string :reason, null: false, default: ""
 
       t.timestamps null: false
     end

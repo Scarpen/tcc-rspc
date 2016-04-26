@@ -39,6 +39,9 @@
     Solicitacoes para Sair:<br>
     <% p.assists.where(status: 3).each do |a|%>
       <%= a.user.email %>
+      <br>
+      <%= a.reason %>
+      <br>
       <%= link_to "Aceitar saida", quit_accept_tasks_path(id_assist: a.id) %>
       <%= link_to "Recusar saida", quit_refuse_tasks_path(id_assist: a.id) %>
       <br>
