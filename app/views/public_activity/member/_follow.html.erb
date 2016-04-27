@@ -1,0 +1,10 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-edit"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <strong><%= activity.owner ? activity.owner.name : 'Guest' %></strong>
+  <% if a.trackable %>
+    was following the project <%= link_to Project.find(a.trackable.project_id).name, project_path(a.trackable) %>.
+  <% else %>
+    was unfollowing the project.
+  <% end %>
+</li>

@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :request_list, :edit, :update, :destroy]
-
   # GET /projects
   # GET /projects.json
   def index
@@ -20,7 +19,9 @@ class ProjectsController < ApplicationController
     member = Member.find(params[:member])
     member.situation = 1
     project = Project.find(member.project_id)
+    user = User.find(member.user_id)
     member.save
+    member.create_activity(:accept_request, :owner => user)
     redirect_to request_list_path(project)
   end
 
@@ -38,6 +39,8 @@ class ProjectsController < ApplicationController
     member.project_id = project.id
     member.user_id = current_user.id
     member.save
+    member.create_activity(:send_request, :owner => User.find(project.creator_id) )
+    flash[:success] = 'Your request has been sending!'
     redirect_to list_projects_projects_path
   end
 
@@ -49,6 +52,8 @@ class ProjectsController < ApplicationController
     member.user_id = current_user.id
     member.situation = 2
     member.save
+    member.create_activity(:follow, :owner => current_user)
+    flash[:success] = 'Your are following this project!'
     redirect_to project_path(project)
   end
 
@@ -81,6 +86,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @users = User.all
     @project.creator_id = current_user.id
     if @project.visible_project = "Privado"
       @project.visible_project = true
@@ -92,6 +98,24 @@ class ProjectsController < ApplicationController
     member.situation = 1
     respond_to do |format|
       if @project.save
+
+
+        user_verification = 0
+        @users.each do |user|
+          if current_user.id != user.id 
+            user.interests.each do |interest|
+              @project.interests.each do |p_interest|
+                if interest.id == p_interest.id
+                  if user_verification != user.id
+                    user_verification = user.id
+                    @project.create_activity(:create, :owner => user)
+                   end
+                end
+              end
+            end
+          end
+        end
+
         member.project_id = @project.id
         member.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }

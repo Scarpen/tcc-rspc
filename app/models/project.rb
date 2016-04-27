@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+	include PublicActivity::Model
 
 	mount_uploader :avatar, AvatarUploader
 

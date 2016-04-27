@@ -1,7 +1,7 @@
 class PublicationsController < ApplicationController
 	before_action :set_publication, only: [:show, :request_list, :edit, :update, :destroy]
   before_action :set_comment, only: [:edit_comment, :destroy_comment]
-	
+
   def new
 		@publication = Publication.new
     @project = params[:id]
@@ -10,9 +10,15 @@ class PublicationsController < ApplicationController
   def create
     @publication = Publication.new(publication_params)
     @publication.user_id = current_user.id
-
     respond_to do |format|
       if @publication.save
+
+        @publication.project.users.each do |member|
+          if member.id != current_user.id
+           @publication.create_activity(:create, :owner => member)
+         end
+        end
+
         format.html { redirect_to @publication.project, notice: 'Publication was successfully created.' }
         format.json { render :show, status: :created, location: @publication }
       else
@@ -70,6 +76,7 @@ class PublicationsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        @comment.create_activity(:create_comment, :owner => current_user)
         format.html { redirect_to project_path(publication.project_id), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment}
       else

@@ -2,6 +2,7 @@ class TopicsController < ApplicationController
 before_action :set_topic_id, only: [:show_topic, :edit, :destroy]
 before_action :set_post_id, only: [:edit_post]
 
+
 def index
     project = Project.find(params[:id])
     @topics = project.topics.order(important: :desc)
@@ -104,6 +105,10 @@ end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def load_activities
+      @activities = PublicActivity::Activity.order('created_at DESC').limit(20)
+    end
+
     def set_topic
       @topic = Topic.find(params[:id])
     end

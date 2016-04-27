@@ -1,0 +1,3 @@
+<% if current_user %>
+<%= render_activities @activities = PublicActivity::Activity.where(owner_id: current_user.id).order(created_at: :desc) %>
+<% end %>

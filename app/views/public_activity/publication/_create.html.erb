@@ -1,0 +1,10 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-plus"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <strong>New Publication</strong><br>
+  <% if a.trackable %>
+    <strong><%= a.trackable.user.name %></strong> added the publication on the project <%= link_to Project.find(a.trackable.project_id).name, publication_path(a.trackable) %>.
+  <% else %>
+    added the story that is currently deleted.
+  <% end %>
+</li>
