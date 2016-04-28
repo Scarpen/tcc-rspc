@@ -1,9 +1,9 @@
 <li class="list-group-item">
   <span class="glyphicon glyphicon-plus"></span>
   <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
-  <strong><%= activity.owner ? activity.owner.name : 'Guest' %></strong>
+  <strong>New Comment</strong><br>
   <% if a.trackable %>
-    added the comment on publication of project <%= link_to Project.find(a.trackable.publication.project).name, project_path(a.trackable) %> .
+      <strong><%= a.trackable.user.name %></strong> added the comment on <%= link_to 'publication', publication_path(a.trackable) %> of the project <%= a.trackable.publication.project.name %>.
   <% else %>
     added the story that is currently deleted.
   <% end %>

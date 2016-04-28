@@ -85,8 +85,8 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
     @users = User.all
+    @project = Project.new(project_params)
     @project.creator_id = current_user.id
     if @project.visible_project = "Privado"
       @project.visible_project = true
@@ -161,6 +161,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :creator_id, :description, :avatar, :date_time_start, :date_time_end, :place, :ability_ids => [], :interest_ids => [])
+      params.require(:project).permit(:name, :creator_id, :description, :avatar, :date_time_start, :date_time_end, :place, :visible_project, :ability_ids => [], :interest_ids => [])
     end
 end

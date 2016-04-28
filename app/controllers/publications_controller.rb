@@ -14,7 +14,7 @@ class PublicationsController < ApplicationController
       if @publication.save
 
         @publication.project.users.each do |member|
-          if member.id != current_user.id
+          if current_user.id != member.id 
            @publication.create_activity(:create, :owner => member)
          end
         end
@@ -73,10 +73,15 @@ class PublicationsController < ApplicationController
     @comment = Comment.new(comment_params)
     @comment.user_id = current_user.id
     publication = Publication.find(@comment.publication_id)
-
     respond_to do |format|
       if @comment.save
-        @comment.create_activity(:create_comment, :owner => current_user)
+
+        @comment.publication.project.users.each do |member|
+          if member.id != current_user.id
+           @comment.create_activity(:create_comment, :owner => member)
+         end
+        end
+
         format.html { redirect_to project_path(publication.project_id), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment}
       else
