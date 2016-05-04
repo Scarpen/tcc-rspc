@@ -92,6 +92,7 @@
 <%= image_tag(pub.image)%>
 <%= link_to 'Mostrar', publication_path(pub) %>
 <%= link_to 'Comentar', new_comment_path(id_publication: pub.id, id_project: pub.project_id)%>
+<%= link_to 'Compartilhar', share_publication_projects_path(publication: pub),data:{confirm: "Tem certeza?" } %>
 
 <% if pub.user_id == current_user.id %>
 <%= link_to 'Editar', edit_publication_path(pub) %>
@@ -102,7 +103,7 @@
   <h4>Comentarios</h4>
   <% pub.comments.order(created_at: :desc).each do |comment| %>
 
-  <%= User.find(comment.user_id).name %>
+  <%= comment.user.name %>
   <%= comment.description %>
   <%= link_to 'Editar', edit_comment_path(id_publication: comment.publication_id, id_project: comment.publication.project.id, id: comment.id) %>
   <%= link_to 'Excluir', destroy_comment_publications_path(id: comment.id), method: :delete, data: { confirm: 'Are you sure?'} %>
@@ -193,5 +194,15 @@
 <% end %>
 
 
+<br>
+<h2>Gallery</h2>
 
-
+<% @project.publications.each do |photo| %>
+<div>
+    <% if photo.image.blank? == false  %>
+    <%= image_tag(photo.image) %><br>
+    <%= photo.user.name %> -> <%= photo.created_at %>
+    <br>
+    <% end %>
+</div>  
+<% end %>

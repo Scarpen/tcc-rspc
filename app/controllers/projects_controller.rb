@@ -63,6 +63,16 @@ class ProjectsController < ApplicationController
     member.delete
     redirect_to project_path(project)
   end
+
+  def share_publication
+    publication = Publication.find(params[:publication])
+    share = Share.new
+    share.publication_id = publication.id
+    share.user_id = current_user.id
+    share.save
+    flash[:success] = 'The publication has shared!'
+    redirect_to projects_path(publication.project_id)
+  end
   # GET /projects/1
   # GET /projects/1.json
   def show

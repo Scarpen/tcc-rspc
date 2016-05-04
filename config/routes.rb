@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :abilities
   resources :projects do
     collection do
+        get 'share_publication'
         get 'list_projects'
         get 'send_request'
         get 'accept_request'
