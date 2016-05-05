@@ -43,8 +43,14 @@ oi!
 <br><br>
 <h2>Lista de Publicações de Projetos que sigo e participo</h2>
 <% @publications_feed.each do |feed| %>
-	<%= feed.user_id %>
-	<%= feed.description %>
+	<% if feed.sharing != nil %>
+		<%= User.find(feed.sharing).name %> compartilhou uma publicacação de
+		<%= feed.user.name %>
+		<%= feed.description %>
+	<% else %>
+		<%= feed.user_id %>
+		<%= feed.description %>
+	<% end %>
 	<br>
 <% end %>
 <br><br>

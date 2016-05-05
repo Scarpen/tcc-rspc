@@ -17,12 +17,16 @@ class HomeeController < ApplicationController
 			Friend.where(user_id: current_user.id, status: 'accept').each do |friend|
 				Share.where(user_id: friend.friend_id).each do |shared_pub|
 					if @publications_feed.find(shared_pub.publication.id) != true
-						@publications_feed << shared_pub.publication
+						pub = shared_pub.publication
+						pub.sharing = shared_pub.user_id
+						@publications_feed << pub
 					end
 				end
 			end
-			@publications_feed.order(created_at: :asc)
 		end
+
+		 @publications_feed.sort_by{|e| e[:created_at]}.reverse
+
 	end
 end
 
