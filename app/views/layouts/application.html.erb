@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
     <title><%= content_for?(:title) ? yield(:title) : "AppRails" %></title>
     <%= csrf_meta_tags %>
 
@@ -60,6 +61,25 @@
       <div class="row">
         <div class="col-lg-9">
           <%= bootstrap_flash %>
+          
+           <div id = "chatbox_parent"></div>
+          <%= subscribe_to "/chatroom" %>
+          <script>
+          
+          PrivatePub.subscribe("/chatroom", function(data, channel){
+            var current_user_id = '#{current_user.try(:id)}';
+            if (data.receiver_id == current_user_id){
+              chatBox.chatWith(data.conversation_id);
+            }
+            else {
+              chatBox.chatWith(data.conversation_id);
+            }
+          });
+
+          </script>
+          <br>
+
+
           <%= yield %>
         </div>
 
@@ -75,6 +95,6 @@
       </footer>
 
     </div> <!-- /container -->
-
+<audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio>
   </body>
 </html>

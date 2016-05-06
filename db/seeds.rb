@@ -13,6 +13,7 @@ Ability.create(name: 'Comunicacao', description: 'Modo de falar')
 Ability.create(name: 'Escrita', description: 'Norma Culta')
 
 User.create(name: 'teste', email: 'teste@teste.com', password: '123123123', password_confirmation: '123123123')
+User.create(name: 'test1', email: 'teste1@teste.com', password: '123123123', password_confirmation: '123123123')
 
 Project.create(name: 'Dar coragem para o Ivan')
 Project.create(name: 'Casar o Vitor com o Victor')

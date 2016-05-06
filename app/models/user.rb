@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   has_many :tasks
   has_many :shares
 
+  has_many :conversations, :foreign_key => :sender_id
+
   accepts_nested_attributes_for :interests
   accepts_nested_attributes_for :abilities
   

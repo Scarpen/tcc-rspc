@@ -4,6 +4,20 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users, only: [:index, :show, :list_abilities_interests]
 
+  authenticated :user do
+    root :to => "homee#index"
+  end
+
+  unauthenticated :user do
+    devise_scope :user do
+      get "/" => "devise/sessions#new"
+    end
+  end
+
+  resources :conversations do
+    resources :messages
+  end
+
   resources :topics do
     collection do
       post 'create_post'
@@ -69,7 +83,7 @@ Rails.application.routes.draw do
   get 'cep/:cep' => 'cep#verificar'
   get 'user/:id' => 'users#list_abilities_interests', as: :list_preferences
 
-  root :to => "homee#index"
+  
 
   namespace :api do
     namespace :v1 do
