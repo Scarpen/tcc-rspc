@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
-    <title><%= content_for?(:title) ? yield(:title) : "AppRails" %></title>
-    <%= csrf_meta_tags %>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content='<%= user_signed_in? ? current_user.id : "" %>' name='user-id'/>
+  <title><%= content_for?(:title) ? yield(:title) : "AppRails" %></title>
+  <%= csrf_meta_tags %>
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
       <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
-    <![endif]-->
+      <![endif]-->
 
-    <%= stylesheet_link_tag "application", :media => "all" %>
+      <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <!-- For third-generation iPad with high-resolution Retina display: -->
-    <!-- Size should be 144 x 144 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+      <!-- For third-generation iPad with high-resolution Retina display: -->
+      <!-- Size should be 144 x 144 pixels -->
+      <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
 
-    <!-- For iPhone with high-resolution Retina display: -->
-    <!-- Size should be 114 x 114 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+      <!-- For iPhone with high-resolution Retina display: -->
+      <!-- Size should be 114 x 114 pixels -->
+      <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
 
-    <!-- For first- and second-generation iPad: -->
-    <!-- Size should be 72 x 72 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+      <!-- For first- and second-generation iPad: -->
+      <!-- Size should be 72 x 72 pixels -->
+      <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
 
-    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <!-- Size should be 57 x 57 pixels -->
-    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+      <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+      <!-- Size should be 57 x 57 pixels -->
+      <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
 
-    <!-- For all other devices -->
-    <!-- Size should be 32 x 32 pixels -->
-    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+      <!-- For all other devices -->
+      <!-- Size should be 32 x 32 pixels -->
+      <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
-    <%= javascript_include_tag "application" %>
-  </head>
-  <body>
+      <%= javascript_include_tag "application" %>
+    </head>
+    <body>
 <!--
     <div class="navbar navbar-default navbar-static-top">
       <div class="container">
@@ -56,231 +56,171 @@
         </div>
       </div>
     </div>
--->
+  -->
 
 
 
-    <div class="container">
-      <!-- chat -->
-      <div class="col-md-3">
-        <div class="menu-in">
-          <h2>Menu</h2>
-          <ul class="profile">
-          <li><a href="#"><i class="glyphicon glyphicon-cog"></i><span>Profile</span></a></li>
-          <li><a href="#"><i class="glyphicon glyphicon-envelope"></i><span>Messages</span><span class="five">5</span></a></li>
-          <li class="active"><a href="#"><i class="glyphicon glyphicon-user"></i><span>Friends</span></a></li>
-          <li><a href="#"><i class="glyphicon glyphicon-arrow-left"></i><span>Logout</span></a></li>
-          </ul>
+  <div class="container">
+    <!-- chat -->
+    <div class="col-md-3">
+      <div class="row" style="margin-left:10px">
+      <%= image_tag(User.find(3).avatar, class: "avatarlist") %>
+      <br>
+      <h4><%= current_user.name %></h4>
+    </div>
+    <hr style="margin-top:5px;margin-bottom:5px;">
+      PROJETOS
+      <div class="online" style="margin-top: 0px;">
+        <% current_user.projects.order(name: :asc).each do |project| %>
+        <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 1 %>
+        <%= link_to project do %>
+        <div class="online-top">
+          <div class="">
+            <%= image_tag(User.find(3).avatar, class: "projectlist") %>
+          </div>
+          <div class="top-on" >
+            <div class="top-on1" style="margin-left: -15px;">
+              <p><%= project.name %></p>
+            </div>
+            <div class="clearfix"> </div>
+          </div>
+          <div class="clearfix"> </div>
         </div>
+        <% end %>
+        <%end%>
+        <% end %>     
+        <% current_user.projects.order(name: :desc).each do |project| %>
+        <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 2 %>
+        <%= link_to project do %>
+        <div class="online-top">
+          <div class="">
+            <%= image_tag(User.find(3).avatar, class: "projectlist") %>
+          </div>
+          <div class="top-on" >
+            <div class="top-on1" style="margin-left: -15px;">
+              <p><%= project.name %></p>
+            </div>
+            <div class="clearfix"> </div>
+          </div>
+          <div class="clearfix"> </div>
+        </div>
+        <% end %>
+        <%end%>
+        <% end %>       
+      </div>
+
+      <%= button_to "Criar Projeto", new_project_path, class: "btn btn-default full" %>
+      <br>
+      <%= button_to "Buscar Projetos", projects_path, class: "btn btn-default full" %>
+
+            
+             
+
+    </div>
+
+
+    <div class="col-md-6" style="margin-top: 20px">
+      <%=yield%>
+
+
+    </div>
+
+
+
+
+    <div class="col-md-3">
+      <%if current_user %>
+      <div class="search" style="margin-top: 20px">
+        <form>
+          <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
+          <input type="submit" value="">
+        </form>
+      </div>
+      <div class="online">
+
+        <% current_user.friends.where(:status => "accept").each_with_index do |friend, index| %>
+        <% index +=1 %>
+        <%= link_to "#", class: "start-conversation",
+        "data-sid" => current_user.id, "data-rip" => friend.friend_id do %>
+        <div class="online-top">
+          <div class="top-at">
+            <%= image_tag(friend.friend.avatar, class: "img-responsive") %>
+          </div>
+          <div class="top-on">
+            <div class="top-on1">
+              <p><%= friend.friend.name %></p>
+            </div>
+            <%  %>
+            <label class="round"> </label>
+            <%  %>
+            <div class="clearfix"> </div>
+          </div>
+          <div class="clearfix"> </div>
+        </div>
+        <% end %>
+
+
+        <% end %>
+        <hr style="margin-top:5px; margin-bottom:5px;">
+        <h5> Solicitacões </h5>
+          <% Friend.where(user_id: current_user.id, status: 'pending').each do |friend| %>
+          <div class="online-top">
+              <div class="top-at">
+                <%= image_tag(friend.friend.avatar, class: "img-responsive") %>
+              </div>
+              <div class="top-on">
+                <div class="top-on1">
+                  <p><%= friend.friend.name %></p>
+                  <%= link_to 'Aceitar', accept_request_friends_path(friend: friend), data: { confirm: 'Are you sure?'} %>   
+                  <%= link_to 'Recusar', refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'} %>
+                </div>
+                <div class="clearfix"> </div>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+
+          <% end %>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-9">
+        <%= bootstrap_flash %>
+
+        <div id = "chatbox_parent"></div>
+        <%= subscribe_to "/chatroom" %>
+        <script>
+
+        PrivatePub.subscribe("/chatroom", function(data, channel){
+          var current_user_id = '#{current_user.try(:id)}';
+          if (data.receiver_id == current_user_id){
+            chatBox.chatWith(data.conversation_id);
+          }
+          else {
+            chatBox.chatWith(data.conversation_id);
+          }
+        });
+
+        </script>
+        <br>
       </div>
 
 
-      <div class="col-md-6" style="margin-top: 90px">
-        <div class="water">
-          <div class="eye-top">
-            <a href="#"><img class="img-responsive" src="images/pi5.jpg" alt=""></a>
-          </div>
-          <div class="title-blue">
-                      <p>Lorem ipsum dolor sit amet, cetero inimicus an mei, ea ius viderer saperet iudicabit, in lobortis adversarium
-           ius. Nulla persecuti has ne, ius in illum gubergren. Ne nec tamquam admodum. Has ad quidam eirmod 
-          definiebas, ei mel essent evertitur urbanitas. Aeterno dolorem evertitur in duo. His et discere imperdiet, 
-          cim tota utroque eu.</p>
-            </div>
-          </div>
 
+      <div class="col-sm-3">
+        <%= render 'shared/activities' %>
+      </div><!--/span-->
+    </div><!--/row-->
 
+    <footer>
+      <p>&copy; Company 2016</p>
+    </footer>
 
-          <div class="water">
-          <div class="eye-top">
-            <a href="#"><img class="img-responsive" src="images/pi5.jpg" alt=""></a>
-          </div>
-          <div class="title-blue">
-                      <p>Lorem ipsum dolor sit amet, cetero inimicus an mei, ea ius viderer saperet iudicabit, in lobortis adversarium
-           ius. Nulla persecuti has ne, ius in illum gubergren. Ne nec tamquam admodum. Has ad quidam eirmod 
-          definiebas, ei mel essent evertitur urbanitas. Aeterno dolorem evertitur in duo. His et discere imperdiet, 
-          cim tota utroque eu.</p>
-            </div>
-          </div>
-
-
-          <div class="water">
-          <div class="eye-top">
-            <a href="#"><img class="img-responsive" src="images/pi5.jpg" alt=""></a>
-          </div>
-          <div class="title-blue">
-                      <p>Lorem ipsum dolor sit amet, cetero inimicus an mei, ea ius viderer saperet iudicabit, in lobortis adversarium
-           ius. Nulla persecuti has ne, ius in illum gubergren. Ne nec tamquam admodum. Has ad quidam eirmod 
-          definiebas, ei mel essent evertitur urbanitas. Aeterno dolorem evertitur in duo. His et discere imperdiet, 
-          cim tota utroque eu.</p>
-            </div>
-          </div>
-
-
-          <div class="water">
-          <div class="eye-top">
-            <a href="#"><img class="img-responsive" src="images/pi5.jpg" alt=""></a>
-          </div>
-          <div class="title-blue">
-                      <p>Lorem ipsum dolor sit amet, cetero inimicus an mei, ea ius viderer saperet iudicabit, in lobortis adversarium
-           ius. Nulla persecuti has ne, ius in illum gubergren. Ne nec tamquam admodum. Has ad quidam eirmod 
-          definiebas, ei mel essent evertitur urbanitas. Aeterno dolorem evertitur in duo. His et discere imperdiet, 
-          cim tota utroque eu.</p>
-            </div>
-          </div>
-      </div>
-
-
-
-      <div class="col-md-3">
-        <div class="search" style="margin-top: 20px">
-            <form>
-              <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '';}">
-              <input type="submit" value="">
-            </form>
-          </div>
-        <div class="online">
-            <a href="#"><div class="online-top">
-              <div class="top-at">
-                <img class="img-responsive" src="images/la.jpg" alt="">
-              </div>
-              <div class="top-on">
-                <div class="top-on1">
-                  <p>Lindsay Welch</p>
-                  <span>Random</span>
-                </div>
-                <label class="round"> </label>
-                <div class="clearfix"> </div>
-              </div>
-              <div class="clearfix"> </div>
-            </div></a>
-            <a href="#"><div class="online-top">
-              <div class="top-at">
-                <img class="img-responsive" src="images/la2.jpg" alt="">
-              </div>
-              <div class="top-on">
-                <div class="top-on1">
-                  <p>Lindsay Welch</p>
-                  <span>Suffer</span>
-                </div>
-                <label class="round"> </label>
-                <div class="clearfix"> </div>
-              </div>
-              <div class="clearfix"> </div>
-            </div></a>
-            <a href="#"><div class="online-top">
-              <div class="top-at">
-                <img class="img-responsive" src="images/la1.jpg" alt="">
-              </div>
-              <div class="top-on">
-                <div class="top-on1">
-                  <p>Lindsay Welch</p>
-                  <span>Volupta</span>
-                </div>
-                <label class="round"> </label>
-                <div class="clearfix"> </div>
-              </div>
-              <div class="clearfix"> </div>
-            </div></a>
-            <a href="#"><div class="online-top">
-              <div class="top-at">
-                <img class="img-responsive" src="images/la3.jpg" alt="">
-              </div>
-              <div class="top-on">
-                <div class="top-on1">
-                  <p>Lindsay Welch</p>
-                  <span>Random</span>
-                </div>
-                <label class="round"> </label>
-                <div class="clearfix"> </div>
-              </div>
-              <div class="clearfix"> </div>
-            </div></a>
-          </div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <div class="row">
-        <div class="col-lg-9">
-          <%= bootstrap_flash %>
-          
-           <div id = "chatbox_parent"></div>
-          <%= subscribe_to "/chatroom" %>
-          <script>
-          
-          PrivatePub.subscribe("/chatroom", function(data, channel){
-            var current_user_id = '#{current_user.try(:id)}';
-            if (data.receiver_id == current_user_id){
-              chatBox.chatWith(data.conversation_id);
-            }
-            else {
-              chatBox.chatWith(data.conversation_id);
-            }
-          });
-
-          </script>
-          <br>
-
-
-          <%= yield %>
-        </div>
-
-
-        
-        <div class="col-sm-3">
-          <%= render 'shared/activities' %>
-        </div><!--/span-->
-      </div><!--/row-->
-
-      <footer>
-        <p>&copy; Company 2016</p>
-      </footer>
-
-    </div> <!-- /container -->
-<audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio>
-  </body>
+  </div> <!-- /container -->
+  <audio id="chatAudio"><source src="/sounds/notification.mp3" type="audio/mpeg"></audio>
+</body>
 </html>
 
 
 
-<script>
- $( "span.menu" ).click(function() {
- $( "ul.res" ).slideToggle( 300, function() {
- // Animation complete.
-  });
- });
-</script>

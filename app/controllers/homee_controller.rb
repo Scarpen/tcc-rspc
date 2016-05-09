@@ -3,7 +3,8 @@ class HomeeController < ApplicationController
 		if !current_user
 		redirect_to new_user_session_path
 		end
-
+		@publication = Publication.new
+		@comment = Comment.new
 		@publications_feed = Array.new
 		if current_user			
 			Member.where(user_id: current_user.id).each do |project|

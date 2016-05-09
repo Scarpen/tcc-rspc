@@ -150,12 +150,12 @@ ActiveRecord::Schema.define(version: 20160505190357) do
   end
 
   create_table "publications", force: :cascade do |t|
-    t.string   "description", limit: 255
+    t.text     "description", limit: 65535
     t.integer  "user_id",     limit: 4
     t.integer  "project_id",  limit: 4
     t.string   "image",       limit: 255
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "sharing",     limit: 4
   end
 

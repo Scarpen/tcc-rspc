@@ -1,0 +1,72 @@
+.avatarpost{
+	width: 20px;
+	height: 20px;
+	float: left;
+	margin-right: 5px;
+	margin-left: 28px;
+
+}
+.commentpost{
+	width: 30px;
+	height: 30px;
+	float: left;
+	margin-right: 5px;
+	
+
+}
+.projectpost{
+	width: 40px;
+	height: 40px;
+	float: left;
+	margin-left: -5px;
+	margin-top: -10px;
+	margin-right: 5px;
+}
+.avatarlist{
+	width: 40px;
+	height: 40px;
+	float: left;
+	margin-top: 10px;
+	margin-right: 5px;
+	margin-left: 3px;
+}
+
+.projectlist{
+	width: 40px;
+	height: 40px;
+	float: left;
+	border-radius: 0;
+
+}
+
+.imagepost{
+	margin: 0 auto;
+
+}
+
+.newpostavatar{
+	width: 40px;
+	height: 40px;
+	float: left;
+	margin-left: -5px;
+	margin-top: 5px;
+	margin-right: 5px;
+
+}
+
+.imageinput{
+		width: 40px;
+	height: 50px;
+	margin-left: -22px;
+
+}
+
+.rightss {
+    float: right; /*or whatever you want to change*/
+}
+
+.full{
+	width:100%;
+	margin-bottom: 5px;
+
+}
