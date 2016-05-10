@@ -111,9 +111,9 @@
         <% end %>       
       </div>
 
-      <%= button_to "Criar Projeto", new_project_path, class: "btn btn-default full" %>
+      <%= button_to "Criar Projeto", new_project_path, class: "btn btn-default full", :method => :get%>
       <br>
-      <%= button_to "Buscar Projetos", projects_path, class: "btn btn-default full" %>
+      <%= button_to "Buscar Projetos", projects_path, class: "btn btn-default full", :method => :get %>
 
             
              
