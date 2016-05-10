@@ -59,7 +59,7 @@
 					</div>
 					<br>
 					<% if feed.image.to_s != '' %>
-						<%= image_tag(feed.image, class: "img-responsive imagepost") %>
+						<%= image_tag(feed.image) %>
 						<h5 style="text-align: justify; margin-top:7px;"><%= feed.description %></h5>
 					<% else %>
 						<h5 style="text-align: justify; margin-top:15px;"><%= feed.description %></h5>
