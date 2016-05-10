@@ -9,8 +9,8 @@ default: &default
   encoding: utf8
   pool: 5
   timeout: 5000
-  host: 179.223.251.95
-  port: 65000
+  host: 192.168.0.33
+  port: 3306
   database: appRails
   username: tccsi7na
   password: si7na
