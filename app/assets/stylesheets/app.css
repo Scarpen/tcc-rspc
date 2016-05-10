@@ -78,3 +78,14 @@
 	margin: 0 auto;
 
 }
+
+.glyphicon-ok {
+	color: #FFF;
+}
+
+.request_button{
+	width: 50px;
+	height: 22px;
+	padding: 0 !important;
+
+}
