@@ -5,7 +5,7 @@
 		<%= simple_form_for @publication do |f| %>
 		<div class="row" >
 			<div class="col-md-1">
-			<%= image_tag(User.find(3).avatar, class: "newpostavatar") %>
+			<%= image_tag(current_user.avatar, class: "newpostavatar") %>
 			</div>
 			<div class="col-md-10">
 			<%= f.input :description, label: false, input_html:{style: 'width: 409px; height: 71px;'} %>
@@ -43,14 +43,14 @@
 				</div>
 				<% else %>
 				<div class="eye-top">
-					<%= image_tag(User.find(3).avatar, class: "img-responsive avatarpost") %>
+					<%= image_tag(feed.user.avatar, class: "img-responsive avatarpost") %>
 					<h5 style="padding-top:5px;"><%=feed.user.name%> realizou uma atividade há 1 hora</h5>
 				</div>
 
 				<% end %>
 				<div class="title-blue" style="margin-top:10px;">
 					<div >
-						<%= image_tag(User.find(3).avatar, class: "img-responsive projectpost") %>
+						<%= image_tag(feed.project.avatar, class: "img-responsive projectpost") %>
 						<h4 style="text-align:left;padding-top:-2px;"><%=feed.project.name%> </h4>
 						<h5 style="padding-top:2px; text-align:left;">
 							<%feed.project.interests.each do |i| %> 
@@ -59,7 +59,7 @@
 					</div>
 					<br>
 					<% if feed.image.to_s != '' %>
-						<%= image_tag(User.find(3).avatar, class: "img-responsive imagepost") %>
+						<%= image_tag(feed.image, class: "img-responsive imagepost") %>
 						<h5 style="text-align: justify; margin-top:7px;"><%= feed.description %></h5>
 					<% else %>
 						<h5 style="text-align: justify; margin-top:15px;"><%= feed.description %></h5>
@@ -80,7 +80,7 @@
 						<% feed.comments.each do |comment| %>
 						<hr>
 						<div class="row">
-							<%= image_tag(User.find(3).avatar, class: "commentpost") %>
+							<%= image_tag(comment.user.avatar, class: "commentpost") %>
 							<strong><%= comment.user.name %></strong>
 							<%= comment.description %>
 							
