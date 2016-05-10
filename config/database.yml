@@ -6,11 +6,14 @@
 #
 default: &default
   adapter: mysql2
+  encoding: utf8
   pool: 5
   timeout: 5000
-  encoding: utf8
-  username: root
-  password: root
+  host: 179.223.251.95
+  port: 65000
+  database: appRails
+  username: tccsi7na
+  password: si7na
   socket: /var/run/mysqld/mysqld.sock
 
 development:

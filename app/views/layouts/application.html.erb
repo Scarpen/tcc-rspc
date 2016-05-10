@@ -62,7 +62,9 @@
 
   <div class="container">
     <!-- chat -->
+    
     <div class="col-md-3">
+      <% if current_user %>
       <div class="row" style="margin-left:10px">
       <%= image_tag(User.find(3).avatar, class: "avatarlist") %>
       <br>
@@ -115,7 +117,7 @@
 
             
              
-
+      <% end %>
     </div>
 
 

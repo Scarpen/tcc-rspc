@@ -9,7 +9,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     src:url(../fonts/Lato-Regular-webfont.ttf) format('truetype');
 }
 body{
-  background:#f0f0f0;
+  background: #5F9EA0;
+
    font-family: 'LatoRegular';
 }
 body a{
@@ -417,6 +418,11 @@ a.buy:hover{
   background:#dc483a;
 }
 /*----*/
+.title-blue-publication{
+  background:#fff;
+  padding:0.5em 1em;
+   text-align:center;
+}
 .title-blue{
   background:#fff;
   padding:1.5em 1em;
