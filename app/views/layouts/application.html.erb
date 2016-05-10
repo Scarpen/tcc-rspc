@@ -217,8 +217,13 @@
               <div class="top-on">
                 <div class="top-on1">
                   <p><%= friend.friend.name %></p>
-                  <%= link_to 'Aceitar', accept_request_friends_path(friend: friend), data: { confirm: 'Are you sure?'} %>   
-                  <%= link_to 'Recusar', refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'} %>
+                  <%= link_to accept_request_friends_path(friend: friend), data: { confirm: 'Are you sure?'}, class: "btn btn-warning request_button" do %>
+                  <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  <% end %>   
+                  <%= link_to refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'}, class: "request_button btn btn-default " do %>
+                   <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                  <% end %>   
+
                 </div>
                 <div class="clearfix"> </div>
               </div>
