@@ -39,12 +39,12 @@
 				<% if feed.sharing != nil %>
 				<div class="eye-top">
 					<%= image_tag(User.find(feed.sharing).avatar, class: "img-responsive avatarpost") %>
-					<h5 style="padding-top:5px;"><%=User.find(feed.sharing).name%> compartilhou uma atividade há 1 hora</h5>
+					<h5 style="padding-top:5px;"><%=User.find(feed.sharing).name%> compartilhou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
 				</div>
 				<% else %>
 				<div class="eye-top">
 					<%= image_tag(feed.user.avatar, class: "img-responsive avatarpost") %>
-					<h5 style="padding-top:5px;"><%=feed.user.name%> realizou uma atividade há 1 hora</h5>
+					<h5 style="padding-top:5px;"><%=feed.user.name%> realizou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
 				</div>
 
 				<% end %>
