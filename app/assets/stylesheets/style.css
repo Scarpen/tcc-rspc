@@ -9,7 +9,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     src:url(../fonts/Lato-Regular-webfont.ttf) format('truetype');
 }
 body{
-  background: #5F9EA0;
+  background: #DDDDDD;
 
    font-family: 'LatoRegular';
 }
