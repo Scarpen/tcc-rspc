@@ -7,4 +7,16 @@ require "private_pub"
 Faye::WebSocket.load_adapter('thin')
 
 PrivatePub.load_config(File.expand_path("../config/private_pub.yml", __FILE__), ENV["RAILS_ENV"] || "development")
-run PrivatePub.faye_app
+
+app = PrivatePub.faye_app
+
+# subscribe - online
+app.bind(:subscribe) do |client_id, channel|
+  puts "Client subscribe: #{client_id}:#{channel}"
+end
+
+app.bind(:handshake) do |client_id|
+  puts "Client handshake: #{client_id}"
+end
+
+run app

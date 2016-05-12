@@ -65,10 +65,22 @@
 						<h5 style="text-align: justify; margin-top:15px;"><%= feed.description %></h5>
 					<% end %>
 					<br>
-					<div style="text-align: left">
-					<%= link_to 'Compartilhar', share_publication_projects_path(publication: feed),data:{confirm: "Tem certeza?" } %>
+					<div style="text-align: left; margin-bottom: 10px">
+					<%= link_to 'Compartilhar', share_publication_projects_path(publication: feed),data:{confirm: "Tem certeza?" }  %>
 					</div>
-					<br>
+					<div style="text-align:left; margin-left:15px">
+						<% feed.comments.each do |comment| %>
+							<div class="row">
+								<div class="list-group-item" style="width: 515px; margin-bottom: 3px">
+									<%= image_tag(comment.user.avatar, class: "commentpost",style: "margin-top: -6px") %>
+									<strong><%= comment.user.name %></strong>
+									<div style="overflow: hidden; display: block">
+										<%= comment.description %>
+									</div>
+								</div>
+							</div>
+						<% end %>
+					</div>
 					<%= simple_form_for @comment, :url => create_comment_publications_path(@comment) do |f| %>
 						<%= f.input :description, label: false, placeholder: "Faça um comentário"%>
 						<%= f.input :publication_id, :as => :hidden, :input_html => {:value =>  feed.id} %>
@@ -76,22 +88,7 @@
 						    <% f.submit %>
 						  </div>
 					<% end %>
-					<div style="text-align:left; margin-left:15px">
-						<% feed.comments.each do |comment| %>
-						<hr>
-						<div class="row">
-							<%= image_tag(comment.user.avatar, class: "commentpost") %>
-							<strong><%= comment.user.name %></strong>
-							<%= comment.description %>
-							
-							
-						</div>
 
-						<% end %>
-
-
-					</div>
-					
 				</div>
 			</div>
 		<br>

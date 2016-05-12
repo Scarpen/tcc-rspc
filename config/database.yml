@@ -9,24 +9,24 @@ default: &default
   encoding: utf8
   pool: 5
   timeout: 5000
-  host: 192.168.0.33
-  port: 3306
-  database: appRails
+  host: mysql.tccsi7na.kinghost.net
+  #port: 65000
+  database: tccsi7na
   username: tccsi7na
-  password: si7na
+  password: 99648813aA
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: appRails_development
+  #database: appRails_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: appRails_test
+  #database: appRails_test
 
 production:
   <<: *default
-  database: appRails_production
+  #database: appRails_production
