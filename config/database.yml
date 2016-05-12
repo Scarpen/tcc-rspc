@@ -28,5 +28,11 @@ test:
   database: appRails_test
 
 production:
-  <<: *default
-  database: appRails_production
+  database: tccsi7na
+  adapter: mysql2
+  encoding: utf8
+  host: mysql.tccsi7na.kinghost.net
+  pool: 5
+  username: tccsi7na
+  password: 99648813aA
+  timeout: 5000
