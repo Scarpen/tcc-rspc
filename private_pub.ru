@@ -19,4 +19,8 @@ app.bind(:handshake) do |client_id|
   puts "Client handshake: #{client_id}"
 end
 
+app.bind(:unsubscribe) do |client_id, channel|
+	puts "Client unsubscribe: #{client_id}:#{channel}"
+end
+
 run app
