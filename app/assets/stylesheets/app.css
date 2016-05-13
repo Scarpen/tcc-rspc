@@ -23,17 +23,19 @@
 	margin-right: 5px;
 }
 .avatarlist{
-	width: 40px;
-	height: 40px;
+	width: 24px;
+	height: 24px;
 	float: left;
-	margin-top: 10px;
+	margin-top: 11px;
 	margin-right: 5px;
 	margin-left: 3px;
 }
 
+
+
 .projectlist{
-	width: 40px;
-	height: 40px;
+	width: 24px;
+	height: 24px;
 	float: left;
 	border-radius: 0;
 
@@ -71,12 +73,15 @@
 
 }
 .navbar-brand {
-	position: absolute;
-	width: 100%;
-	left: 0;
-	text-align: center;
-	margin: 0 auto;
-
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    margin: auto;
+}
+.navbar-toggle {
+    z-index:3;
 }
 
 .glyphicon-ok {
@@ -88,4 +93,46 @@
 	height: 22px;
 	padding: 0 !important;
 
+}
+
+.edit_avatar{
+	color: #365899 !important;
+}
+.edit_avatar:hover{
+	color: #365899 !important;
+	background: #F6F8FA !important;
+}
+
+.elem_list{
+	background: #F6F8FA !important;
+	border-bottom: none !important;
+
+}
+
+.elem_list:hover{
+	background: #EEE !important;
+}
+
+.navbar_item{
+	border-bottom: thick solid #FFF;
+}
+
+.navbar_item a{
+	color: #333 !important;
+}
+.navbar_item a:hover{
+	color: #009688 !important;
+}
+
+.navbar_item:hover{
+	border-bottom: thick solid #009688;
+
+}
+.actived{
+	border-bottom: thick solid white;
+
+}
+
+.glyphicon-blackboard:before {
+  content: "\479";
 }
