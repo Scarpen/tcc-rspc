@@ -70,14 +70,14 @@
         <span class="icon-bar"></span>
       </button>
       <div class="navbar-brand">
-      <a  href="#" style="color: orange;" >Brand</a> 
+      <a  href="#" style="color: #009688;" >Brand</a> 
       </div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:1000">
       <strong><ul class="nav navbar-nav" style="font-size: 14px;">
         <li class="navbar_item <%= active_class(root_path) %>" style="font-family: 'arial'"><a href="#" class="" >Início <span class="sr-only">(current)</span></a></li>
-        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><a href="#" ><span class="glyphicon glyphicon-blackboard" style="color: #000"></span> Projetos</a></li>
+        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><a href="#" > Projetos</a></li>
         <li class="navbar_item " style="font-family: 'arial'"><a href="#" >Notificações</a></li>
         <li class="navbar_item " style="font-family: 'arial';"><a href="#">Mensagens</a></li>
         
@@ -86,14 +86,15 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
       <form class="navbar-form navbar-right" role="search" >
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search" id="submit-button"></button>
+        <div class="form-group " style="width: 300px">
+          <input type="text" class="form-control glyphicon glyphicon-search" id="search-input" placeholder="Search">
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+
       </form>
         </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= image_tag("") %> <span class="caret"></span></a>
+        <li class="dropdown navbar-avatar" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= image_tag(current_user.avatar) %> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Perfil</a></li>
             <li class="divider"></li>
@@ -270,6 +271,7 @@
         <script>
 
         PrivatePub.subscribe("/chatroom", function(data, channel){
+          
           var current_user_id = '#{current_user.try(:id)}';
           if (data.receiver_id == current_user_id){
             chatBox.chatWith(data.conversation_id);
