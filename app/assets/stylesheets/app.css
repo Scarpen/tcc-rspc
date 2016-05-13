@@ -23,17 +23,19 @@
 	margin-right: 5px;
 }
 .avatarlist{
-	width: 40px;
-	height: 40px;
+	width: 24px;
+	height: 24px;
 	float: left;
-	margin-top: 10px;
+	margin-top: 11px;
 	margin-right: 5px;
 	margin-left: 3px;
 }
 
+
+
 .projectlist{
-	width: 40px;
-	height: 40px;
+	width: 24px;
+	height: 24px;
 	float: left;
 	border-radius: 0;
 
@@ -71,12 +73,15 @@
 
 }
 .navbar-brand {
-	position: absolute;
-	width: 100%;
-	left: 0;
-	text-align: center;
-	margin: 0 auto;
-
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    margin: auto;
+}
+.navbar-toggle {
+    z-index:3;
 }
 
 .glyphicon-ok {
@@ -88,4 +93,111 @@
 	height: 22px;
 	padding: 0 !important;
 
+}
+
+.edit_avatar{
+	color: #365899 !important;
+}
+.edit_avatar:hover{
+	color: #365899 !important;
+	background: #F6F8FA !important;
+}
+
+.elem_list{
+	background: #F6F8FA !important;
+	border-bottom: none !important;
+
+}
+
+.elem_list:hover{
+	background: #EEE !important;
+}
+
+.navbar_item{
+	border-bottom: thick solid #FFF;
+
+}
+
+.navbar_item a{
+	color: #333 !important;
+}
+.navbar_item a:hover{
+	color: #009688 !important;
+}
+
+.navbar_item:hover{
+	border-bottom: thick solid #009688;
+
+}
+.actived{
+	border-bottom: thick solid #009688;
+
+}
+
+#search-input
+{
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+
+    box-shadow: 0 5px 15px rgba(0,0,0,0);
+    border-radius: 0px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid #009688;
+    padding-left: 0px;
+    padding-bottom: 0px;
+    width: 100%;
+}
+#search-input::-webkit-input-placeholder {
+    color: #009688;
+}
+#search-input:-moz-placeholder {
+    /* FF 4-18 */
+    color: #009688;
+}
+#search-input::-moz-placeholder {
+    /* FF 19+ */
+    color: #009688;
+}
+#search-input:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #009688;
+}
+#submit-button
+{
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0);
+    border-radius: 0px !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    color: #009688;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 9px;
+    font-size: 17px;
+}
+#submit-button:hover{
+	background: #FFF;
+}
+
+.navbar-avatar a{
+	padding-bottom: 0px !important;
+
+}
+.navbar-avatar:focus{
+	background: #FFF !important;
+}
+.navbar-avatar a:focus{
+	background: #FFF !important;
+}
+.navbar-avatar a img{
+	width: 29px;
+	height: 29px;
 }

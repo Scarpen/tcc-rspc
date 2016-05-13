@@ -255,7 +255,7 @@ DEPENDENCIES
   public_activity
   rabl
   rails (= 4.2.5)
-  sass-rails (~> 5.0)
+  sass-rails (~> 5.0.1)
   sdoc (~> 0.4.0)
   simple_form
   spring
