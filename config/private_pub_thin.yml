@@ -5,3 +5,4 @@ ssl: false
 #ssl_cert_file: /path/to/certificate_chain.pem
 environment: production
 rackup: private_pub.ru
+
