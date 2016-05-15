@@ -32,15 +32,16 @@ module ApplicationHelper
   		return "#{count} Compartilhamentos"
 	end
   end
-
-
    def comments_count(count)
-  	if count == 0
-  		return ""
-  	elsif count == 1
-  		return "#{count} Comentário"
-  	else 
-  		return "#{count} Comentários"
-	end
+    if count == 0
+    		return ""
+    	elsif count == 1
+    		return "#{count} Comentário"
+    	else 
+    		return "#{count} Comentários"
+  	end
+  end
+  def conversation_interlocutor(conversation)
+    conversation.recipient == current_user ? conversation.sender : conversation.recipient
   end
 end

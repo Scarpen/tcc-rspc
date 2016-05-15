@@ -1,0 +1,72 @@
+			<div class="water" style="margin-bottom:-7px;">
+				<% if feed.sharing != nil %>
+				<div class="eye-top">
+					<%= image_tag(User.find(feed.sharing).avatar, class: "img-responsive avatarpost") %>
+					<h5 style="padding-top:11px; color: #929292"><a style="color: #009688 !important"><%=User.find(feed.sharing).name%></a> compartilhou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
+				</div>
+				<% else %>
+				<div class="eye-top">
+					<%= image_tag(feed.user.avatar, class: "img-responsive avatarpost") %>
+					<h5 style="padding-top:11px; color: #929292"><a style="color: #009688 !important"><%=feed.user.name%></a> realizou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
+				</div>
+
+				<% end %>
+				<div class="title-blue" style="margin-top:3px; border: 1px solid #EAEAEA">
+					<div class="row" style="margin-left: 0px">
+						<%= image_tag(feed.project.avatar, class: "img-responsive projectpost") %>
+						<h4 style="text-align:left;padding-top:-2px;"><%=feed.project.name%> </h4>
+						<h5 style="padding-top:2px; text-align:left;">
+							<%feed.project.interests.each do |i| %> 
+							<%= i.name%>, 
+							<%end%></h5>
+					</div>
+
+					<% if feed.image.to_s != '' %>
+					<div style="text-align: left; margin-top: 10px">
+						<%= image_tag(feed.image, class: 'img-responsive') %>
+					</div>
+						<p style="text-align: justify; margin-left:0px; margin-top:0px;" class="publication_desc"><%= feed.description %></p>
+					<% else %>
+						<p style="text-align: justify; margin-left:0px; margin-top:5px;" class="publication_desc"><%= feed.description %></p>
+					<% end %>
+					
+					<hr style="margin-top: 0px;margin-bottom: 10px;">
+					<div style="text-align: left; margin-bottom: 10px; ">
+					<%= link_to 'Compartilhar', share_publication_projects_path(publication: feed),data:{confirm: "Tem certeza?" }, class: "share_link"  %>
+					<h6 style="float: right; color: #929292"> <%= shares_count(feed.shares.count) %> </h6>
+					</div>
+					<hr style="margin-top: 0px;margin-bottom: 10px;">
+					<div style="text-align: left; margin-bottom: 10px;">
+					<%= link_to comments_count(feed.comments.count), "javascript:;", class: "share_link", onclick: "showComments(#{feed.id})"  %>
+					</div>
+						
+					<div style="text-align:left; margin-left:15px; display:none;" id="comments_<%= feed.id %>">
+						<% feed.comments.each do |comment| %>
+							<div class="row">
+								<div class="" style="width: 515px; margin-bottom: 10px">
+									<div style="weight: 30px" >
+									<%= image_tag(comment.user.avatar, class: "commentpost",style: "margin-top: 0px") %>
+									</div>
+									<p style="width: 86%; padding-top:0px; line-height: 1.3em; padding-bottom: 0px;">
+									<strong style="color: #009688"><%= comment.user.name %></strong>
+										<%= comment.description %><br>
+										
+										<span style="color: #929292"> <%= time_ago_in_words(comment.created_at) %> </span>
+									</p>
+								</div>
+
+							</div>
+							
+						<% end %>
+					</div>
+					<%= simple_form_for @comment, :url => create_comment_publications_path(@comment) do |f| %>
+						<%= f.input :description, label: false, placeholder: "Escreva um comentário", input_html: {class: "comment_input", style: "font-size: 13px; "}%>
+						<%= f.input :publication_id, :as => :hidden, :input_html => {:value =>  feed.id} %>
+						  <div class="actions">
+						    <% f.submit %>
+						  </div>
+					<% end %>
+
+				</div>
+			</div>
+		<br>

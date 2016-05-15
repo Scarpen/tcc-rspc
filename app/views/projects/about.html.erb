@@ -1,0 +1,21 @@
+<% page_header @project.name %>
+<p id="notice"><%= notice %></p>
+
+<%= render 'projectnav' %>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row" style="text-align: left">
+    	<div class="col-md-12">
+    	<strong style="font-size:15px"> Objetivo: </strong><br>
+    		<%= @project.description %>
+    	<hr style="margin-top: 5px; margin-bottom: 5px;">
+    	<strong style="font-size:15px"> Detalhes: </strong><br>
+    		O Projeto é comandado por <%= link_to @project.user.name, @project.user, class: "user_link" %>
+    		Pertence <%= link_to @project.user.name, @project.user, class: "user_link" %>
+    		O Projeto é comandado por <%= link_to @project.user.name, @project.user, class: "user_link" %>
+    		O Projeto é comandado por <%= link_to @project.user.name, @project.user, class: "user_link" %>
+    	</div>
+	</div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :request_list, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :request_list, :edit, :update, :destroy, :about]
   # GET /projects
   # GET /projects.json
   def index
@@ -11,9 +11,7 @@ class ProjectsController < ApplicationController
     @myprojects = Project.where(creator_id: current_user.id)
   end
 
-  def request_list 
 
-  end
 
   def accept_request
     member = Member.find(params[:member])
@@ -76,12 +74,24 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+
     if current_user
       Member.where(project_id: @project.id, user_id: current_user.id).each do |p|
         @participate = p.situation
       end
+      @publication = Publication.new
+      @comment = Comment.new
     end
+
   end  
+
+  def request_list 
+
+  end
+
+  def about 
+
+  end
 
   # GET /projects/new
   def new

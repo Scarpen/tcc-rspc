@@ -1,0 +1,61 @@
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row">
+      <div class="col-md-2">
+        <%= image_tag(@project.avatar, style: "weight: 80px; height: 80px;") %>
+      </div>
+      <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+        <strong><span style="font-size: 20px;"> <%= @project.name %> </span></strong><br>
+          <%= link_to  @project.user.name, @project.user, style: "font-size: 15px", class: "user_link" %>
+        <br>
+        <span style="font-size: 15px;"> <%= %> Meio Ambiente, Testes </span><br>
+        <strong> <span style="font-size: 15px;"> <%= @project.place %> </span></strong>
+      </div>
+      <div class="col-md-4" style="text-align: right; padding-top: 60px;">
+          <% if Member.where(project_id: @project.id, situation: '1').count == @project.number_members %>
+            Grupo Cheio!
+          <%else%>
+          
+          <% if @participate == nil %>
+          <%= link_to 'Seguir', follow_projects_path(project: @project.id), class: "btn btn-default button_project button_inactive" %>
+          <%= link_to 'Participar', send_request_projects_path(project: @project.id), class: "btn button_project button_inactive " %>
+          <% end %>
+          <% if @participate == 1 %>
+          <%= link_to 'Sair', send_request_projects_path(project: @project.id), class: "btn btn-default button_project button_active", data:{confirm: "Tem certeza?" }  %>
+          <% end %>
+          <% if @participate == 2 %>
+          <%= link_to 'Parar de Seguir', unfollow_projects_path(project: @project.id), method: :delete, data:{confirm: "Tem certeza?" }, class: "btn btn-default button_project button_active" %>
+          <%= link_to 'Participar', send_request_projects_path(project: @project.id), class: "btn btn-default button_project button_inactive"  %>         
+          <% end %>   
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <hr style="margin-top: 0px; margin-bottom: 0px;">
+    <div class="navbar navbar-default navbar-static-top " style="background: #FFF; margin-bottom: 0px !important; min-height: 0px;">
+    <div class="container-fluid">
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:1000">
+        <strong>
+          <ul class="nav navbar-nav project_nav" style="font-size: 14px;">
+            <li class="navbar_item <%= active_class(project_path(@project)) %>" style="font-family: 'arial'"> <%=link_to "Início", project_path(@project) %> </li>
+            <li class="navbar_item <%= active_class(about_project_path(@project.id)) %>" style="font-family: 'arial'"> <%= link_to "Sobre", about_project_path(@project.id) %></li>
+            <li class="navbar_item " style="font-family: 'arial'"><a href="#" >Membros</a></li>
+            <li class="navbar_item " style="font-family: 'arial';"><a href="#">Tarefas</a></li>
+            <li class="navbar_item " style="font-family: 'arial';"><a href="#">Forum</a></li>     
+          </ul>
+        </strong>
+      </div>
+    </div>
+  </div>
+</div>

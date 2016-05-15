@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
 
 	mount_uploader :avatar, AvatarUploader
 
-	belongs_to :user
+	belongs_to :user, :foreign_key => :creator_id
 	has_and_belongs_to_many :abilities
 	has_and_belongs_to_many :interests
 

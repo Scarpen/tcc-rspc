@@ -1,0 +1,65 @@
+<div class="navbar navbar-default navbar-static-top" style="background: #FFF; margin-bottom:0px;">
+  <div class="container">
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="navbar-brand">
+      <a  href="#" style="color: #009688;" >Brand</a> 
+      </div>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:1000">
+      <strong><ul class="nav navbar-nav" style="font-size: 14px;">
+        <li class="navbar_item <%= active_class(root_path) %>" style="font-family: 'arial'"><%= link_to "Início", root_path  %></li>
+        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><a href="#" > Projetos</a></li>
+        <li class="navbar_item " style="font-family: 'arial'"><a href="#" >Notificações</a></li>
+        <li class="navbar_item " style="font-family: 'arial';"><a href="#">Mensagens</a></li>
+        
+      </ul></strong>
+      
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+      <form class="navbar-form navbar-right" role="search" >
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search" id="submit-button"></button>
+        <div class="form-group " style="width: 300px">
+          <input type="text" class="form-control glyphicon glyphicon-search" id="search-input" placeholder="Pesquise por projetos e pessoas">
+        </div>
+
+      </form>
+        </li>
+        <% if current_user %>
+        <li class="dropdown navbar-avatar" >
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%if current_user%><%= image_tag(current_user.avatar) %><%end%> <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Perfil</a></li>
+            <li class="divider"></li>
+            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, id: "sign_out_button" %></li>
+            <li class="divider"></li>
+          </ul>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+<% if current_user %>
+          window.onbeforeunload = function (e)
+          {
+          $.ajax("<%= close_window_users_path %>");
+          }
+
+          <%= user_online %>
+
+<% end %>
+$("#sign_out_button").click(function(){
+  $.ajax("<%= close_window_users_path %>");
+});
+</script>
+

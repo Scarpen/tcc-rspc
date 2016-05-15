@@ -1,39 +1,16 @@
 <% page_header @project.name %>
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+<%= render 'projectnav' %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
+<%= render 'publications/newpublication' %>
 
-<p>
-  <strong>Avatar:</strong>
-  <%= @project.avatar %>
-</p>
+<% @project.publications.each do |feed| %>
 
-<p>
-  <strong>Date time start:</strong>
-  <%= @project.date_time_start %>
-</p>
+<%= render 'publications/publication', feed: feed %>
+<% end %>
 
-<p>
-  <strong>Date time end:</strong>
-  <%= @project.date_time_end %>
-</p>
-
-<p>
-  <strong>Place:</strong>
-  <%= @project.place %>
-</p>
-
-
-
-
+<!--
   <% if Member.where(project_id: @project.id, situation: '1').count == @project.number_members %>
     
     Grupo Cheio!
@@ -49,8 +26,8 @@
     <%= link_to 'unfollow', unfollow_projects_path(project: @project.id), method: :delete, data:{confirm: "Tem certeza?" } %>
     <% end %>   
   <% end %>
-
-  
+-->
+<!--
 
   <% if @participate == 0 %>
   Aguardando aceitação do administrador
@@ -112,7 +89,9 @@
 
 <%end%>
 
+-->
 
+<!--
 <h2> Tarefas </h2>
 <% @project.tasks.each do |task| %>
   <div>
@@ -129,8 +108,8 @@
         <% if assist.status == 1 %>
           Voce faz parte dessa tarefa
 
-           <!--<%= link_to "Solicitar saida", quit_request_tasks_path(id_assist: assist.id) %>-->
-
+           <%= link_to "Solicitar saida", quit_request_tasks_path(id_assist: assist.id) %>-->
+<!--
            <%= link_to "Solicitar Saida","#myModal#{assist.id}", :data => {:toggle=>"modal"}, :class=>"btn btn-primary btn-lg"%>
         
           <div class="modal fade" id="myModal<%=assist.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -206,3 +185,5 @@
     <% end %>
 </div>  
 <% end %>
+
+-->

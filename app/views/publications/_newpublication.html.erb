@@ -1,0 +1,47 @@
+<div class="water" style="border: 1px solid #EAEAEA">
+	<div class="title-blue-publication ">
+		<%= simple_form_for @publication do |f| %>
+		<div class="row" >
+			<div class="col-md-1" >
+			<%= image_tag(current_user.avatar, class: "newpostavatar") %>
+			</div>
+			<div class="col-md-11 public_in" style="margin-left: -10px">
+			<%= f.input :description, label: false, input_html:{style: 'width: 440px; height: 40px; resize: none;', id: "public_textarea"} %>
+			
+			<%= f.input :image, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)"}  %>
+				<label id="fileupload-example-4-label " for="fileupload-example-4" style="float:right; width: 20px; margin-top: 5px">
+					<span class="glyphicon glyphicon-camera add_img" style="font-size: 32px; cursor: pointer;" ></span>
+				</label>
+
+				<div class="row "  id= "imagePrev" style="margin-top: -10px; display: none;">
+				<img id="imgDisplay" style="float: left; width: auto; height: 50px; margin-left: 16px;"/>
+				<i class="glyphicon glyphicon-remove" style="cursor: pointer;" onclick="removeImage()"> </i>
+				</div>
+			</div>
+		</div>
+		<div id="publication_fields" style="display: none; ">
+			<div class="row">
+				<hr style="margin-top:3px;margin-bottom:0px; ">
+				<div style="float: left; width:50px; font-size:14px;  background: #DDD; height: 34px">
+					<h5 style="margin-top: 9px;"> Em: </h5>
+				</div>
+				<div style="float: left; width:460px;">
+				<%= f.association :project, collection: current_user.projects.order(:name), label: false, :include_blank => "qual o projeto que você realizou essa atividade?", input_html: {id: "combo-input"}%>
+				</div>
+
+			</div>
+				<div class="row" >
+				<hr style="margin-top:0px;margin-bottom:3px; border-top: 1px solid #DDD;">
+				<div style="width: 100px; float: right; margin-right: 0px;">
+				<%= f.submit "Publicar", class: 'btn btn-success', style: "background: #009688; padding-top: 2px; padding-bottom: 2px;"%>
+				</div>
+
+			</div>
+		</div>
+
+		
+		
+		<% end %>
+	</div>
+
+</div>

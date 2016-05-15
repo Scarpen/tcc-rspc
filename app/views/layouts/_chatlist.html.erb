@@ -1,0 +1,115 @@
+      <%if current_user %>
+      <div class="div_chat">
+
+        <div class="panel panel-primary" style="border-color: #009688; margin-bottom: 0px" >
+          <div class="panel-heading " style="background-color: #009688; border-color: #009688">
+           AMIGOS <a class="link_chat glyphicon glyphicon-minus" id="list_link" style="float: right" href="#" > </a>
+         </div>
+         <div id="list_chat" >
+          <div class="panel-body" style="padding-bottom: 0px;padding-top: 6px;padding-left: 8px; overflow-y: scroll; max-height: 424px;">
+            <ul class="media-list">
+              <% current_user.friends.where(status: "accept").each_with_index do |friend, index| %>
+              <% index +=1 %>
+              <%= link_to "#", class: "start-conversation",
+              "data-sid" => current_user.id, "data-rip" => friend.friend_id do %>
+              <li class="media">
+
+                <div class="media-body">
+
+                  <div class="media" style="padding-bottom: 6px; margin-left: 13px;">
+
+                    <%= image_tag(friend.friend.avatar, class: "img-responsive", style: "float:left; width: 32px; height: 32px;") %>
+
+                    <div class="media-body" style="float: right; width: 160px; padding-top: 7px;">
+                      <h5 style="color: #000 !important"> <%= friend.friend.name %> </h5>
+
+
+                    </div>
+                  </div>
+
+                </div>
+              </li>
+
+
+
+              <% end %>
+
+              <% end %>
+
+
+            </ul>
+          </div>
+          <div style="height: 20px; background: #FFC107; padding-left: 6px; color: #333"> <strong> <%= requests(current_user.friends.where(:status => "pending").count) %> </strong> </div>
+          <div class="panel-body" style="padding-bottom: 0px;padding-top: 6px;padding-left: 8px; overflow-y: scroll; max-height: 102px;">
+            <ul class="media-list">
+              <% current_user.friends.where(status: "pending").each_with_index do |friend, index| %>
+              <% index +=1 %>
+              <li class="media" style="margin-top:-0px !important;">
+
+                <div class="media-body">
+
+                  <div class="media" style="padding-bottom: 6px; ">
+
+                    <%= image_tag(friend.friend.avatar, class: "img-responsive", style: "float:left; width: 42px; height: 42px;") %>
+
+                    <div class="media-body" style="float: right; width: 160px; margin-top: -2px !important;">
+                      <h5 style="color: #000 !important"> <%= friend.friend.name %> </h5>
+                      <%= link_to accept_request_friends_path(friend: friend), data: { confirm: 'Are you sure?'}, class: "btn btn-success request_button", style: "opacity: 1; background-color: #009688 !important; margin-top: 5px !important;" do %>
+                      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                      <% end %>   
+                      <%= link_to refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'}, class: "request_button btn btn-default ", style: "opacity: 1; margin-top: 5px !important;" do %>
+                      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                      <% end %>   
+
+                    </div>
+                  </div>
+
+                </div>
+              </li>
+
+
+              <% end %>
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script >
+                $("#list_link").click(function(){
+                  $("#list_chat").slideToggle(500);
+              });
+                
+
+
+        </script>
+
+    <script>
+    PrivatePub.subscribe("/chatroom", function(data, channel){
+      <% if current_user %>
+        <% current_user.friends.where(:status => "accept").each do |friend| %>
+          <% if friend.friend.status == "Online" %>
+            var target_id = "#online_"+<%=friend.friend.id%>;
+            $(target_id).show();
+          <% else %>
+            var target_id = "#online_"+<%=friend.friend.id%>;
+            $(target_id).hide();
+          <% end %>
+        <% end %>
+      <% end %>
+
+
+      var current_user_id = '#{current_user.try(:id)}';
+      if (data.receiver_id == current_user_id){
+        chatBox.chatWith(data.conversation_id);
+      }
+      else {
+        chatBox.chatWith(data.conversation_id);
+      }
+    });
+    </script>
+
+    <% end %>

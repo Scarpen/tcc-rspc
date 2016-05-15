@@ -124,6 +124,7 @@
 }
 
 .navbar_item a{
+    font-size: 16px;
 	color: #333 !important;
 }
 .navbar_item a:hover{
@@ -330,4 +331,46 @@
 }
 .add_img:hover{
 	color: #009688 !important;
+}
+
+.user_link{
+    color: #009688 !important;
+}
+
+.user_link:hover{
+    color: #009688 !important;
+    background: #FFF;
+    text-decoration: underline !important;
+}
+
+.project_nav li a{
+    font-size: 14px;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    
+}
+
+.button_project{
+    min-width: 50px !important;
+    height: 28px !important;
+    padding:5px !important; 
+    font-weight: bold !important;
+    border: 1px solid #444 !important;
+    color: #FFF !important ;
+}
+.button_active{
+
+    background: #009688 !important;
+
+}
+.button_active:hover{
+    background: #FF0000 !important;
+}
+.button_inactive{
+    color: #444 !important;
+    background: #FAFAFA !important;
+}
+.button_inactive:hover{
+    color: #FFF !important;
+    background: #009688 !important;
 }
