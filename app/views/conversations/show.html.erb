@@ -4,7 +4,9 @@
 
     <h1><%= @reciever.name %> </h1>
   </div>
-<div class="chatboxoptions">
+
+  <div class="chatboxoptions">
+
     <%= link_to "", "#", class: "toggleChatBox link_chat glyphicon glyphicon-minus", "data-cid" => @conversation.id %>
     &nbsp;&nbsp;
     <%= link_to "".html_safe, "#", class: "closeChat link_chat glyphicon glyphicon-remove", "data-cid" => @conversation.id %>

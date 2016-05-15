@@ -1,28 +1,43 @@
 <% if current_user %>
 
-<div class="water">
-	<div class="title-blue-publication">
+<div class="water" style="border: 1px solid #EAEAEA">
+	<div class="title-blue-publication ">
 		<%= simple_form_for @publication do |f| %>
 		<div class="row" >
-			<div class="col-md-1">
+			<div class="col-md-1" >
 			<%= image_tag(current_user.avatar, class: "newpostavatar") %>
 			</div>
-			<div class="col-md-10">
-			<%= f.input :description, label: false, input_html:{style: 'width: 409px; height: 71px;'} %>
-			</div>
-			<div class="col-md-1">
-			<%= f.input :image, label: false, input_html:{class: "imageinput"} %>
+			<div class="col-md-11 public_in" style="margin-left: -10px">
+			<%= f.input :description, label: false, input_html:{style: 'width: 440px; height: 40px; resize: none;', id: "public_textarea"} %>
+			
+			<%= f.input :image, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)"}  %>
+				<label id="fileupload-example-4-label " for="fileupload-example-4" style="float:right; width: 20px; margin-top: 5px">
+					<span class="glyphicon glyphicon-camera add_img" style="font-size: 32px; cursor: pointer;" ></span>
+				</label>
+
+				<div class="row "  id= "imagePrev" style="margin-top: -10px; display: none;">
+				<img id="imgDisplay" style="float: left; width: auto; height: 50px; margin-left: 16px;"/>
+				<i class="glyphicon glyphicon-remove" style="cursor: pointer;" onclick="removeImage()"> </i>
+				</div>
 			</div>
 		</div>
-		<div class="row" >
-			<div style="float: left; width:333px; font-size:14px">
-				Em qual projeto você realizou essa tarefa?
+		<div id="publication_fields" style="display: none; ">
+			<div class="row">
+				<hr style="margin-top:3px;margin-bottom:0px; ">
+				<div style="float: left; width:50px; font-size:14px;  background: #DDD; height: 34px">
+					<h5 style="margin-top: 9px;"> Em: </h5>
+				</div>
+				<div style="float: left; width:460px;">
+				<%= f.association :project, collection: current_user.projects.order(:name), label: false, :include_blank => "qual o projeto que você realizou essa atividade?", input_html: {id: "combo-input"}%>
+				</div>
+
 			</div>
-			<div style="width: 100px; float: left">
-			<%= f.association :project, collection: current_user.projects.order(:name), label: false %>
-			</div>
-			<div style="width: 100px; float: right">
-			<%= f.submit "Publicar", class: 'btn'%>
+				<div class="row" >
+				<hr style="margin-top:0px;margin-bottom:3px; border-top: 1px solid #DDD;">
+				<div style="width: 100px; float: right; margin-right: 0px;">
+				<%= f.submit "Publicar", class: 'btn btn-success', style: "background: #009688; padding-top: 2px; padding-bottom: 2px;"%>
+				</div>
+
 			</div>
 		</div>
 
@@ -39,17 +54,17 @@
 				<% if feed.sharing != nil %>
 				<div class="eye-top">
 					<%= image_tag(User.find(feed.sharing).avatar, class: "img-responsive avatarpost") %>
-					<h5 style="padding-top:5px;"><%=User.find(feed.sharing).name%> compartilhou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
+					<h5 style="padding-top:11px; color: #929292"><a style="color: #009688 !important"><%=User.find(feed.sharing).name%></a> compartilhou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
 				</div>
 				<% else %>
 				<div class="eye-top">
 					<%= image_tag(feed.user.avatar, class: "img-responsive avatarpost") %>
-					<h5 style="padding-top:5px;"><%=feed.user.name%> realizou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
+					<h5 style="padding-top:11px; color: #929292"><a style="color: #009688 !important"><%=feed.user.name%></a> realizou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
 				</div>
 
 				<% end %>
-				<div class="title-blue" style="margin-top:10px;">
-					<div >
+				<div class="title-blue" style="margin-top:3px; border: 1px solid #EAEAEA">
+					<div class="row" style="margin-left: 0px">
 						<%= image_tag(feed.project.avatar, class: "img-responsive projectpost") %>
 						<h4 style="text-align:left;padding-top:-2px;"><%=feed.project.name%> </h4>
 						<h5 style="padding-top:2px; text-align:left;">
@@ -57,32 +72,47 @@
 							<%= i.name%>, 
 							<%end%></h5>
 					</div>
-					<br>
+
 					<% if feed.image.to_s != '' %>
-						<%= image_tag(feed.image) %>
-						<h5 style="text-align: justify; margin-top:7px;"><%= feed.description %></h5>
-					<% else %>
-						<h5 style="text-align: justify; margin-top:15px;"><%= feed.description %></h5>
-					<% end %>
-					<br>
-					<div style="text-align: left; margin-bottom: 10px">
-					<%= link_to 'Compartilhar', share_publication_projects_path(publication: feed),data:{confirm: "Tem certeza?" }  %>
+					<div style="text-align: left; margin-top: 10px">
+						<%= image_tag(feed.image, class: 'img-responsive') %>
 					</div>
-					<div style="text-align:left; margin-left:15px">
+						<p style="text-align: justify; margin-left:0px; margin-top:0px;" class="publication_desc"><%= feed.description %></p>
+					<% else %>
+						<p style="text-align: justify; margin-left:0px; margin-top:5px;" class="publication_desc"><%= feed.description %></p>
+					<% end %>
+					
+					<hr style="margin-top: 0px;margin-bottom: 10px;">
+					<div style="text-align: left; margin-bottom: 10px; ">
+					<%= link_to 'Compartilhar', share_publication_projects_path(publication: feed),data:{confirm: "Tem certeza?" }, class: "share_link"  %>
+					<h6 style="float: right; color: #929292"> <%= shares_count(feed.shares.count) %> </h6>
+					</div>
+					<hr style="margin-top: 0px;margin-bottom: 10px;">
+					<div style="text-align: left; margin-bottom: 10px;">
+					<%= link_to comments_count(feed.comments.count), "javascript:;", class: "share_link", onclick: "showComments(#{feed.id})"  %>
+					</div>
+						
+					<div style="text-align:left; margin-left:15px; display:none;" id="comments_<%= feed.id %>">
 						<% feed.comments.each do |comment| %>
 							<div class="row">
-								<div class="list-group-item" style="width: 515px; margin-bottom: 3px">
-									<%= image_tag(comment.user.avatar, class: "commentpost",style: "margin-top: -6px") %>
-									<strong><%= comment.user.name %></strong>
-									<div style="overflow: hidden; display: block">
-										<%= comment.description %>
+								<div class="" style="width: 515px; margin-bottom: 10px">
+									<div style="weight: 30px" >
+									<%= image_tag(comment.user.avatar, class: "commentpost",style: "margin-top: 0px") %>
 									</div>
+									<p style="width: 86%; padding-top:0px; line-height: 1.3em; padding-bottom: 0px;">
+									<strong style="color: #009688"><%= comment.user.name %></strong>
+										<%= comment.description %><br>
+										
+										<span style="color: #929292"> <%= time_ago_in_words(comment.created_at) %> </span>
+									</p>
 								</div>
+
 							</div>
+							
 						<% end %>
 					</div>
 					<%= simple_form_for @comment, :url => create_comment_publications_path(@comment) do |f| %>
-						<%= f.input :description, label: false, placeholder: "Faça um comentário"%>
+						<%= f.input :description, label: false, placeholder: "Escreva um comentário", input_html: {class: "comment_input", style: "font-size: 13px; "}%>
 						<%= f.input :publication_id, :as => :hidden, :input_html => {:value =>  feed.id} %>
 						  <div class="actions">
 						    <% f.submit %>
@@ -138,3 +168,46 @@
 <br><br>
 
 -->
+
+<script>
+function imagePreview(input){
+
+	if (input.files && input.files[0]) 
+      {
+      	$("#imagePrev").show();
+      	$("#publication_fields").show();
+        var filerdr = new FileReader();
+        filerdr.onload = function(e) {
+            $('#imgDisplay').attr('src', e.target.result);
+        };
+        filerdr.readAsDataURL(input.files[0]);
+      }
+};
+function removeImage(){
+	var input = document.getElementById("fileupload-example-4");
+	input.value = "";
+	$("#imagePrev").hide();
+
+};
+function showComments(id){
+	var com = "#comments_" + id;
+	$(com).slideToggle(500);
+
+};
+
+$(document).ready(function () {
+
+                $("#public_textarea").click(function(){
+                	var el = document.getElementById('public_textarea');
+                  el.style.height = "70px";
+                  $("#publication_fields").show();
+
+
+              });
+                $("#public_textarea").blur(function(){
+                	var el = document.getElementById('public_textarea');
+                  el.style.height = "40px";
+              });
+        });
+
+</script>
