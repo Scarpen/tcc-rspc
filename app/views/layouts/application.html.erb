@@ -94,11 +94,11 @@
       </form>
         </li>
         <li class="dropdown navbar-avatar" >
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= image_tag(current_user.avatar) %> <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%if current_user%><%= image_tag(current_user.avatar) %><%end%> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Perfil</a></li>
             <li class="divider"></li>
-            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete  %></li>
+            <li><%= link_to "Sair", destroy_user_session_path, :method => :delete, id: "sign_out_button" %></li>
             <li class="divider"></li>
           </ul>
         </li>
@@ -194,8 +194,6 @@
     <div class="col-md-6" style="margin-top: 20px">
       <%= bootstrap_flash %>
       <%=yield%>
-
-
     </div>
 
 
@@ -210,7 +208,6 @@
         </form>
       </div>
       <div class="online">
-
         <% current_user.friends.where(:status => "accept").each_with_index do |friend, index| %>
         <% index +=1 %>
         <%= link_to "#", class: "start-conversation",
@@ -223,9 +220,7 @@
             <div class="top-on1">
               <p><%= friend.friend.name %></p>
             </div>
-            <%  %>
-            <label class="round"> </label>
-            <%  %>
+            <label id="online_<%= friend.friend.id%>" class="round"> </label>
             <div class="clearfix"> </div>
           </div>
           <div class="clearfix"> </div>
@@ -265,13 +260,41 @@
     <div class="row">
       <div class="col-lg-9">
         
+        <script>
 
+        function verificar_amigos(){
+          <% if current_user %>
+            <% current_user.friends.where(:status => "accept").each do |friend| %>
+              <% if friend.friend.status == "Online" %>
+                var target_id = "#online_"+<%=friend.friend.id%>;
+                $(target_id).show();
+              <% else %>
+                var target_id = "#online_"+<%=friend.friend.id%>;
+                $(target_id).hide();
+              <% end %>
+            <% end %>
+          <% end %>
+        }
+
+        </script>
         <div id = "chatbox_parent"></div>
         <%= subscribe_to "/chatroom" %>
         <script>
 
         PrivatePub.subscribe("/chatroom", function(data, channel){
-          
+          <% if current_user %>
+            <% current_user.friends.where(:status => "accept").each do |friend| %>
+              <% if friend.friend.status == "Online" %>
+                var target_id = "#online_"+<%=friend.friend.id%>;
+                $(target_id).show();
+              <% else %>
+                var target_id = "#online_"+<%=friend.friend.id%>;
+                $(target_id).hide();
+              <% end %>
+            <% end %>
+          <% end %>
+
+
           var current_user_id = '#{current_user.try(:id)}';
           if (data.receiver_id == current_user_id){
             chatBox.chatWith(data.conversation_id);
@@ -280,6 +303,33 @@
             chatBox.chatWith(data.conversation_id);
           }
         });
+
+        <% if current_user %>
+          window.onbeforeunload = function (e)
+          {
+          $.ajax("<%= close_window_users_path %>");
+          }
+
+          <%= user_online %>
+
+        <% end %>
+
+        $("#sign_out_button").click(function(){
+          $.ajax("<%= close_window_users_path %>");
+        });
+
+          <% if current_user %>
+            <% current_user.friends.where(:status => "accept").each do |friend| %>
+              <% if friend.friend.status == "Online" %>
+                var target_id = "#online_"+<%=friend.friend.id%>;
+                $(target_id).show();
+              <% else %>
+                var target_id = "#online_"+<%=friend.friend.id%>;
+                $(target_id).hide();
+              <% end %>
+            <% end %>
+          <% end %>
+
 
         </script>
         <br>

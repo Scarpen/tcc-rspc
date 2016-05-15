@@ -201,3 +201,10 @@
 	width: 29px;
 	height: 29px;
 }
+.link_chat{
+	color:white !important;
+}
+.link_chat:hover{
+	color:white !important;
+	background: none !important;
+}

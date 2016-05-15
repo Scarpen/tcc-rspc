@@ -7,13 +7,19 @@ class UsersController < ApplicationController
     @conversations = Conversation.involving(current_user).order("created_at DESC")
 	end
 
-	def show
-		@user = User.find(params[:id])
-	end
+  def close_window  
+    user = User.find(current_user.id)
+    user.status = "Offline"
+    user.save
+  end
 
   def list_abilities_interests
     @user = User.find(params[:id])
   end
+
+  def show
+    @user = User.find(params[:id])
+  end 
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -23,6 +29,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :email, :gender, :avatar, :phone, :date_birthday,:city, :state)
+      params.require(:user).permit(:name, :email, :gender, :avatar, :phone, :status, :date_birthday,:city, :state)
     end
 end

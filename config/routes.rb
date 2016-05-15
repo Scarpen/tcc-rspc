@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
 
   devise_for :users
-  resources :users, only: [:index, :show, :list_abilities_interests]
+  resources :users, only: [:index, :show, :list_abilities_interests] do
+    collection do
+      get 'close_window'
+    end
+  end
 
   authenticated :user do
     root :to => "homee#index"

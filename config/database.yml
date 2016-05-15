@@ -5,20 +5,19 @@
 #   gem 'sqlite3'
 #
 default: &default
+  database: tccsi7na
   adapter: mysql2
   encoding: utf8
+  host: localhost
   pool: 5
+  username: root
+  password: root
   timeout: 5000
-  host: 192.168.0.33
-  port: 3306
-  database: appRails
-  username: tccsi7na
-  password: si7na
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: appRails_development
+#  database: appRails_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
