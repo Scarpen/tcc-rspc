@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160514232903) do
+ActiveRecord::Schema.define(version: 20160516172205) do
 
   create_table "abilities", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160514232903) do
     t.string   "description", limit: 255
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.string   "img",         limit: 255
   end
 
   create_table "interests_projects", force: :cascade do |t|
@@ -128,23 +129,22 @@ ActiveRecord::Schema.define(version: 20160514232903) do
   add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
-    t.string   "description", limit: 255
+    t.text     "description", limit: 65535
     t.integer  "topic_id",    limit: 4
     t.integer  "user_id",     limit: 4
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "projects", force: :cascade do |t|
     t.string   "name",            limit: 255
-    t.string   "description",     limit: 255
+    t.text     "description",     limit: 65535
     t.string   "avatar",          limit: 255
-    t.datetime "date_time_start"
-    t.datetime "date_time_end"
+    t.string   "phase",           limit: 255
     t.string   "place",           limit: 255
     t.integer  "number_members",  limit: 4
     t.integer  "creator_id",      limit: 4
-    t.boolean  "visible_project",             default: false
+    t.string   "visible_project", limit: 255,   default: "0"
     t.datetime "created_at",                                  null: false
     t.datetime "updated_at",                                  null: false
   end
@@ -180,12 +180,12 @@ ActiveRecord::Schema.define(version: 20160514232903) do
 
   create_table "topics", force: :cascade do |t|
     t.string   "topic_title", limit: 255
-    t.string   "description", limit: 255
-    t.boolean  "important",               default: false
+    t.text     "description", limit: 65535
+    t.boolean  "important",                 default: false
     t.integer  "project_id",  limit: 4
     t.integer  "user_id",     limit: 4
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "users", force: :cascade do |t|

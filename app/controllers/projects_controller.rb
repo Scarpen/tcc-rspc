@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :request_list, :edit, :update, :destroy, :about]
+  before_action :set_project, only: [:show, :request_list, :edit, :update, :destroy, :about, :members]
   # GET /projects
   # GET /projects.json
   def index
@@ -76,9 +76,6 @@ class ProjectsController < ApplicationController
   def show
 
     if current_user
-      Member.where(project_id: @project.id, user_id: current_user.id).each do |p|
-        @participate = p.situation
-      end
       @publication = Publication.new
       @comment = Comment.new
     end
@@ -89,10 +86,13 @@ class ProjectsController < ApplicationController
 
   end
 
-  def about 
+  def about
 
   end
 
+  def members 
+
+  end
   # GET /projects/new
   def new
     @project = Project.new
@@ -138,7 +138,7 @@ class ProjectsController < ApplicationController
 
         member.project_id = @project.id
         member.save
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to about_project_path(@project), notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -152,7 +152,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to about_project_path(@project), notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -181,6 +181,6 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :creator_id, :description, :avatar, :date_time_start, :date_time_end, :place, :visible_project, :ability_ids => [], :interest_ids => [])
+      params.require(:project).permit(:name, :creator_id, :description, :phase, :avatar, :date_time_start, :date_time_end, :place, :visible_project, :ability_ids => [], :interest_ids => [])
     end
 end

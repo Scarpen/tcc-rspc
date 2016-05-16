@@ -10,44 +10,166 @@
       </ul>
     </div>
   <% end %>
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row">
+      <div class="col-md-2">
+        
+        <%= f.input :avatar, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)" }  %>
+        <label id="fileupload-example-4-label " for="fileupload-example-4" style="margin-top: 0px">
+          <div class="temporary" style="cursor: pointer; width: 80px; height: 80px;" ><img id="imgDisplay" style="float: left; width: 80px; height: 80px; display:none;"/></div>
+        </label>
+      </div>
+      <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+        <%= f.input :name, placeholder: "Qual o nome do seu projeto?", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true %>       
+        <%= f.input :place, placeholder: "Em qual cidade ele acontece?", label: false, input_html: {id: "search-input", style: " margin-bottom: 8px;", class: "form_input"} %>
+        <span style="font-size: 15px; margin-top:0px !important;" id="areas" >  <%= link_to 'Adicionar áreas do projeto', "#" ,class: "user_link", data:{toggle: "modal", target:"#myModal"} %> </span>
+      </div>
+      <div class="col-md-4" style="text-align: right; padding-top: 60px;">
+            <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
+            <%= button_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.input :avatar %>
-  </div>
-  <div class="field">
-    <%= f.label :date_time_start %><br>
-    <%= f.datetime_select :date_time_start %>
-  </div>
-  <div class="field">
-    <%= f.label :date_time_end %><br>
-    <%= f.datetime_select :date_time_end %>
-  </div>
-  <div class="field">
-    <%= f.label :place %><br>
-    <%= f.text_field :place %>
-  </div>
 
-  <div class="field">
-    <%= f.input :visible_project, collection: ["Visivel", "Privado"], prompt: "Selecione..."%>
-  </div>
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row" style="text-align: left">
+      <div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
+      <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Objetivo </h5>
+        <%= f.input :description, label: false, input_html:{style: "resize:none; height: 100px;" }%>
+        <% if @project.name != nil %>
+      <hr style="margin-top: 5px; margin-bottom: 10px;">
+         <span style="font-size: 14px; float:left; font-weight: bold" > Está em fase de </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução","Finalizado"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
+         <br>
+         
+      <hr style="margin-top: 5px; margin-bottom: 10px;">
 
-  <div class="field">
-    <%= f.association :abilities, collection: Ability.order(:name), as: :check_boxes %>
+       <span style="font-size: 14px; float:left; font-weight: bold" > Insatisfeito com o projeto? </span><br>
+      <%= link_to "Cancelar o projeto", project_path(@project), :method => :delete, :data => { :confirm => "Deseja mesmo cancelar o projeto #{@project.name} ?"}, :class => 'btn btn-xs btn-default cancel-project' %>
+      </div>
+        <% else %>
+         <span style="font-size: 14px; float:left; font-weight: bold" > Está em fase de </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
+        <% end %>
   </div>
+  </div>
+</div>
+<div style="display: none;" >
+<%= f.association :interests, as: :check_boxes %>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Selecionar Áreas do Projeto</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row"> 
+          <% Interest.all.each do |interest| %>  
+            <div class="col-md-2">
+              <a href="javascript:;" onclick="setInterest(<%= interest.id %>)">
+                <%= image_tag("interesse.jpg", class: "img-responsive interest_img", id: "img_interest_#{interest.id}") %>
+                <h5 style="text-align: center;" class="user_link"> <%= interest.name %> </h5>
+              </a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal"> Concluir </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="field">
-    <%= f.association :interests, collection: Interest.order(:name), as: :check_boxes %>
-  </div>
+<script>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  function imagePreview(input){
+
+    if (input.files && input.files[0]) 
+        {
+          $('#imgDisplay').show();
+          var filerdr = new FileReader();
+          filerdr.onload = function(e) {
+              $('#imgDisplay').attr('src', e.target.result);
+          };
+          filerdr.readAsDataURL(input.files[0]);
+        }
+    };
+
+    function imageLoad(){
+      $('#imgDisplay').show();
+      $('#imgDisplay').attr('src', "<%= @project.avatar.url %>");
+    };
+
+    
+  <% if @project.name == nil %>
+    limpar();
+  <% else %>
+    imageLoad();
+    setInterests();
+  <% end %>
+
+  function setInterests(){
+    var image;
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "project_interest_ids_" + "<%= interest.id %>";
+      image = "#img_interest_"+ "<%= interest.id %>"
+      check = document.getElementById(id);
+      if (check.checked){
+        $(image).addClass("interest_selected");
+      }
+    <% end %>
+    setText();
+  };
+
+  function setInterest(id){
+    var image = "#img_interest_"+id;
+    var id_check = "project_interest_ids_" + id;
+    var check_box = document.getElementById(id_check);
+    if ($(image).hasClass("interest_selected")){
+      $(image).removeClass("interest_selected");
+      check_box.checked = false;
+    }else{
+      $(image).addClass("interest_selected");    
+      check_box.checked = true;
+    }
+    setText();
+  };
+
+  function setText(){
+    var resultado = "";
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "project_interest_ids_" + "<%= interest.id %>";
+      check = document.getElementById(id);
+      if (check.checked){
+        resultado = resultado + "<%= interest.name %>, ";
+      }
+    <% end %>
+    resultado = resultado.substring(0, resultado.length - 2);
+    resultado = resultado + " <a href='#' data-toggle='modal' data-target='#myModal' class='glyphicon glyphicon-pencil edit_areas'> </a>";
+
+    document.getElementById("areas").innerHTML = resultado;
+  };
+
+
+  function limpar(){
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "project_interest_ids_" + "<%= interest.id %>";
+      check = document.getElementById(id);
+      check.checked = false;
+    <% end %>
+  };
+</script>
+
+
 <% end %>

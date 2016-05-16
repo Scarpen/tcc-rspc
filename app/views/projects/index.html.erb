@@ -1,63 +1,31 @@
-<%- model_class = Project -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
-</div>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:description) %></th>
-      <th><%= model_class.human_attribute_name(:avatar) %></th>
-      <th><%= model_class.human_attribute_name(:date_time_start) %></th>
-      <th><%= model_class.human_attribute_name(:date_time_end) %></th>
-      <th><%= model_class.human_attribute_name(:place) %></th>
-      <th><%= model_class.human_attribute_name(:number_members) %></th>
-      <th><%= model_class.human_attribute_name(:creator_id) %></th>
-      <th><%= model_class.human_attribute_name(:visible_project) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= link_to project.id, project_path(project) %></td>
-        <td><%= project.name %></td>
-        <td><%= project.description %></td>
 
 
-        <% if project.avatar.to_s == ''%>
-        <td>Não possue imagem</td>
-        <%else %>
-        <td>  <%= image_tag(project.avatar)%></td>
+<%= render 'projectlistnav' %>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row">
+      <div class="col-md-12">
+        <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Áreas de interesses </h5>  
+        <% Interest.all.each do |interest| %>
+        <div style="float:left; margin: 5px">
+          <%= image_tag("interesse.jpg", class: "img-responsive", style: "width: 50px ; height: 50px;") %>
+        </div>
         <% end %>
-        <td><%= project.date_time_start %></td>
-        <td><%= project.date_time_end %></td>
-        <td><%= project.place %></td>
-        <td><%= project.number_members %></td>
-        <td><%= project.creator_id %></td>
-        <td><%= project.visible_project %></td>
-        <td><%=l project.created_at %></td>
-        <td>
-          <%= link_to t('.show', :default => t("helpers.links.show")),
-                      project_path(project), :class => 'btn btn-default btn-xs' %>
-          <% if project.creator_id == current_user.id %>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_project_path(project), :class => 'btn btn-default btn-xs' %>
-
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      project_path(project),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-                      <% end %>
-        </td>
-      </tr>
+      </div>
+    <hr>
+    <% Interest.all.each do |interest| %>
+        <div class="col-md-12">
+          <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> <%= interest.name %></h5> 
+          <% interest.projects.each do |project| %>
+             <div class="col-md-4" style="margin-bottom: 10px; text-align: left;">
+              <%= project.name %><br>
+              <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
+            </div>
+          <% end %>
+        </div>
     <% end %>
-  </tbody>
-</table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_project_path,
-            :class => 'btn btn-primary' %>
+    
+  </div>
+</div>

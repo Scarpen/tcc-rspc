@@ -1,3 +1,10 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.temporary{
+    background: url(image_path('addimage0.png')) ;
+}
+.temporary:hover{
+    background: url(image_path('addimage1.png')) ;
+}

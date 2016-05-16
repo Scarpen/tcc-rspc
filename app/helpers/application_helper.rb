@@ -44,4 +44,36 @@ module ApplicationHelper
   def conversation_interlocutor(conversation)
     conversation.recipient == current_user ? conversation.sender : conversation.recipient
   end
+
+  def project_interests(project)
+    if project.interests.count == 1
+      return project.interests.first.name.to_s
+    elsif project.interests.count > 1
+      result = ""
+      project.interests.each do |interest|
+        result += interest.name.to_s + ", "
+      end
+      return result
+    else
+      return "Não possui nenhuma área definida"
+    end
+  end
+
+  def project_interests_about(project)
+    if project.interests.count == 1
+      return "Pertence à área de " + project.interests.first.name.to_s
+    elsif project.interests.count > 1
+      result = "Percente às áreas de"
+      project.interests.each do |interest|
+        result += interest.name.to_s
+      end
+      return result
+    else
+      return "Não possui nenhuma área definida"
+    end
+  end
+
+  def members_count(count)
+    count > 1 ? "#{count} Membros" : "#{count} Membro"
+  end
 end

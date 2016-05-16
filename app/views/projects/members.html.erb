@@ -1,0 +1,76 @@
+<% page_header @project.name %>
+<p id="notice"><%= notice %></p>
+
+<%= render 'projectnav' %>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row" style="text-align: left; padding-left: 15px">
+    	<% if current_user == @project.user && @project.members.where(situation: 2).count > 0%>
+        <div class="col-md-12" style="margin-top: 5px; color: #333; padding-left: 0px;">
+
+        <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> <%= requests(@project.members.where(situation: 2).count)%> </h5>  
+
+       
+        <% @project.members.where(situation: 2).each do |member| %>
+        <div class="col-md-6 " style="padding-left: 0px;padding-top: 14px;padding-bottom: 15px;padding-right:15px;" >
+            <div class="col-md-12 member" style="padding: 0px !important; "> 
+                <div class="col-md-4" style="padding: 0px !important;"> 
+                    <%= image_tag(member.user.avatar, class: "member_img") %>
+                </div>
+                <div class="col-md-8" style="padding: 5px !important; padding-left: 0px !important; "> 
+                    <%= link_to member.user.name, member.user, class: "user_link", style: "font-weight: bold; font-size: 15px" %>
+                    <h5 style= "font-size: 14px; color: #606060; margin-bottom: 4px;"> Pendente à <%= time_ago_in_words(member.updated_at) %> </h5>   
+                    <%= link_to "Aceitar", accept_request_projects_path(member: member.id), class: "btn btn-default button_project", style: "background: #009688 !important; color: #FFF !important" %>
+                    <%= link_to "Recusar", refuse_request_projects_path(member: member.id), class: "btn btn-default button_project refuse_request" %>
+                </div>
+            </div>
+        </div>
+        <% end %>
+         <hr style="margin-top: -5px; margin-bottom: 18px">
+         </div>
+        <% end %>
+
+        <div class="col-md-12" style="margin-top: 5px; color: #333; padding-left: 0px;">
+           
+    	<h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> <%= members_count(@project.members.where(situation: 1).count)%> </h5>	
+    	</div>
+        <% @project.members.where(situation: 1).each do |member| %>
+        <div class="col-md-6 " style="padding-left: 0px;padding-top: 14px;padding-bottom: 15px;padding-right:15px;" >
+            <div class="col-md-12 member" style="padding: 0px !important; "> 
+                <div class="col-md-4" style="padding: 0px !important;"> 
+                    <%= image_tag(member.user.avatar, class: "member_img") %>
+                </div>
+                <div class="col-md-8" style="padding: 5px !important; padding-left: 0px !important; "> 
+                    <%= link_to member.user.name, member.user, class: "user_link", style: "font-weight: bold; font-size: 15px" %>
+                    <% if current_user == @project.user && member.user != @project.user %> 
+                    <div class="dropdown" style="float: right; cursor: pointer">
+                      <span class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="glyphicon glyphicon-chevron-down drop_icon"></span>
+                      </span>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><%= link_to 'Remover Membro', refuse_request_projects_path(member: member.id), data: {confirm: "Tem certeza que deseja remover o #{member.user.name} do projeto #{member.project.name}"} %></li>
+                      </ul>
+                    </div>
+                    <% end %>
+                    <h5 style= "font-size: 14px; color: #606060; margin-bottom: 4px;"> Membro à <%= time_ago_in_words(member.updated_at) %> </h5>
+                    <% friendship = Friend.where(user_id: current_user.id, friend_id: member.user.id).first %>
+                    <% if friendship %>
+                        <% if friendship.status == "pending" %>
+                            <%= link_to "Aceitar Solicitação", accept_request_friends_path(friend: friendship), class: "btn btn-default button_project button_inactive" %>
+                        <% elsif friendship.status == "request" %>  
+                            <%= link_to "Cancelar Solicitação", cancel_request_friends_path(friend: friendship), class: "btn btn-default button_project button_inactive" %>
+                        <% elsif friendship.status == "accept" %>
+
+                        <% end %>
+                    <% elsif current_user != member.user %>
+                        <%= link_to "Solicitar Amizade", friend_request_friends_path(user: member.user), class: "btn btn-default button_project button_inactive" %>
+                    <% end %>
+                </div>
+            </div>
+
+        </div>
+        <% end %>
+	</div>
+  </div>
+</div>
