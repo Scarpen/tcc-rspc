@@ -5,9 +5,10 @@
 
 <%= render 'publications/newpublication' %>
 
-<% @project.publications.each do |feed| %>
+<% @project.publications.order(created_at: :desc).each do |feed| %>
 
 <%= render 'publications/publication', feed: feed %>
+
 <% end %>
 
 <!--

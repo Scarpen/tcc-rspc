@@ -2,30 +2,129 @@
 
 <%= render 'projectlistnav' %>
 
+
+
 <div class="water" style="border: 1px solid #EAEAEA">
   <div class="title-blue-publication ">
     <div class="row">
-      <div class="col-md-12">
-        <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Áreas de interesses </h5>  
+      <div class="col-md-12" style="text-align: right; margin-bottom: 20px">
+      <%= link_to "Criar Projeto", new_project_path, method: :get, style: "color:#000", class: "btn btn-default button_project button_inactive"  %>
+      </div>
+      <div class="col-md-12" style="margin-bottom: 15px;">
+        <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Selecione uma área para refinar sua busca </h5> 
+        <div style="float:left; margin: 5px">
+          <a href="javascript:;" onclick="showList(0)" class="user_link" ><%= image_tag("interesse.jpg", class: "img-responsive  interest_selected interest int_link_0", style: "width: 50px ; height: 50px;") %>Recentes</a>
+        </div> 
         <% Interest.all.each do |interest| %>
         <div style="float:left; margin: 5px">
-          <%= image_tag("interesse.jpg", class: "img-responsive", style: "width: 50px ; height: 50px;") %>
+          <a href = "javascript:;" onclick = "showList(<%= interest.id %>)" class="user_link"><%= image_tag("interesse.jpg", class: "img-responsive interest int_link_#{interest.id}", style: "width: 50px ; height: 50px;") %><%= interest.name %></a>
         </div>
         <% end %>
       </div>
-    <hr>
+    
+     <div class="col-md-12 interests" id="interest_0">
+          <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> 
+            Criados Recentemente </h5> 
+            <hr style="margin-top: 1px; margin-bottom:10px;">
+          <% Project.all.order(created_at: :desc).each do |project| %>
+             <div class="col-md-4" style="margin-bottom: 10px; text-align: left; ">
+              <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
+                <%= project.name %><br>
+                <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
+              </a> 
+            </div>
+          <% end %>
+    </div>
+
+
     <% Interest.all.each do |interest| %>
-        <div class="col-md-12">
+        <div class="col-md-12 interests" id="interest_<%= interest.id %>">
           <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> <%= interest.name %></h5> 
-          <% interest.projects.each do |project| %>
+          <hr style="margin-top: 1px; margin-bottom:10px;">
+          <% interest.projects.order(created_at: :desc).each do |project| %>
              <div class="col-md-4" style="margin-bottom: 10px; text-align: left;">
+              <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
               <%= project.name %><br>
               <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
+            </a>
             </div>
           <% end %>
         </div>
     <% end %>
 
-    
   </div>
 </div>
+
+<% Project.all.each do |project| %>
+                <div class="modal fade" id="modal_<%= project.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background: #DDDDDD">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><%= link_to project.name, project, class: "user_link" %> 
+                          <span style="float:right; margin-right: 50px;">
+                            <% if current_user == project.user %>
+                              <%= link_to 'Editar', edit_project_path(project), class: "btn btn-default button_project button_inactive" %>
+                            <% elsif Member.where(project_id: project.id, situation: '1').count == project.number_members %>
+                              Grupo Cheio!
+                            <%else%>
+                            <% membership = Member.where(project_id: project.id, user_id: current_user.id).first %>
+                            <% if  membership == nil %>
+                              <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive" %>
+                              <%= link_to 'Participar', send_request_projects_path(project: project.id), class: "btn button_project button_inactive " %>
+                            <% elsif membership.situation == 1 %>
+                              <%= link_to 'Deixar de Participar', send_request_projects_path(project: project.id), class: "btn btn-default button_project button_active", data:{confirm: "Tem certeza?" }  %>
+                            <% elsif membership.situation == 2 %>
+                              <%= link_to 'Parar de Seguir', unfollow_projects_path(project: project.id), method: :delete, data:{confirm: "Tem certeza?" }, class: "btn btn-default button_project button_active" %>
+                              <%= link_to 'Participar', send_request_projects_path(project: project.id), class: "btn btn-default button_project button_inactive"  %>   
+                            <% end %>   
+                          <% end %>
+                        </span>
+
+
+                        </h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="water" style="border: 0px solid #EAEAEA">
+                          <div class="title-blue-publication ">
+                            <div class="row" style="text-align: left">
+                              <div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
+                              <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Objetivo </h5>
+                                <p><%= project.description %> <p>
+
+                              <hr style="margin-top: 5px; margin-bottom: 10px;">
+                              <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Detalhes </h5>
+                                <p>
+                                O Projeto é comandado por <%= link_to project.user.name, project.user, class: "user_link" %><br>
+                                <%= project_interests_about(project) %><br>
+                                Possui <%= members_count(project.members.count) %><br>
+                                Acontece em <%= project.place %><br>
+                                Está em fase de <%= project.phase %>
+                                <p>
+                              </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+
+<script>
+
+$(".interests").hide();
+$("#interest_0").show();
+
+
+function showList(id, link){
+  $(".interests").hide();
+  $(".interest").removeClass("interest_selected");
+  var id_string = "#interest_"+ id;
+  var id_string_link = ".int_link_"+ id;
+  $(id_string).show();
+  $(id_string_link).addClass("interest_selected");
+}
+
+
+</script>

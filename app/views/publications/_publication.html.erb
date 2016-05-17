@@ -12,14 +12,32 @@
 
 				<% end %>
 				<div class="title-blue" style="margin-top:3px; border: 1px solid #EAEAEA">
-					<div class="row" style="margin-left: 0px">
+					<div class="row" style="margin-left: 0px;">
+						<div class="col-md-11" style="padding-left: 0px !important;">
 						<%= image_tag(feed.project.avatar, class: "img-responsive projectpost") %>
-						<h4 style="text-align:left;padding-top:-2px;"><%=feed.project.name%> </h4>
+						<h4 style="text-align:left;padding-top:-2px; margin-top: -5px;"><%= feed.project.name %> </h4>
 						<h5 style="padding-top:2px; text-align:left;">
 							<%feed.project.interests.each do |i| %> 
 							<%= i.name%>, 
 							<%end%></h5>
+
+						</div>
+						<div class="col-md-1" style="padding-left: 0px !important; font-align: right; margin-top: -10px">
+							<%if current_user == feed.user || current_user == feed.project.user %>
+							<div class="dropdown" style="float: right; cursor: pointer">
+			                      <span class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			                        <span class="glyphicon glyphicon-chevron-down drop_icon"></span>
+			                      </span>
+			                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			                        <li><%= link_to 'Editar', edit_publication_path(feed) %></li>
+			                        <li><%= link_to 'Excluir', publication_path(feed), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+			                      </ul>
+			                </div>
+							<% end %>
+						</div>
 					</div>
+
+
 
 					<% if feed.image.to_s != '' %>
 					<div style="text-align: left; margin-top: 10px">
@@ -47,16 +65,30 @@
 									<div style="weight: 30px" >
 									<%= image_tag(comment.user.avatar, class: "commentpost",style: "margin-top: 0px") %>
 									</div>
+									  
+  								
 									<p style="width: 86%; padding-top:0px; line-height: 1.3em; padding-bottom: 0px;">
 									<strong style="color: #009688"><%= comment.user.name %></strong>
 										<%= comment.description %><br>
-										
-										<span style="color: #929292"> <%= time_ago_in_words(comment.created_at) %> </span>
 									</p>
+							<div class="dropdown" >			
+							<span style="color: #929292"> <%= time_ago_in_words(comment.created_at) %> </span> 
+							<%if current_user == feed.user || current_user == feed.project.user || comment.user == current_user%>
+			                      <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			                        <span class="glyphicon glyphicon glyphicon-pencil drop_icon"></span>
+			                      </span>
+			                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+			                      	<% if comment.user == current_user %>
+			                        <li> <a href = "#" data-toggle="modal" data-target="#editcomment_<%= comment.id %>"> Editar </a>
+			                        </li>
+			                        <% end %>
+			                        <li> <%= link_to 'Excluir', destroy_comment_publications_path(id: comment.id), method: :delete, data: { confirm: 'Are you sure?'} %> </li>
+			                      </ul>
+			                </div>
+							<% end %>
+									
 								</div>
-
 							</div>
-							
 						<% end %>
 					</div>
 					<%= simple_form_for @comment, :url => create_comment_publications_path(@comment) do |f| %>
@@ -70,3 +102,30 @@
 				</div>
 			</div>
 		<br>
+
+
+<% if current_user.comments.each do |comment|%>
+	<div class="modal fade" id="editcomment_<%= comment.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Editando Comentário</h4>
+	      </div>
+	      <%= simple_form_for comment, :url => update_comment_publications_path(:id => comment.id) do |f| %>
+	      <div class="modal-body">
+	        	<%= f.input :description, label: false%>
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <%= f.submit "Salvar", class: "btn btn-default button_project button_submit"%>
+	        <button type="button" class="btn btn-default button_project" data-dismiss="modal">Fechar</button>
+	      </div>
+	      <% end %>
+	      
+	    </div>
+	  </div>
+	</div>
+
+	<% end %>
+<% end %>

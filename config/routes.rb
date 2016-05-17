@@ -71,6 +71,7 @@ Rails.application.routes.draw do
         delete 'unfollow'
       end
     end
+  get 'chat_refresh' => 'homee#chat_refresh', as: :chat_refresh
   get 'projects/:id/members' => 'projects#members', as: :members_project
   get 'projects/:id/about' => 'projects#about', as: :about_project
   get 'projects/:id/request_list' => 'projects#request_list', as: :request_list

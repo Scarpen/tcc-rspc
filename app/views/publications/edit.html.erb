@@ -1,5 +1,3 @@
-<h1>Edit Publication</h1>
-
 <%= simple_form_for @publication do |f| %>
   <% if @publication.errors.any? %>
     <div id="error_explanation">
@@ -13,9 +11,41 @@
     </div>
   <% end %>
 
-  <%= f.input :description %>
-  <%= f.input :image %>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+        <div class="water" style="margin-bottom:-7px;">
+        <div class="eye-top">
+          <%= image_tag(@publication.user.avatar, class: "img-responsive avatarpost") %>
+          <h5 style="padding-top:11px; color: #929292"><a style="color: #009688 !important"><%=@publication.user.name%></a> realizou uma atividade há <%= time_ago_in_words(@publication.created_at) %></h5>
+        </div>
+
+        <div class="title-blue" style="margin-top:3px; border: 1px solid #EAEAEA">
+          <div class="row" style="margin-left: 0px;">
+            <div class="col-md-11" style="padding-left: 0px !important;">
+            <%= image_tag(@publication.project.avatar, class: "img-responsive projectpost") %>
+            <h4 style="text-align:left;padding-top:-2px; margin-top: -5px;"><%= @publication.project.name %> </h4>
+            <h5 style="padding-top:2px; text-align:left;">
+              <%@publication.project.interests.each do |i| %> 
+              <%= i.name%>, 
+              <%end%></h5>
+
+            </div>
+          </div>
+
+
+
+          <% if @publication.image.to_s != '' %>
+          <div style="text-align: left; margin-top: 10px">
+            <%= image_tag(@publication.image, class: 'img-responsive') %>
+          </div>
+          
+            
+          <% end %>
+          <br>
+         <%= f.input :description, label: false %>
+           <div class="actions">
+            <%= f.submit 'Salvar Edição', class: 'btn btn-default button_project button_submit' %>
+              <%= link_to 'Cancelar', @publication, class: "btn btn-default button_project " %>
+          </div>
+        </div>
+      </div>
+    
 <% end %>

@@ -14,4 +14,7 @@ class Project < ActiveRecord::Base
   	has_many :publications
   	has_many :tasks
 
+
+  	validates :name, presence: true
+  	validates :place, presence: true
 end

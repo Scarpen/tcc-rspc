@@ -29,5 +29,8 @@ class HomeeController < ApplicationController
 
 	
 	end
+	
+
+
 end
 

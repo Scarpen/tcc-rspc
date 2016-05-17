@@ -21,13 +21,16 @@
         </label>
       </div>
       <div class="col-md-6" style="text-align: left; margin-top: 5px;">
-        <%= f.input :name, placeholder: "Qual o nome do seu projeto?", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true %>       
-        <%= f.input :place, placeholder: "Em qual cidade ele acontece?", label: false, input_html: {id: "search-input", style: " margin-bottom: 8px;", class: "form_input"} %>
+        <%= f.input :name, placeholder: "Qual o nome do seu projeto?", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true, required: true %>       
+        <%= f.input :place, placeholder: "Em qual cidade ele acontece?", label: false, input_html: {id: "search-input", style: " margin-bottom: 8px;", class: "form_input"}, required: true %>
         <span style="font-size: 15px; margin-top:0px !important;" id="areas" >  <%= link_to 'Adicionar áreas do projeto', "#" ,class: "user_link", data:{toggle: "modal", target:"#myModal"} %> </span>
+      </div>
+      <div style="display: none;" >
+        <%= f.association :interests, as: :check_boxes %>
       </div>
       <div class="col-md-4" style="text-align: right; padding-top: 60px;">
             <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
-            <%= button_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
+            <%= link_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
       </div>
     </div>
   </div>
@@ -40,7 +43,7 @@
       <div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
       <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Objetivo </h5>
         <%= f.input :description, label: false, input_html:{style: "resize:none; height: 100px;" }%>
-        <% if @project.name != nil %>
+      <% if action_name == 'edit' %>
       <hr style="margin-top: 5px; margin-bottom: 10px;">
          <span style="font-size: 14px; float:left; font-weight: bold" > Está em fase de </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução","Finalizado"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
          <br>
@@ -56,9 +59,7 @@
   </div>
   </div>
 </div>
-<div style="display: none;" >
-<%= f.association :interests, as: :check_boxes %>
-</div>
+
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -106,11 +107,12 @@
     };
 
     
-  <% if @project.name == nil %>
-    limpar();
-  <% else %>
+  <% if action_name == 'edit' || @project.errors.any? %>
     imageLoad();
     setInterests();
+    
+  <% else %>
+    limpar();
   <% end %>
 
   function setInterests(){

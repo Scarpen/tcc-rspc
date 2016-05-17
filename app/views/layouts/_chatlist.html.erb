@@ -79,15 +79,13 @@
     </div>
 
     <script >
-                $("#list_link").click(function(){
+              $("#list_link").click(function(){
                   $("#list_chat").slideToggle(500);
               });
-                
-
-
-        </script>
+    </script>
 
     <script>
+
     PrivatePub.subscribe("/chatroom", function(data, channel){
       <% if current_user %>
         <% current_user.friends.where(:status => "accept").each do |friend| %>

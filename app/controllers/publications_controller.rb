@@ -29,7 +29,7 @@ class PublicationsController < ApplicationController
   end
 
   def show
-
+    @comment = Comment.new
   end
 
   def edit
@@ -39,7 +39,7 @@ class PublicationsController < ApplicationController
   def update
     respond_to do |format|
       if @publication.update(publication_params)
-        format.html { redirect_to @publication.project, notice: 'Publication was successfully updated.' }
+        format.html { redirect_to @publication, notice: 'Publication was successfully updated.' }
         format.json { render :show, status: :ok, location: @publication }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class PublicationsController < ApplicationController
     project = @publication.project
     @publication.destroy
     respond_to do |format|
-      format.html { redirect_to project, notice: 'Publication was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Publication was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -101,14 +101,14 @@ class PublicationsController < ApplicationController
     @comment = Comment.find(params[:id])
     publication = Publication.find(@comment.publication_id)
     @comment.update(comment_params)
-    redirect_to project_path(publication.project_id), notice: 'Comment was successfully updated.'
+    redirect_to publication, notice: 'Comment was successfully updated.'
   end
 
   def destroy_comment
     @comment = Comment.find(params[:id])
     publication = Publication.find(@comment.publication_id)
     @comment.destroy
-    redirect_to project_path(publication.project_id), notice: 'Comment was successfully destroyed.'
+    redirect_to publication, notice: 'Comment was successfully destroyed.'
   end 
 
 	private

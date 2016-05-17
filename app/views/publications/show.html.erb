@@ -1,1 +1,11 @@
-<%= @publication.description %>
+<% feed = @publication %>
+<%= render 'publication', feed: @publication %>
+<script>
+
+$('#comments_<%= @publication.id %>').show();
+function showComments(id){
+	var com = "#comments_" + id;
+	$(com).slideToggle(500);
+
+};
+</script>
