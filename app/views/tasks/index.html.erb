@@ -1,3 +1,153 @@
+<%= render 'projects/projectnav'%>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+
+<a href="#" class="user_link" data-toggle="modal" data-target="#newtask">  Nova Tarefa  </a>
+        <div class="modal fade" id="newtask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nova Tarefa</h4>
+              </div>
+              <%= simple_form_for @task do |f| %>
+              <div class="modal-body">
+                  <%= f.input :description, label: false%>
+                  <%= f.input :situation, collection: ["A Fazer", "Fazendo", "Feita"], as: :select, include_blank: false %>
+                  <%= f.input :project_id, :as => :hidden, :input_html => { :value =>  @project.id } %>
+                    <h5 style="text-align: left; margin-top: 7px;"> Responsáveis: </h5>
+                    <div class="row" style= "padding: 20px;">
+                      <% @users.each do |user| %>
+                        <a href="javascript:;" onclick="setUser(<%= user.id %>)">
+                        <div class="col-md-4" id="user_task" style="margin-bottom: 10px;padding-right: 1px;">
+                          <div class="row" id="user_img_<%= user.id %>" style="margin: 0px">
+                          <%= image_tag(user.avatar, class: "img-responsive", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
+                          <h5 style="text-align: left; margin-top: 7px;"> <%= user.name %> </h5>
+                          </div>
+                        </div>
+                        </a>
+                      <% end %>
+                    </div>
+                  <div style="display: none;"><%= f.association :users, label_method: :email, value_method: :id, collection: @users, as: :check_boxes %></div>    
+              </div>
+              <div class="modal-footer">
+                <%= f.submit "Salvar", class: "btn btn-default button_project button_submit"%>
+                <button type="button" class="btn btn-default button_project" data-dismiss="modal">Fechar</button>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+
+    <div class="row" style="padding: 6px; text-align: left;">
+      <div class="col-md-4" style="padding-left:0px;padding-right: 0px;">
+        <h5 style="text-align: left; margin-left: 5px"> A Fazer </h5>
+        <% @tasks.where(:situation => "A Fazer").each do |p| %>
+          <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid orange; border-radius: 5px; padding: 3px;">
+            <div style="width:150px; float: left">
+            <%= p.description %> 
+            </div>
+            <div style="width:11px; float:right">
+              <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
+              </span>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
+                  <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
+                  
+                  <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+              </ul>
+            </div> 
+          </div>
+
+          <%= render 'edit_task', task: p, users: @users%>
+
+        <% end %>
+
+      </div>
+
+      <div class="col-md-4" style="padding-left:0px;padding-right: 0px;">
+        <h5 style="text-align: left; margin-left: 5px"> Fazendo </h5>
+        <% @tasks.where(:situation => "Fazendo").each do |p| %>
+            <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid green; border-radius: 5px; padding: 3px;">
+            <div style="width:150px; float: left">
+            <%= p.description %> 
+            </div>
+            <div style="width:11px; float:right">
+              <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
+              </span>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
+                  <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
+                  <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+              </ul>
+            </div>
+          </div>
+
+          <%= render 'edit_task', task: p, users: @users%>
+
+        <% end %>
+
+      </div>
+
+        <div class="col-md-4" style="padding-left:0px;padding-right: 0px;">
+        <h5 style="text-align: left; margin-left: 5px"> Feitas </h5>
+        <% @tasks.where(:situation => "Feita").each do |p| %>
+          <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid #0000AA; border-radius: 5px; padding: 3px;">
+            <div style="width:150px; float: left">
+            <%= p.description %> 
+            </div>
+            <div style="width:11px; float:right">
+              <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
+              </span>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
+                  <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
+                  <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+              </ul>
+            </div>
+          </div>
+
+          <%= render 'edit_task', task: p, users: @users%>
+        <% end %>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  limpar();
+
+  function limpar(){
+    var check;
+    var id;
+    <% @users.each do |user|%>
+      id = "task_user_ids_" + "<%= user.id %>";
+      check = document.getElementById(id);
+      check.checked = false;
+    <% end %>
+  };
+
+  function setUser(id){
+    var image = "#user_img_"+id;
+    var id_check = "task_user_ids_" + id;
+    var check_box = document.getElementById(id_check);
+
+    if ($(image).hasClass("user_task_selected")){
+      $(image).removeClass("user_task_selected");
+      check_box.checked = false;
+    }else{
+      $(image).addClass("user_task_selected"); 
+      check_box.checked = true;
+    }
+  };
+
+</script>
+
+<!--
 <h1> Forum </h1>
 
 <% @tasks.each do |p| %>
@@ -58,3 +208,5 @@
 <br>
 
 <%= link_to "Criar nova Tarefa",create_task_path %>
+
+-->

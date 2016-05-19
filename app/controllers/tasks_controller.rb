@@ -9,7 +9,11 @@ class TasksController < ApplicationController
 	end
 
 	def index
-		@tasks = Project.find(params[:id]).tasks
+		@project = Project.find(params[:id])
+		@users = @project.users.includes(:members).where("situation = 1")
+		@tasks = @project.tasks
+		@task = Task.new
+
 	end
 
 	
@@ -20,7 +24,7 @@ class TasksController < ApplicationController
 
 	    respond_to do |format|
 	      if @task.save
-	        format.html { redirect_to @task.project, notice: 'Task was successfully created.' }
+	        format.html { redirect_to list_tasks_path(@task.project.id), notice: 'Task was successfully created.' }
 	        format.json { render :show, status: :created, location: @task }
 	      else
 	        format.html { render :new }

@@ -162,15 +162,7 @@
   };
 
 
-  function limpar(){
-    var check;
-    var id;
-    <% Interest.all.each do |interest|%>
-      id = "project_interest_ids_" + "<%= interest.id %>";
-      check = document.getElementById(id);
-      check.checked = false;
-    <% end %>
-  };
+
 </script>
 
 

@@ -485,3 +485,8 @@
 .cancel-project:hover{
     color: #FF0000 !important;
 }
+
+.user_task_selected{
+    background: #009688 !important;
+    
+}

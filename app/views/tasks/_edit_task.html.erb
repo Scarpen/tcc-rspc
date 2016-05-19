@@ -1,0 +1,60 @@
+<div class="modal fade" id="edit_task_<%= task.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Editando Tarefa</h4>
+      </div>
+      <%= simple_form_for task do |f| %>
+      <div class="modal-body">
+          <%= f.input :description, label: false%>
+          <%= f.input :situation, collection: ["A Fazer", "Fazendo", "Feita"], as: :select, include_blank: false %>
+            <h5 style="text-align: left; margin-top: 7px;"> Responsáveis: </h5>
+            <div class="row" style= "padding: 20px;">
+              <% users.each do |user| %>
+                <a href="javascript:;" onclick="setUser(<%= user.id %>)">
+                <div class="col-md-4" style="margin-bottom: 10px;padding-right: 1px;">
+                  <div class="row" id="user_task user_img_<%= task.id %>_<%= user.id %>" style="margin: 0px">
+                  <%= image_tag(user.avatar, class: "img-responsive", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
+                  <h5 style="text-align: left; margin-top: 7px;"> <%= user.name %> </h5>
+                  </div>
+                </div>
+                </a>
+              <% end %>
+            </div>
+          
+
+          <%= f.input :users, :as => :check_boxes do %>
+            <%= f.collection_check_boxes :user_ids, users, :id, :name do |b| %>
+              <%= b.check_box(:id => "input_#{task.id}_#{b.value}") + b.label %>
+           <% end %>
+          <% end %>  
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Salvar", class: "btn btn-default button_project button_submit"%>
+        <button type="button" class="btn btn-default button_project" data-dismiss="modal">Fechar</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+
+setTasks<%= task.id %>();
+  function setTasks<%= task.id %>(){
+    var clas;
+    var check;
+    var id;
+    <% users.each do |user|%>
+      id = "input_<%=task.id%>_<%=user.id%>";
+      check = document.getElementById(id);
+      if (check.checked){
+        alert("#user_img_<%=task.id%>_<%=user.id%>");
+        $("#user_img_<%=task.id%>_<%=user.id%>").addClass("user_task_selected");
+      }
+    <% end %>
+  };
+
+
+</script>

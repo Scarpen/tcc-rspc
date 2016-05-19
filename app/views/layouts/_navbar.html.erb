@@ -52,7 +52,7 @@
 <% if current_user %>
           window.onbeforeunload = function (e)
           {
-          $.ajax("<%= close_window_users_path %>");
+            $.ajax("<%= close_window_users_path %>");
           }
 
           <%= user_online %>

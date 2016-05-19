@@ -5,7 +5,7 @@ class CreateTasks < ActiveRecord::Migration
       t.string :location
       t.date :date_start
       t.date :date_end
-      t.string :situation,:default => 0
+      t.string :situation,:default => "A Fazer"
       t.integer :user_id
       t.integer :project_id
 
