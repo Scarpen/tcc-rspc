@@ -20,7 +20,13 @@ module ApplicationHelper
 
 
   def requests(count)
-  	count > 1 ? "#{count} Solicitações pendentes" : "#{count} Solicitação pendente"
+  	if count == 1 
+      return "#{count} solicitação pendente"
+    elsif count > 1
+      return "#{count} solicitações pendentes" 
+    elsif count < 1
+      return "Nenhuma solicitação pentende"
+    end
   end
   
   def shares_count(count)
@@ -76,4 +82,9 @@ module ApplicationHelper
   def members_count(count)
     count > 1 ? "#{count} Membros" : "#{count} Membro"
   end
+
+  def topic_fixed(topic)
+    topic.important ? "topic-fixed-true" : ""
+  end
+
 end

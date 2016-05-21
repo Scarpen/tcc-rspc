@@ -3,7 +3,7 @@
 
         <div class="panel panel-primary" style="border-color: #009688; margin-bottom: 0px" >
           <div class="panel-heading " style="background-color: #009688; border-color: #009688">
-           AMIGOS <a class="link_chat glyphicon glyphicon-minus" id="list_link" style="float: right" href="#" > </a>
+           <strong> AMIGOS </strong> <a class="link_chat glyphicon glyphicon-minus" id="list_link" style="float: right" href="#" > </a>
          </div>
          <div id="list_chat" >
           <div class="panel-body" style="padding-bottom: 0px;padding-top: 6px;padding-left: 8px; overflow-y: scroll; max-height: 424px;">
@@ -39,7 +39,7 @@
 
             </ul>
           </div>
-          <div style="height: 20px; background: #FFC107; padding-left: 6px; color: #333"> <strong> <%= requests(current_user.friends.where(:status => "pending").count) %> </strong> </div>
+          <div style="height: 20px; background: #FFC107; padding-left: 15px; color: #333"> <strong> <%= requests(current_user.friends.where(:status => "pending").count) %> </strong> </div>
           <div class="panel-body" style="padding-bottom: 0px;padding-top: 6px;padding-left: 8px; overflow-y: scroll; max-height: 102px;">
             <ul class="media-list">
               <% current_user.friends.where(status: "pending").each_with_index do |friend, index| %>

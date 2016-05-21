@@ -357,7 +357,7 @@
     padding:3px !important; 
     font-weight: bold !important;
     font-size: 13px !important;
-    border: 1px solid #444 !important;
+    border: 1px solid #777 !important;
     
 }
 .button_active{
@@ -370,7 +370,7 @@
     color: #FFF !important;
 }
 .button_inactive{
-    color: #444 !important;
+    color: #777 !important;
     background: #FAFAFA !important;
 
 }
@@ -489,4 +489,15 @@
 .user_task_selected{
     background: #009688 !important;
     
+}
+
+.fixed-topic{
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg); 
+    color: #FFF;
+    text-shadow: 1px 0 0 #AAA, -2px 0 0 #DDD;
+}
+
+.topic-fixed-true{
+    color: #006020;
 }

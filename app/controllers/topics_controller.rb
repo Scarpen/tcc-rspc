@@ -4,8 +4,8 @@ before_action :set_post_id, only: [:edit_post]
 
 
 def index
-    project = Project.find(params[:id])
-    @topics = project.topics.order(important: :desc)
+    @project = Project.find(params[:id])
+    @topics = @project.topics.order(important: :desc)
 end
 
 def make_important

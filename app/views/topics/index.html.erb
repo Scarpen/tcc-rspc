@@ -1,13 +1,52 @@
-<h1> Forum </h1>
+<%= render 'projects/projectnav'%>
 
-<% @topics.each do |p| %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%= p.topic_title%></h3>
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication " style="padding-top: 15px;">
+  <div class="row" style="text-align: left"> 
+    <div class="col-md-12" style="margin-bottom: 10px;"> 
+      <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;">
+      <div style=""> <a href="#" class="btn button_project button_inactive" data-toggle="modal" data-target="#new_topic">  Nova Discussão  </a> </div>
+       </h5> 
+   </div>
+
+
+<%= render 'new_topic', topic: Topic.new, project: @project %>
+
+<% @topics.order(important: :desc).each do |p| %>
+
+  <div class="col-md-12">
+  <div style="width: 18px; height: 30px; float: left;"> 
+    <% if p.important %>
+      <%= link_to make_not_important_topics_path(topic: p.id), class: "user_link" do %> 
+        <span class="glyphicon glyphicon-pushpin fixed-topic <%= topic_fixed(p) %>" style="font-size:14px;"> </span> 
+      <% end %>
+    <% else %>
+      <%= link_to make_important_topics_path(topic: p.id), class: "user_link" do %> 
+        <span class="glyphicon glyphicon-pushpin fixed-topic <%= topic_fixed(p) %>" style="font-size:14px;"> </span>
+      <% end %>
+    <% end %>
   </div>
+  <%= link_to p.topic_title, show_topic_path(id: @project.id, id_topic: p.id), class: "panel-title user_link", style: "font-size: 16px; font-weight: ;" %> 
+  <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
+              </span>
+              <span style="color: #AAA; float: right;"> 14 postagens</span>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
+                  <li> <%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_topic_#{p.id}"} %> </li>
+                  
+                  <li> <%= link_to 'Excluir', topic_path(id_topic: p.id), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
+              </ul>
+  <h6 style="font-size: 12px; color: #777"> Criado por <%= p.user.name %> <span style="float: right; color: #AAA"> <%= p.posts.count == 0  ? "Sem respostas" : "Ultima resposta por #{p.posts.last.user.name}" %> </span> </h6>
+  <hr style="margin-top: 5px; margin-bottom:5px;">
+  </div>
+
+  <%= render 'edit_topic', topic: p%>
+  
+  <!--
   <div class="panel-body">
     <%= p.description %>
-  </div>
+
+   </div>
   <div class="panel-body">
     <%= p.important %>
   </div>
@@ -21,14 +60,12 @@
     <% else %>
     <%= link_to 'Desmarcar como Importante', make_not_important_topics_path(topic: p.id) %>
     <% end %>
-
+  
   </div>
-</div>
-
+  
+  </div>
+  -->
 <% end %>
-
-
-<br>
-<br>
-
-<%= link_to "Criar novo Topico",create_topic_path %>
+ </div>
+</div>
+</div>

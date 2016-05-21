@@ -1,9 +1,9 @@
 <%= render 'projects/projectnav'%>
 
 <div class="water" style="border: 1px solid #EAEAEA">
-  <div class="title-blue-publication ">
+  <div class="title-blue-publication " style="padding-top: 15px;">
 
-<a href="#" class="user_link" data-toggle="modal" data-target="#newtask">  Nova Tarefa  </a>
+      <div style="text-align: left; margin-left: -5px; margin-bottom: 10px;"> <a href="#" class="btn button_project button_inactive" data-toggle="modal" data-target="#newtask">  Nova Tarefa  </a> </div>
         <div class="modal fade" id="newtask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -47,16 +47,19 @@
         <% @tasks.where(:situation => "A Fazer").each do |p| %>
           <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid orange; border-radius: 5px; padding: 3px;">
             <div style="width:150px; float: left">
-            <%= p.description %> 
+            <p style="font-size: 15px;  margin-bottom: 4px"> <%= p.description %> </p>
+            <% p.users.each do |user|%>
+              <%= image_tag(user.avatar, style: "height: 25px; width: 25px") %>
+            <% end %>
             </div>
             <div style="width:11px; float:right">
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
-                  <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
+                  <li> <%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %> </li>
                   
-                  <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+                  <li> <%= link_to 'Excluir', task_path(p), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
               </ul>
             </div> 
           </div>
@@ -72,7 +75,10 @@
         <% @tasks.where(:situation => "Fazendo").each do |p| %>
             <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid green; border-radius: 5px; padding: 3px;">
             <div style="width:150px; float: left">
-            <%= p.description %> 
+            <p style="font-size: 15px; margin-bottom: 4px"> <%= p.description %> </p>
+            <% p.users.each do |user|%>
+              <%= image_tag(user.avatar, style: "height: 25px; width: 25px") %>
+            <% end %> 
             </div>
             <div style="width:11px; float:right">
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -96,7 +102,10 @@
         <% @tasks.where(:situation => "Feita").each do |p| %>
           <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid #0000AA; border-radius: 5px; padding: 3px;">
             <div style="width:150px; float: left">
-            <%= p.description %> 
+            <p style="font-size: 15px;  margin-bottom: 4px"> <%= p.description %> </p>
+            <% p.users.each do |user|%>
+              <%= image_tag(user.avatar, style: "height: 25px; width: 25px") %>
+            <% end %>
             </div>
             <div style="width:11px; float:right">
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

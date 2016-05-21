@@ -1,0 +1,26 @@
+<div class="modal fade" id="edit_topic_<%= topic.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Editando Topico</h4>
+      </div>
+      <%= simple_form_for topic do |f| %>
+      <div class="modal-body">
+          <%= f.input :topic_title%>
+          <%= f.input :description%>
+      </div>
+
+      <div class="modal-footer">
+        <%= f.submit "Salvar", class: "btn btn-default button_project button_submit"%>
+        <button type="button" class="btn btn-default button_project" data-dismiss="modal">Fechar</button>
+      </div>
+      <% end %>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+</script>
