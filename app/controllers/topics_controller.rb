@@ -30,6 +30,7 @@ def new
 end
 
 def show_topic
+  @project = @topic.project
 end
 
 def create

@@ -1,3 +1,41 @@
+<%= render 'projects/projectnav'%>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication " style="padding-top: 15px;">
+    <div class="row">
+      <div class="col-md-12" style="text-align:left; margin-bottom: 20px; ">
+        <span style="font-size: 17px;"> <%=  @topic.topic_title %> </span>
+      </div>  
+      <div class="col-md-12">
+        <div class="col-md-2">
+          <%= image_tag(@topic.user.avatar, class: "img-responsive") %>
+        </div>
+        <div class="col-md-10" style="text-align: left; padding-left:0px;">
+          <%= link_to @topic.user.name, @topic.user, class: "user_link" %><br>
+          <p> <%= @topic.description %> </p>
+        </div>
+      </div>
+      <% @topic.posts.each do |post|%>
+      <div class="col-md-12" style="margin-top: 10px;">
+        <hr style="margin-bottom: 5px; margin-top: 0px;"> 
+        <div class="col-md-2">
+          <%= image_tag(post.user.avatar, class: "img-responsive") %>
+        </div>
+        <div class="col-md-10" style="text-align: left; padding-left:0px;">
+          <%= link_to post.user.name, post.user, class: "user_link" %><br>
+          <p> <%= post.description %> </p>
+        </div>
+
+      </div>
+      <% end %>
+
+      <%= link_to 'Postar', new_post_path%>
+
+    </div>
+  </div>
+</div>
+
+<!--
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -36,3 +74,4 @@
 
 
 <%= link_to 'Postar', new_post_path%>
+-->

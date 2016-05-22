@@ -25,7 +25,7 @@ module ApplicationHelper
     elsif count > 1
       return "#{count} solicitações pendentes" 
     elsif count < 1
-      return "Nenhuma solicitação pentende"
+      return "Nenhuma solicitação pendente"
     end
   end
   
