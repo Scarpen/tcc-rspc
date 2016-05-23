@@ -2,7 +2,7 @@
       <div class="row" style="margin-left:0px; height: 68px; ">
         <%= image_tag(current_user.avatar, class: "avatarlist") %>
         <br>
-        <h4 style="font-size: 15px; margin-top: 3px; line-height: 1; color: #009688"><strong><%= current_user.name %></strong><br> <%= link_to 'Editar Perfil' , edit_user_registration_path, class: "edit_avatar", style: "font-size: 12px; padding-top: -9px" %></h4>
+        <h4 style="font-size: 15px; margin-top: 3px; line-height: 1; color: #009688"><strong><%= link_to current_user.name, current_user, class: "user_link" %></strong><br> <%= link_to 'Editar Perfil' , edit_user_registration_path, class: "edit_avatar", style: "font-size: 12px; padding-top: -9px" %></h4>
       </div>
       <hr style="margin-top: 0px; margin-bottom: 8px; margin-left: 8px;">
       <span class="glyphicon glyphicon-chevron-down" style="cursor: pointer; font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%" id="meus">

@@ -87,4 +87,14 @@ module ApplicationHelper
     topic.important ? "topic-fixed-true" : ""
   end
 
+  def posts_count(count)
+    if count == 0 
+      "Sem Respostas"
+    elsif count == 1
+      "1 Resposta"
+    else
+      "#{count} Respostas"
+    end
+  end
+
 end

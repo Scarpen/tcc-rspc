@@ -1,0 +1,48 @@
+<%= render 'usersnav' %>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication " style="padding-top: 15px;">
+    <div class="row" style="text-align: left; padding-left: 15px">
+        <div class="col-md-12" style="margin-top: 5px; color: #333; padding-left: 0px;">
+           
+    	<h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;">  </h5>	
+    	</div>
+        <% @user.friends.where(status: "accept").each do |friend| %>
+        <div class="col-md-6 " style="padding-left: 0px;padding-top: 14px;padding-bottom: 15px;padding-right:15px;" >
+            <div class="col-md-12 member" style="padding: 0px !important; "> 
+                <div class="col-md-4" style="padding: 0px !important;"> 
+                    <%= image_tag(friend.friend.avatar, class: "member_img") %>
+                </div>
+                <div class="col-md-8" style="padding: 5px !important; padding-left: 0px !important; "> 
+                    <%= link_to friend.friend.name, friend.friend, class: "user_link", style: "font-weight: bold; font-size: 15px" %>
+                    <% if current_user == @user %> 
+                    <div class="dropdown" style="float: right; cursor: pointer">
+                      <span class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span class="glyphicon glyphicon-chevron-down drop_icon"></span>
+                      </span>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><%= link_to 'Desfazer Amizade', cancel_request_friends_path(friend: friend), method: :delete, data: { confirm: "Deseja remover o #{friend.friend.name} de seus amigos?"} %></li>
+                      </ul>
+                    </div>
+                    <% end %>
+                    <h5 style= "font-size: 14px; color: #606060; margin-bottom: 4px;"> Amigos há <%= time_ago_in_words(friend.updated_at) %> </h5>
+                    <% friendship = Friend.where(user_id: current_user.id, friend_id: friend.friend.id).first %>
+                    <% if friendship %>
+                        <% if friendship.status == "pending" %>
+                            <%= link_to "Aceitar Solicitação", accept_request_friends_path(friend: friendship), class: "btn btn-default button_project button_inactive" %>
+                        <% elsif friendship.status == "request" %>  
+                            <%= link_to "Cancelar Solicitação", cancel_request_friends_path(friend: friendship), class: "btn btn-default button_project button_inactive" %>
+                        <% elsif friendship.status == "accept" %>
+
+                        <% end %>
+                    <% elsif current_user != friend.friend %>
+                        <%= link_to "Solicitar Amizade", friend_request_friends_path(user: friend.user), class: "btn btn-default button_project button_inactive" %>
+                    <% end %>
+                </div>
+            </div>
+
+        </div>
+        <% end %>
+	</div>
+  </div>
+</div>

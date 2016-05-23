@@ -1,0 +1,21 @@
+<%= render 'usersnav' %>
+
+<div class="water" style="border: 1px solid #EAEAEA; " >
+  <div class="title-blue-publication " style="padding-top: 15px;">
+    <div class="row" style="text-align: left">
+    	<div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
+    	<h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Detalhes </h5>
+        	<p>
+    		Email: <%= @user.email %><br>
+    		Genêro: <%= @user.gender %><br>
+    		Telefone: <%= @user.phone %><br>
+    		Data de Aniversário:  <%= @user.date_birthday %><br>
+    		Endereço: <%= @user.address %><br>
+    		Bairro: <%= @user.neighborhood %><br>
+    		Cidade: <%= @user.city %><br>
+    		Estado: <%= @user.state %><br>
+            </p>
+    	</div>
+	</div>
+  </div>
+</div>

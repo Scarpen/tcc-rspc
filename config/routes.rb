@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :list_abilities_interests] do
     collection do
       get 'close_window'
+
     end
   end
 
@@ -88,6 +89,9 @@ Rails.application.routes.draw do
   get 'projects/:id/tasks/:id_task/edit' => 'tasks#edit', as: :edit_tasks
   get 'projects/:id/tasks/:id_task' => 'tasks#show', as: :show_tasks
   get 'cep/:cep' => 'cep#verificar'
+  get 'users/:id/about' => 'users#about', as: :about_user
+  get 'users/:id/friends' => 'users#friends', as: :friends_user
+  get 'users/:id/projects' => 'users#projects', as: :projects_user
   get 'user/:id' => 'users#list_abilities_interests', as: :list_preferences
 
   

@@ -96,13 +96,12 @@
 	opacity: 1 !important;
 	top: none !important;
 	left: none !important;
-	
-
 }
 
 .edit_avatar{
 	color: #365899 !important;
 }
+
 .edit_avatar:hover{
 	color: #365899 !important;
 	background: #F6F8FA !important;

@@ -2,47 +2,171 @@
 
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row">
+      <div class="col-md-2">
+        
+        <%= f.input :avatar, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)" }  %>
+        <label id="fileupload-example-4-label " for="fileupload-example-4" style="margin-top: 0px">
+          <div class="temporary" style="cursor: pointer; width: 80px; height: 80px;" ><img id="imgDisplay" style="float: left; width: 80px; height: 80px; display:none;"/></div>
+        </label>
+      </div>
+      <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+        <%= f.input :name, placeholder: "Qual o seu nome?", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true, required: true %>       
+        <%= f.input :email, placeholder: "Qual o seu email?", label: false, input_html: {id: "search-input", style: " margin-bottom: 8px;", class: "form_input"}, required: true %>
+        <%= f.input :password, placeholder: "Escolha uma senha?", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true, required: true %>      
+        <%= f.input :password_confirmation, placeholder: "Confirme sua senha", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true, required: true %>  
+        <span style="font-size: 15px; margin-top:0px !important;" id="areas" >  <%= link_to 'Adicionar áreas do projeto', "#" ,class: "user_link", data:{toggle: "modal", target:"#myModal"} %> </span>       
+    
+      </div>
+      <div style="display: none;" >
+        <%= f.association :interests, as: :check_boxes %>
+      </div>
+      <div class="col-md-4" style="text-align: right; padding-top: 60px;">
+            <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
+            <%= link_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="form-inputs">
-    <%= f.input :name , autofocus: true%>
-    <%= f.input :email, required: true %>
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @validatable) %>
-    <%= f.input :password_confirmation, required: true  %>
-    <%= f.input :gender, collection: ["Masculino", "Feminino"], prompt: "Selecione..."%>
-    <%= f.input :avatar %>
-    <%= f.input :phone %>
-    <%= f.input :date_birthday %>
-    <%= f.input :zipcode, :input_html => {
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row" style="text-align: left">
+      <div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
+      <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Objetivo </h5>
+        <%= f.input :gender, collection: ["Masculino", "Feminino"], as: :select, label: false, :include_blank => "Genêro", input_html: {id: "phase-input", style: ""} %>
+        <%= f.input :zipcode, :input_html => {
         :id => "zipcode_input",
         :onblur => "search(this)"
-      } %>
-    <div id="address_inputs" style="visibility: hidden">
-    <%= f.input :address, :input_html => {
-        :id => "address"
-      } %>
-    <%= f.input :neighborhood, :input_html => {
-        :id => "neighborhood",
-      } %>
-    <%= f.input :city, :input_html => {
-        :id => "city",
-      } %>
-    <%= f.input :state, :input_html => {
-        :id => "state",
-      } %>
-    <%= f.input :complement %>
+        } %>
+        <%= f.input :phone %>
+        <%= f.input :date_birthday %>
+        <div id="address_inputs" style="display: none;">
+          <%= f.input :address, :input_html => {
+              :id => "address"
+            } %>
+          <%= f.input :neighborhood, :input_html => {
+              :id => "neighborhood",
+            } %>
+          <%= f.input :city, :input_html => {
+              :id => "city",
+            } %>
+          <%= f.input :state, :input_html => {
+              :id => "state",
+            } %>
+          <%= f.input :complement %>
+        </div>
+  
+      <hr style="margin-top: 5px; margin-bottom: 10px;">
+      </div>
   </div>
-  <%= f.association :abilities, collection: Ability.order(:name), as: :check_boxes %>
-  <%= f.association :interests, collection: Interest.order(:name), as: :check_boxes %>
   </div>
-
-
-
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
+</div>
 <% end %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Selecionar Áreas do Projeto</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row"> 
+          <% Interest.all.each do |interest| %>  
+            <div class="col-md-2">
+              <a href="javascript:;" onclick="setInterest(<%= interest.id %>)">
+                <%= image_tag("interesse.jpg", class: "img-responsive interest_img", id: "img_interest_#{interest.id}") %>
+                <h5 style="text-align: center;" class="user_link"> <%= interest.name %> </h5>
+              </a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal"> Concluir </button>
+      </div>
+    </div>
+  </div>
+</div>
 
+
+
+
+<script>
+  function imagePreview(input){
+    if (input.files && input.files[0]) 
+        {
+          $('#imgDisplay').show();
+          var filerdr = new FileReader();
+          filerdr.onload = function(e) {
+              $('#imgDisplay').attr('src', e.target.result);
+          };
+          filerdr.readAsDataURL(input.files[0]);
+        }
+    };
+
+    function imageLoad(){
+      $('#imgDisplay').show();
+      $('#imgDisplay').attr('src', "<%= @user.avatar.url %>");
+    };
+    
+  <% if action_name == 'edit' %>
+    imageLoad();
+    setInterests();
+    
+  <% else %>
+    limpar();
+  <% end %>
+
+  function setInterests(){
+    var image;
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "project_interest_ids_" + "<%= interest.id %>";
+      image = "#img_interest_"+ "<%= interest.id %>"
+      check = document.getElementById(id);
+      if (check.checked){
+        $(image).addClass("interest_selected");
+      }
+    <% end %>
+    setText();
+  };
+
+  function setInterest(id){
+    var image = "#img_interest_"+id;
+    var id_check = "project_interest_ids_" + id;
+    var check_box = document.getElementById(id_check);
+    if ($(image).hasClass("interest_selected")){
+      $(image).removeClass("interest_selected");
+      check_box.checked = false;
+    }else{
+      $(image).addClass("interest_selected");    
+      check_box.checked = true;
+    }
+    setText();
+  };
+
+  function setText(){
+    var resultado = "";
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "project_interest_ids_" + "<%= interest.id %>";
+      check = document.getElementById(id);
+      if (check.checked){
+        resultado = resultado + "<%= interest.name %>, ";
+      }
+    <% end %>
+    resultado = resultado.substring(0, resultado.length - 2);
+    resultado = resultado + " <a href='#' data-toggle='modal' data-target='#myModal' class='glyphicon glyphicon-pencil edit_areas'> </a>";
+
+    document.getElementById("areas").innerHTML = resultado;
+  };
+</script>
 
 <script>
 
@@ -53,7 +177,7 @@ function search(elem) {
 		$('#neighborhood').val(data.address.neighborhood);
 		$('#city').val(data.address.city);
 		$('#state').val(data.address.state);
-		document.getElementById("address_inputs").style.visibility = "visible"
+		$("#address_inputs").show();
 
 
 });

@@ -27,16 +27,16 @@
     <% end %>
   </div>
   <%= link_to p.topic_title, show_topic_path(id: @project.id, id_topic: p.id), class: "panel-title user_link", style: "font-size: 16px; font-weight: ;" %> 
-  <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
+              <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+              <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
-              <span style="color: #AAA; float: right;"> 14 postagens</span>
+              <span style="color: #AAA; float: right;"> <%= posts_count(p.posts.count) %> </span>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
                   <li> <%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_topic_#{p.id}"} %> </li>
                   
                   <li> <%= link_to 'Excluir', topic_path(id_topic: p.id), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
               </ul>
-  <h6 style="font-size: 12px; color: #777"> Criado por <%= p.user.name %> <span style="float: right; color: #AAA"> <%= p.posts.count == 0  ? "Sem respostas" : "Ultima resposta por #{p.posts.last.user.name}" %> </span> </h6>
+  <h6 style="font-size: 12px; color: #777"> Criado por <%= p.user.name %> <span style="float: right; color: #AAA"> <%= p.posts.count == 0  ? "" : "Ultima resposta por #{p.posts.last.user.name}" %> </span> </h6>
   <hr style="margin-top: 5px; margin-bottom:5px;">
   </div>
 

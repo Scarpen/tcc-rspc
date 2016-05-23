@@ -7,7 +7,7 @@
 				<% else %>
 				<div class="eye-top">
 					<%= image_tag(feed.user.avatar, class: "img-responsive avatarpost") %>
-					<h5 style="padding-top:11px; color: #929292"><a style="color: #009688 !important"><%=feed.user.name%></a> realizou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
+					<h5 style="padding-top:11px; color: #929292"><%= link_to feed.user.name, feed.user, class: "user_link" %> realizou uma atividade há <%= time_ago_in_words(feed.created_at) %></h5>
 				</div>
 
 				<% end %>
@@ -15,7 +15,7 @@
 					<div class="row" style="margin-left: 0px;">
 						<div class="col-md-11" style="padding-left: 0px !important;">
 						<%= image_tag(feed.project.avatar, class: "img-responsive projectpost") %>
-						<h4 style="text-align:left;padding-top:-2px; margin-top: -5px;"><%= feed.project.name %> </h4>
+						<h4 style="text-align:left;padding-top:-2px; margin-top: -5px;"><%= link_to feed.project.name, feed.project, class: "user_link" %> </h4>
 						<h5 style="padding-top:2px; text-align:left;">
 							<%feed.project.interests.each do |i| %> 
 							<%= i.name%>, 
@@ -115,7 +115,6 @@
 	      <%= simple_form_for comment, :url => update_comment_publications_path(:id => comment.id) do |f| %>
 	      <div class="modal-body">
 	        	<%= f.input :description, label: false%>
-	        
 	      </div>
 	      <div class="modal-footer">
 	        <%= f.submit "Salvar", class: "btn btn-default button_project button_submit"%>

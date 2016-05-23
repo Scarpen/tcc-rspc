@@ -4,17 +4,30 @@
   <div class="title-blue-publication " style="padding-top: 15px;">
     <div class="row">
       <div class="col-md-12" style="text-align:left; margin-bottom: 20px; ">
-        <span style="font-size: 17px;"> <%=  @topic.topic_title %> </span>
+        <h5 style="font-size:17px; margin-bottom: 5px; color: #333;"><%=  @topic.topic_title %>
+        <div style="float: right; padding-right:15px;"> <a href="#" class="btn button_project button_inactive" data-toggle="modal" data-target="#new_post">  Nova Resposta  </a> </div>
+      </h5> 
       </div>  
       <div class="col-md-12">
         <div class="col-md-2">
           <%= image_tag(@topic.user.avatar, class: "img-responsive") %>
         </div>
         <div class="col-md-10" style="text-align: left; padding-left:0px;">
-          <%= link_to @topic.user.name, @topic.user, class: "user_link" %><br>
+          <%= link_to @topic.user.name, @topic.user, class: "user_link" %>
+          <span style="float: right; color:#AAA; font-size: 11px;"> 
+            <%= @topic.created_at.to_formatted_s(:long_ordinal)  %>
+            <%= @topic.created_at == @topic.updated_at ? "" : "- Editado"  %> 
+            <% if current_user == @topic.user || @topic.project.user == current_user %>
+              <%= link_to '', "#", class: "glyphicon glyphicon-pencil",data:{toggle: 'modal', target: "#edit_topic_#{@topic.id}"} %> 
+            <% end %>
+          </span>
+          <br>
           <p> <%= @topic.description %> </p>
         </div>
       </div>
+
+      <%= render 'edit_topic', topic: @topic%>
+
       <% @topic.posts.each do |post|%>
       <div class="col-md-12" style="margin-top: 10px;">
         <hr style="margin-bottom: 5px; margin-top: 0px;"> 
@@ -22,19 +35,27 @@
           <%= image_tag(post.user.avatar, class: "img-responsive") %>
         </div>
         <div class="col-md-10" style="text-align: left; padding-left:0px;">
-          <%= link_to post.user.name, post.user, class: "user_link" %><br>
+          <%= link_to post.user.name, post.user, class: "user_link" %>
+          <span style="float: right; color:#AAA; font-size: 11px;"> 
+            <%= post.created_at.to_formatted_s(:long_ordinal)  %> 
+            <%= post.created_at == post.updated_at ? "" : "- Editado"  %> 
+            <% if current_user == post.user || @topic.project.user == current_user %>
+              <%= link_to '', "#", class: "glyphicon glyphicon-pencil",data:{toggle: 'modal', target: "#edit_post_#{post.id}"} %> 
+            <% end %>
+          </span>
           <p> <%= post.description %> </p>
         </div>
-
+        <%= render 'edit_post', post: post%>
       </div>
       <% end %>
 
-      <%= link_to 'Postar', new_post_path%>
-
+      <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;">
+        <div style="float: right; padding-right:30px;"> <a href="#" class="btn button_project button_inactive" data-toggle="modal" data-target="#new_post">  Nova Resposta  </a> </div>
+      </h5> 
     </div>
   </div>
 </div>
-
+<%= render 'new_post', topic: @topic, post: Post.new %>
 <!--
 <p id="notice"><%= notice %></p>
 

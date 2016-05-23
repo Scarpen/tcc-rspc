@@ -1,0 +1,26 @@
+<%= render 'usersnav' %>
+
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication " style="padding-top: 15px;">
+    <div class="row" style="text-align: left; padding-left: 15px">
+        <div class="col-md-12" style="margin-top: 5px; color: #333; padding-left: 0px;">
+           
+    	<h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;">  </h5>	
+    	</div>
+        <% @user.projects.each do |project| %>
+        <div class="col-md-6 " style="padding-left: 0px;padding-top: 14px;padding-bottom: 15px;padding-right:15px;" >
+            <div class="col-md-12 member" style="padding: 0px !important; "> 
+                <div class="col-md-4" style="padding: 0px !important;"> 
+                    <%= image_tag(project.avatar, class: "member_img") %>
+                </div>
+                <div class="col-md-8" style="padding: 5px !important; padding-left: 0px !important; "> 
+                    <%= link_to project.name, project, class: "user_link", style: "font-weight: bold; font-size: 15px" %>
+                    <h5 style= "font-size: 14px; color: #606060; margin-bottom: 4px;"> <%= project_interests(project) %> </h5>
+                </div>
+            </div>
+
+        </div>
+        <% end %>
+	</div>
+  </div>
+</div>
