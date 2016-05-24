@@ -9,6 +9,10 @@ class UsersController < ApplicationController
     @comment = Comment.new
 	end
 
+  def notifications
+    
+  end
+
   def close_window  
     user = User.find(current_user.id)
     user.status = "Offline"

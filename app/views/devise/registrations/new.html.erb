@@ -1,5 +1,3 @@
-<h2>Sign up</h2>
-
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
 <div class="water" style="border: 1px solid #EAEAEA">
@@ -24,8 +22,7 @@
         <%= f.association :interests, as: :check_boxes %>
       </div>
       <div class="col-md-4" style="text-align: right; padding-top: 60px;">
-            <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
-            <%= link_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
+          
       </div>
     </div>
   </div>
@@ -36,32 +33,58 @@
   <div class="title-blue-publication ">
     <div class="row" style="text-align: left">
       <div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
-      <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Objetivo </h5>
-        <%= f.input :gender, collection: ["Masculino", "Feminino"], as: :select, label: false, :include_blank => "Genêro", input_html: {id: "phase-input", style: ""} %>
+        <%= f.input :gender, collection: ["Masculino", "Feminino"], as: :radio_buttons, label: "Genêro" %>
+
+
+        <%= f.input :phone %>
+        <div id="datetimepicker4" class="input-append">
+           <span class="add-on">
+        <%= f.input :date_birthday, as: :string, data: {format: "dd-MM-yyyy"}, style: "witdh:90%;" %>
+    </span>
+  </div>
+        <script type="text/javascript">
+          $(function() {
+            $('#datetimepicker4').datetimepicker({
+              pickTime: false
+            });
+          });
+        </script>
+        
         <%= f.input :zipcode, :input_html => {
         :id => "zipcode_input",
         :onblur => "search(this)"
         } %>
-        <%= f.input :phone %>
-        <%= f.input :date_birthday %>
+
         <div id="address_inputs" style="display: none;">
+          <div class="col-md-6" style="padding:0px;">
           <%= f.input :address, :input_html => {
               :id => "address"
             } %>
+          </div>
+          <div class="col-md-6" style="padding:0px;">
           <%= f.input :neighborhood, :input_html => {
               :id => "neighborhood",
             } %>
+          </div>
+            <div class="col-md-6" style="padding:0px;">
           <%= f.input :city, :input_html => {
               :id => "city",
             } %>
+          </div>
+            <div class="col-md-6" style="padding:0px;">
           <%= f.input :state, :input_html => {
               :id => "state",
             } %>
+            </div>
           <%= f.input :complement %>
-        </div>
-  
-      <hr style="margin-top: 5px; margin-bottom: 10px;">
+
       </div>
+       <hr style="margin-top: 5px; margin-bottom: 10px;">
+        <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
+        <%= link_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
+
+
+
   </div>
   </div>
 </div>
@@ -126,7 +149,7 @@
     var check;
     var id;
     <% Interest.all.each do |interest|%>
-      id = "project_interest_ids_" + "<%= interest.id %>";
+      id = "user_interest_ids_" + "<%= interest.id %>";
       image = "#img_interest_"+ "<%= interest.id %>"
       check = document.getElementById(id);
       if (check.checked){
@@ -138,7 +161,7 @@
 
   function setInterest(id){
     var image = "#img_interest_"+id;
-    var id_check = "project_interest_ids_" + id;
+    var id_check = "user_interest_ids_" + id;
     var check_box = document.getElementById(id_check);
     if ($(image).hasClass("interest_selected")){
       $(image).removeClass("interest_selected");
@@ -155,7 +178,7 @@
     var check;
     var id;
     <% Interest.all.each do |interest|%>
-      id = "project_interest_ids_" + "<%= interest.id %>";
+      id = "user_interest_ids_" + "<%= interest.id %>";
       check = document.getElementById(id);
       if (check.checked){
         resultado = resultado + "<%= interest.name %>, ";

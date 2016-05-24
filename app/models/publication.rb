@@ -7,5 +7,6 @@ class Publication < ActiveRecord::Base
 
 	has_many :comments
 	has_many :shares
+	has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
 
 end

@@ -1,57 +1,205 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= f.error_notification %>
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row">
+      <div class="col-md-2">
+        
+        <%= f.input :avatar, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)" }  %>
+        <label id="fileupload-example-4-label " for="fileupload-example-4" style="margin-top: 0px">
+          <div class="temporary" style="cursor: pointer; width: 80px; height: 80px;" ><img id="imgDisplay" style="float: left; width: 80px; height: 80px; display:none;"/></div>
+        </label>
+      </div>
+      <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+        <%= f.input :name, placeholder: "Qual o seu nome?", label: false, input_html: {id: "search-input", style: "margin-bottom: 6px;", class: "form_input"}, autofocus: true, required: true %>       
+        <%= f.input :email, placeholder: "Qual o seu email?", label: false, input_html: {id: "search-input", style: " margin-bottom: 8px;", class: "form_input"}, required: true %>
+        <span style="font-size: 15px; margin-top:0px !important;" id="areas" >  <%= link_to 'Adicionar áreas do projeto', "#" ,class: "user_link", data:{toggle: "modal", target:"#myModal"} %> </span>       
+    
+      </div>
+      <div style="display: none;" >
+        <%= f.association :interests, as: :check_boxes %>
+      </div>
+      <div class="col-md-4" style="text-align: right; padding-top: 60px;">
+          
+      </div>
+    </div>
+  </div>
+</div>
 
-  <div class="form-inputs">
-    <%= f.input :avatar %>
-    <%= f.input :name %>
-    <%= f.input :email, required: true, autofocus: true %>
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-    <%= f.input :gender %>
-    <%= f.input :phone %>
-    <%= f.input :date_birthday %>
-    <%= f.input :zipcode, :input_html => {
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <div class="row" style="text-align: left">
+      <div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
+        <%= f.input :gender, collection: ["Masculino", "Feminino"], as: :radio_buttons, label: "Genêro" %>
+
+
+        <%= f.input :phone %>
+        <div id="datetimepicker4" class="input-append">
+           <span class="add-on">
+        <%= f.input :date_birthday, as: :string, data: {format: "dd-MM-yyyy"}, style: "witdh:90%;" %>
+    </span>
+  </div>
+        <script type="text/javascript">
+          $(function() {
+            $('#datetimepicker4').datetimepicker({
+              pickTime: false
+            });
+          });
+        </script>
+        
+        <%= f.input :zipcode, :input_html => {
         :id => "zipcode_input",
         :onblur => "search(this)"
-      } %>
-    <div id="address_inputs" style="visibility: hidden">
-    <%= f.input :address, :input_html => {
-        :id => "address"
-      } %>
-    <%= f.input :neighborhood, :input_html => {
-        :id => "neighborhood",
-      } %>
-    <%= f.input :city, :input_html => {
-        :id => "city",
-      } %>
-    <%= f.input :state, :input_html => {
-        :id => "state",
-      } %>
-    <%= f.input :complement %>
-  </div>
+        } %>
 
-    <%= f.association :abilities, collection: Ability.order(:name), as: :check_boxes %>
-    <%= f.association :interests, collection: Interest.order(:name), as: :check_boxes %>
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
-    <%= f.input :password_confirmation, required: false %>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
-  </div>
+        <div id="address_inputs" style="">
+          <div class="col-md-6" style="padding:0px;">
+          <%= f.input :address, :input_html => {
+              :id => "address"
+            } %>
+          </div>
+          <div class="col-md-6" style="padding:0px;">
+          <%= f.input :neighborhood, :input_html => {
+              :id => "neighborhood",
+            } %>
+          </div>
+            <div class="col-md-6" style="padding:0px;">
+          <%= f.input :city, :input_html => {
+              :id => "city",
+            } %>
+          </div>
+            <div class="col-md-6" style="padding:0px;">
+          <%= f.input :state, :input_html => {
+              :id => "state",
+            } %>
+            </div>
+          <%= f.input :complement %>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update" %>
+
+      </div>
+      <hr style="margin-top: 5px; margin-bottom: 10px;">
+          <%= f.input :password%>
+          <%= f.input :password_confirmation %>
+
+       <hr style="margin-top: 5px; margin-bottom: 10px;">
+
+    <%= f.input :current_password, hint: "Forneça sua senha atual para confirmar suas mudanças", required: true %>
+
+        <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
+        <%= link_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
+
+
+<br><br>
+
+<span style="font-size: 14px; float:left; font-weight: bold" > Infeliz? </span><br>
+      <%= link_to "Cancele sua conta", registration_path(resource_name), :method => :delete, :data => { :confirm => "Deseja mesmo cancelar sua conta ?"}, :class => 'btn btn-xs btn-default cancel-project' %>
+
   </div>
+  </div>
+</div>
 <% end %>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Selecionar Áreas do Projeto</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row"> 
+          <% Interest.all.each do |interest| %>  
+            <div class="col-md-2">
+              <a href="javascript:;" onclick="setInterest(<%= interest.id %>)">
+                <%= image_tag("interesse.jpg", class: "img-responsive interest_img", id: "img_interest_#{interest.id}") %>
+                <h5 style="text-align: center;" class="user_link"> <%= interest.name %> </h5>
+              </a>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal"> Concluir </button>
+      </div>
+    </div>
+  </div>
+</div>
 
-<h3>Cancel my account</h3>
 
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
 
-<%= link_to "Back", :back %>
 
+<script>
+  function imagePreview(input){
+    if (input.files && input.files[0]) 
+        {
+          $('#imgDisplay').show();
+          var filerdr = new FileReader();
+          filerdr.onload = function(e) {
+              $('#imgDisplay').attr('src', e.target.result);
+          };
+          filerdr.readAsDataURL(input.files[0]);
+        }
+    };
+
+    function imageLoad(){
+      $('#imgDisplay').show();
+      $('#imgDisplay').attr('src', "<%= @user.avatar.url %>");
+    };
+    
+  <% if action_name == 'edit' %>
+    imageLoad();
+    setInterests();
+    
+  <% else %>
+    limpar();
+  <% end %>
+
+  function setInterests(){
+    var image;
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "user_interest_ids_" + "<%= interest.id %>";
+      image = "#img_interest_"+ "<%= interest.id %>"
+      check = document.getElementById(id);
+      if (check.checked){
+        $(image).addClass("interest_selected");
+      }
+    <% end %>
+    setText();
+  };
+
+  function setInterest(id){
+    var image = "#img_interest_"+id;
+    var id_check = "user_interest_ids_" + id;
+    var check_box = document.getElementById(id_check);
+    if ($(image).hasClass("interest_selected")){
+      $(image).removeClass("interest_selected");
+      check_box.checked = false;
+    }else{
+      $(image).addClass("interest_selected");    
+      check_box.checked = true;
+    }
+    setText();
+  };
+
+  function setText(){
+    var resultado = "";
+    var check;
+    var id;
+    <% Interest.all.each do |interest|%>
+      id = "user_interest_ids_" + "<%= interest.id %>";
+      check = document.getElementById(id);
+      if (check.checked){
+        resultado = resultado + "<%= interest.name %>, ";
+      }
+    <% end %>
+    resultado = resultado.substring(0, resultado.length - 2);
+    resultado = resultado + " <a href='#' data-toggle='modal' data-target='#myModal' class='glyphicon glyphicon-pencil edit_areas'> </a>";
+
+    document.getElementById("areas").innerHTML = resultado;
+  };
+</script>
 
 <script>
 
@@ -62,7 +210,7 @@ function search(elem) {
     $('#neighborhood').val(data.address.neighborhood);
     $('#city').val(data.address.city);
     $('#state').val(data.address.state);
-    document.getElementById("address_inputs").style.visibility = "visible"
+    $("#address_inputs").show();
 
 
 });

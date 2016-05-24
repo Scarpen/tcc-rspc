@@ -171,11 +171,11 @@ ActiveRecord::Schema.define(version: 20160516172205) do
     t.string   "location",    limit: 255
     t.date     "date_start"
     t.date     "date_end"
-    t.string   "situation",   limit: 255, default: "0"
+    t.string   "situation",   limit: 255, default: "A Fazer"
     t.integer  "user_id",     limit: 4
     t.integer  "project_id",  limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
   end
 
   create_table "topics", force: :cascade do |t|

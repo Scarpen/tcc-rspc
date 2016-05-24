@@ -18,6 +18,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+//= require bootstrap-datetimepicker
 
 var ready = function () {
 

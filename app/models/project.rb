@@ -13,8 +13,8 @@ class Project < ActiveRecord::Base
   	has_many :topics
   	has_many :publications
   	has_many :tasks
-
-
+  	has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
+  	
   	validates :name, presence: true
   	validates :place, presence: true
 end

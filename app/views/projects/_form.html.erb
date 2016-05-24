@@ -87,9 +87,7 @@
 </div>
 
 <script>
-
   function imagePreview(input){
-
     if (input.files && input.files[0]) 
         {
           $('#imgDisplay').show();
@@ -105,7 +103,6 @@
       $('#imgDisplay').show();
       $('#imgDisplay').attr('src', "<%= @project.avatar.url %>");
     };
-
     
   <% if action_name == 'edit' || @project.errors.any? %>
     imageLoad();

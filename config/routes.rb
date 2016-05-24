@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :list_abilities_interests] do
     collection do
       get 'close_window'
-
+      get 'notifications'
     end
   end
 

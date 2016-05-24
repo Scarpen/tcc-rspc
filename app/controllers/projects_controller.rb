@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
     member.save
     member.create_activity(:send_request, :owner => User.find(project.creator_id) )
     flash[:success] = 'Your request has been sending!'
-    redirect_to list_projects_projects_path
+    redirect_to project
   end
 
 
