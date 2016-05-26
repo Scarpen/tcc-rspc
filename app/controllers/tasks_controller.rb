@@ -23,6 +23,12 @@ class TasksController < ApplicationController
 
 	    respond_to do |format|
 	      if @task.save
+
+	      	Assist.where(task_id: @task.id).each do |assist|
+	      		user = assist.user_id
+				@task.create_activity(:create, :owner => User.find(user))	
+	      	end
+
 	        format.html { redirect_to list_tasks_path(@task.project.id), notice: 'Task was successfully created.' }
 	        format.json { render :show, status: :created, location: @task }
 	      else

@@ -1,0 +1,9 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-plus"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <% if a.trackable %>
+  <%= link_to 'Novo tópico' %> de discussão foi criado no projeto <strong><%= a.trackable.project.name %></strong>.
+  <% else %>
+
+  <% end %>
+</li>

@@ -1,0 +1,10 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-plus"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <strong>Nova solicitação de Amizade</strong><br>
+  <% if a.trackable %>
+      <strong><%= User.find(a.trackable.friend_id).name %></strong> deseja adicioná-lo como amigo. 
+  <% else %>
+    added the story that is currently deleted.
+  <% end %>
+</li>

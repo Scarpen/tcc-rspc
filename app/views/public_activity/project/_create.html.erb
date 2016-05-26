@@ -1,9 +1,14 @@
 <li class="list-group-item">
   <span class="glyphicon glyphicon-plus"></span>
   <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
-  <strong>New Project</strong><br>
+  <strong>Novo projeto</strong> foi criado em uma das suas áreas de interesse.<br>
   <% if a.trackable %>
-    <strong><%= User.find(a.trackable.creator_id).name %></strong> added the new project <%= link_to a.trackable.name, project_path(a.trackable) %>.
+    <strong><%= User.find(a.trackable.creator_id).name %></strong> criou o projeto <%= link_to a.trackable.name, project_path(a.trackable) %>.
+
+    <% a.trackable.interests.take(3).each do |interest|%>
+    <%= interest.name %>, 
+    <% end %>
+
   <% else %>
     added the story that is currently deleted.
   <% end %>

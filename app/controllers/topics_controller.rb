@@ -36,11 +36,17 @@ end
 def create
     @topic = Topic.new(topic_params)
     @topic.user_id = current_user.id
-    project = Project.find(@topic.project_id)
+    @project = Project.find(@topic.project_id)
     respond_to do |format|
+
       if @topic.save
-        format.html { redirect_to list_topics_path(project), notice: 'Topic was successfully created.' }
-        format.json { render :show, status: :created, location: project}
+        @project.members.where(situation: 1).each do |member|
+          if member.user_id != current_user.id
+            @topic.create_activity(:create, :owner => User.find(member.user_id))
+          end
+        end
+        format.html { redirect_to list_topics_path(@project), notice: 'Topic was successfully created.' }
+        format.json { render :show, status: :created, location: @project}
       else
         format.html { render :new }
         format.json { render json: @topic.errors, status: :unprocessable_entity }

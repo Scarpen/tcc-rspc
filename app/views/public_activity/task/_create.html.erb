@@ -1,0 +1,9 @@
+<li class="list-group-item">
+  <span class="glyphicon glyphicon-plus"></span>
+  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
+  <% if a.trackable %>
+    Você foi vinculado a uma nova tarefa no projeto <strong><%= a.trackable.project.name %></strong>.<br> <%= link_to 'Visualize a tarefa', list_tasks_path(a.trackable.project.id)%>.
+  <% else %>
+    <!--added the story that is currently deleted.-->
+  <% end %>
+</li>

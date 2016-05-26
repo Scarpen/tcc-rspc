@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20160516172205) do
     t.text     "parameters",     limit: 65535
     t.integer  "recipient_id",   limit: 4
     t.string   "recipient_type", limit: 255
+    t.boolean  "visible"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

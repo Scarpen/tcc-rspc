@@ -3,5 +3,5 @@ class Member < ActiveRecord::Base
 	
 	belongs_to :user
 	belongs_to :project
-has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
+	has_many :activities, as: :trackable, class_name: 'PublicActivity::Activity', dependent: :destroy
 end

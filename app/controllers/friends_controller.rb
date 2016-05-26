@@ -11,6 +11,7 @@ class FriendsController < ApplicationController
 	    friend.friend_id = user_friend.id
 	    friend.status = 'request'
 	    friend.save
+	    flash[:success] = 'Sua solicitação foi realizada!'
 
 	    #Criando a solicitação de amizade que fica pendente da
 	    #aprovação do outro usuário
@@ -19,6 +20,7 @@ class FriendsController < ApplicationController
 	    friend2.friend_id = current_user.id
 	    friend2.status = 'pending'
 	    friend2.save
+	    #friend2.create_activity(:friend_request, :owner => User.find(friend2.user_id))
 	    redirect_to users_path
 	end
 
