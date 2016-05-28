@@ -14,13 +14,13 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:1000">
-      <strong><ul class="nav navbar-nav" style="font-size: 14px;">
-        <li class="navbar_item <%= active_class(root_path) %>" style="font-family: 'arial'"><%= link_to "Início", root_path  %></li>
-        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><%= link_to "Projetos", projects_path  %></li>
-        <li class="navbar_item <%= active_class(notifications_users_path) %>" style="font-family: 'arial'"><%= link_to "Notificações", notifications_users_path  %></li>
-        <li class="navbar_item " style="font-family: 'arial';"><a href="#">Mensagens</a></li>
+      <ul class="nav navbar-nav" style="font-size: 14px;">
+        <li class="navbar_item <%= active_class(root_path) %>" style="font-family: 'arial'"> <%= link_to root_path do%> <span class="glyphicon glyphicon-home" style="font-size:14px;"> </span> <span style="font-size:14px !important;"> Inicio </span> <% end %></li>
+        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><%= link_to projects_path do %> <span class="glyphicon glyphicon-th-large"> </span> <span style="font-size:14px !important;"> Projetos </span> <% end %></li>
+        <li class="navbar_item <%= active_class(notifications_users_path) %>" style="font-family: 'arial'"><%= link_to notifications_users_path do %> <span class="glyphicon glyphicon-bell"> </span> <span style="font-size:14px !important;"> Notificações </span><% end %></li>
+        <li class="navbar_item " style="font-family: 'arial';"><%= link_to notifications_users_path do %> <span class="glyphicon glyphicon-envelope"> </span> <span style="font-size:14px !important;"> Mensagens </span> <% end %></li>
         
-      </ul></strong>
+      </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>

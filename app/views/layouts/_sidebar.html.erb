@@ -1,12 +1,14 @@
       <% if current_user %>
       <div class="row" style="margin-left:0px; height: 68px; ">
+        <%= link_to current_user do %>
         <%= image_tag(current_user.avatar, class: "avatarlist") %>
+        <% end %>
         <br>
-        <h4 style="font-size: 15px; margin-top: 3px; line-height: 1; color: #009688"><strong><%= link_to current_user.name, current_user, class: "user_link" %></strong><br> <%= link_to 'Editar Perfil' , edit_user_registration_path, class: "edit_avatar", style: "font-size: 12px; padding-top: -9px" %></h4>
+        <h4 style="font-size: 15px; margin-top: 3px; line-height: 1; color: #009688"><span><%= link_to current_user.name, current_user, class: "user_link" %></span><br> <%= link_to 'Editar Perfil' , edit_user_registration_path, class: "edit_avatar", style: "font-size: 12px; padding-top: -9px" %></h4>
       </div>
       <hr style="margin-top: 0px; margin-bottom: 8px; margin-left: 8px;">
-      <span class="glyphicon glyphicon-chevron-down" style="cursor: pointer; font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%" id="meus">
-        <strong style="font-family:'Roboto-Regular'; margin-left: -10px; font-size: 14px;">Meus Projetos</strong>
+      <span class="glyphicon glyphicon-minus" style="cursor: pointer; font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%" id="meus">
+        <span style="font-family:'Roboto-Regular'; margin-left: -10px; font-size: 14px;">Meus Projetos</span>
       </span>
       <div class="online" style="margin-top: 0px; margin-bottom: 10px" id="meus_list">
         <div style="margin-left: 10px">
@@ -18,7 +20,7 @@
               <%= image_tag(project.avatar, class: "projectlist") %>
             </div>
             <div class="top-on" >
-              <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000">
+              <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-all;white-space: nowrap ;">
                 <%= project.name %>
               </div>
               <div class="clearfix"> </div>
@@ -30,8 +32,8 @@
           <% end %> 
         </div>
       </div>
-      <span class="glyphicon glyphicon-chevron-down" style="cursor: pointer ;font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%" id="participar">
-        <strong style="font-family:'Roboto-Regular'; margin-left: -10px; font-size: 14px;">Participando</strong>
+      <span class="glyphicon glyphicon-minus" style="cursor: pointer ;font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%" id="participar">
+        <span style="font-family:'Roboto-Regular'; margin-left: -10px; font-size: 14px;">Participando</span>
       </span>
       <div class="online" style="margin-top: 0px; margin-bottom: 10px" id="participar_list">
         <div style="margin-left: 10px">
@@ -43,7 +45,7 @@
               <%= image_tag(project.avatar, class: "projectlist") %>
             </div>
             <div class="top-on" >
-              <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000">
+              <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; ">
                 <%= project.name %>
               </div>
               <div class="clearfix"> </div>
@@ -55,8 +57,8 @@
           <% end %> 
         </div>
       </div>
-      <span class="glyphicon glyphicon-chevron-down" style="cursor: pointer; font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%"  id="seguir">
-        <strong style="font-family:'Roboto-Regular'; margin-left: -10px; font-size: 14px;">Seguindo</strong>
+      <span class="glyphicon glyphicon-minus" style="cursor: pointer; font-size: 13px; margin-left: 10px; margin-bottom: 8px; color: #009688; width: 100%"  id="seguir">
+        <span style="font-family:'Roboto-Regular'; margin-left: -10px; font-size: 14px;">Seguindo</span>
       </span>
       <div class="online" style="margin-top: 0px; margin-bottom: 10px" id="seguir_list">
         <div style="margin-left: 10px">
@@ -68,7 +70,7 @@
               <%= image_tag(project.avatar, class: "projectlist") %>
             </div>
             <div class="top-on" >
-              <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000">
+              <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-word;">
                 <%= project.name %>
               </div>
               <div class="clearfix"> </div>
@@ -115,33 +117,33 @@
               $("#seguir").click(function(){
 
                   $("#seguir_list").slideToggle(500);
-                  if ($("#seguir").hasClass('glyphicon-chevron-down')) {
-                    $("#seguir").addClass('glyphicon-chevron-right');
-                    $("#seguir").removeClass('glyphicon-chevron-down');
+                  if ($("#seguir").hasClass('glyphicon-minus')) {
+                    $("#seguir").addClass('glyphicon-plus');
+                    $("#seguir").removeClass('glyphicon-minus');
                   }else{
-                    $("#seguir").addClass("glyphicon-chevron-down");
-                    $("#seguir").removeClass("glyphicon-chevron-right");
+                    $("#seguir").addClass("glyphicon-minus");
+                    $("#seguir").removeClass("glyphicon-plus");
                   }
               });
                 $("#participar").click(function(){
                   
                   $("#participar_list").slideToggle(500);
-                  if ($("#participar").hasClass('glyphicon-chevron-down')) {
-                    $("#participar").addClass('glyphicon-chevron-right');
-                    $("#participar").removeClass('glyphicon-chevron-down');
+                  if ($("#participar").hasClass('glyphicon-minus')) {
+                    $("#participar").addClass('glyphicon-plus');
+                    $("#participar").removeClass('glyphicon-minus');
                   }else{
-                    $("#participar").addClass("glyphicon-chevron-down");
-                    $("#participar").removeClass("glyphicon-chevron-right");
+                    $("#participar").addClass("glyphicon-minus");
+                    $("#participar").removeClass("glyphicon-plus");
                   }
               });
                 $("#meus").click(function(){
                   $("#meus_list").slideToggle(500);
-                  if ($("#meus").hasClass('glyphicon-chevron-down')) {
-                    $("#meus").addClass('glyphicon-chevron-right');
-                    $("#meus").removeClass('glyphicon-chevron-down');
+                  if ($("#meus").hasClass('glyphicon-minus')) {
+                    $("#meus").addClass('glyphicon-plus');
+                    $("#meus").removeClass('glyphicon-minus');
                   }else{
-                    $("#meus").addClass("glyphicon-chevron-down");
-                    $("#meus").removeClass("glyphicon-chevron-right");
+                    $("#meus").addClass("glyphicon-minus");
+                    $("#meus").removeClass("glyphicon-plus");
                   }  
               });
       </script>

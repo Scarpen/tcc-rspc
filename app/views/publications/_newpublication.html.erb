@@ -6,7 +6,7 @@
 			<%= image_tag(current_user.avatar, class: "newpostavatar") %>
 			</div>
 			<div class="col-md-11 public_in" style="margin-left: -10px">
-			<%= f.input :description, label: false, input_html:{style: 'width: 440px; height: 40px; resize: none;', id: "public_textarea"} %>
+			<%= f.input :description, label: false, input_html:{style: 'width: 440px; height: 40px; resize: none;', id: "public_textarea", placeholder: "Qual atividade você realizou hoje?"} %>
 			
 			<%= f.input :image, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)"}  %>
 				<label id="fileupload-example-4-label " for="fileupload-example-4" style="float:right; width: 20px; margin-top: 5px">

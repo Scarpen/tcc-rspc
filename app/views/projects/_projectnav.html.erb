@@ -5,11 +5,9 @@
         <%= image_tag(@project.avatar, style: "width: 80px; height: 80px;") %>
       </div>
       <div class="col-md-6" style="text-align: left; margin-top: 5px;">
-        <strong><span style="font-size: 20px;"> <%= @project.name %> </span></strong><br>
-          <%= link_to  @project.user.name, @project.user, style: "font-size: 15px", class: "user_link" %>
-        <br>
+        <span style="font-size: 18px;"> <%= @project.name %> </span><br>
         <span style="font-size: 15px;"> <%= project_interests(@project) %> </span><br>
-        <strong> <span style="font-size: 15px;"> <%= @project.place %> </span></strong>
+        <span style="font-size: 15px;"> <%= @project.place %> </span>
       </div>
       <div class="col-md-4" style="text-align: right; padding-top: 60px;">
           <% if current_user == @project.user %>
@@ -45,7 +43,7 @@
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:1000">
-        <strong>
+        
           <ul class="nav navbar-nav project_nav" style="font-size: 14px;">
             <li class="navbar_item <%= active_class(project_path(@project)) %>" style="font-family: 'arial'"> <%=link_to "Início", project_path(@project) %> </li>
             <li class="navbar_item <%= active_class(about_project_path(@project.id)) %>" style="font-family: 'arial'"> <%= link_to "Sobre", about_project_path(@project.id) %>   </li>
@@ -53,7 +51,6 @@
             <li class="navbar_item <%= active_class(list_tasks_path(@project.id)) %>" style="font-family: 'arial';"><%= link_to "Tarefas", list_tasks_path(@project.id)%></li>
             <li class="navbar_item <%= active_class(list_topics_path(@project.id)) %>" style="font-family: 'arial';"><%= link_to "Forum", list_topics_path(@project.id)%></li>     
           </ul>
-        </strong>
       </div>
     </div>
   </div>

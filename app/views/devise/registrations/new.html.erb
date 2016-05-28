@@ -194,7 +194,7 @@
 <script>
 
 function search(elem) {
-	$.getJSON("http://localhost:3000/cep/" + elem.value + ".json", function(data){ //pegando dados via JSON
+	$.getJSON("http://192.168.0.106:3000/cep/" + elem.value + ".json", function(data){ //pegando dados via JSON
 		
 		$('#address').val(data.address.address);
 		$('#neighborhood').val(data.address.neighborhood);
