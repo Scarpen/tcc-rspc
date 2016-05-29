@@ -2,7 +2,9 @@
   <div class="title-blue-publication ">
     <div class="row">
       <div class="col-md-2">
-        <%= image_tag(@project.avatar, style: "width: 80px; height: 80px;") %>
+        <div style="width: 80px; border: 1px solid #DDD; height: 80px;line-height: 76px;">
+        <%= image_tag(@project.avatar, style: "width: 78px; max-height:78px;") %>
+        </div>
       </div>
       <div class="col-md-6" style="text-align: left; margin-top: 5px;">
         <span style="font-size: 18px;"> <%= @project.name %> </span><br>

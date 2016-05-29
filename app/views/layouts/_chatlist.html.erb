@@ -3,26 +3,25 @@
 
         <div class="panel panel-primary" style="border-color: #009688; margin-bottom: 0px" >
           <div class="panel-heading " style="background-color: #009688; border-color: #009688">
-           <span> AMIGOS </span> <a class="link_chat glyphicon glyphicon-minus" id="list_link" style="float: right" href="#" > </a>
+           <span> AMIGOS </span> <a class="link_chat glyphicon glyphicon-minus" id="list_link" style="float: right" href="javascript:;" > </a>
          </div>
          <div id="list_chat" >
           <div class="panel-body" style="padding-bottom: 0px;padding-top: 6px;padding-left: 8px; overflow-y: scroll; max-height: 424px;">
             <ul class="media-list">
               <% current_user.friends.where(status: "accept").each_with_index do |friend, index| %>
               <% index +=1 %>
-              <%= link_to "#", class: "start-conversation",
+              <%= link_to "javascript:;", class: "start-conversation",
               "data-sid" => current_user.id, "data-rip" => friend.friend_id do %>
               <li class="media">
 
                 <div class="media-body">
 
-                  <div class="media" style="padding-bottom: 6px; margin-left: 13px;">
+                  <div class="media" style="padding-bottom: 6px; margin-left: 11px;">
 
                     <%= image_tag(friend.friend.avatar, class: "img-responsive", style: "float:left; width: 32px; height: 32px;") %>
 
-                    <div class="media-body" style="float: right; width: 160px; padding-top: 7px;">
-                      <h5 style="color: #000 !important"> <%= friend.friend.name %> </h5>
-
+                    <div class="media-body" style="float: right; width: 160px; padding-top: 7px; ">
+                      <h5 style="color: #000 !important; margin-left: 1px;"> <%= friend.friend.name %> <span class="glyphicon glyphicon-certificate <%= user_on(friend.friend) %>" style="margin-top: 2px; font-size: 10px;"></span></h5>
 
                     </div>
                   </div>
@@ -101,11 +100,11 @@
 
 
       var current_user_id = '#{current_user.try(:id)}';
-      if (data.receiver_id == current_user_id){
+      if (data.receiver_id == <%= current_user.id %>) {
         chatBox.chatWith(data.conversation_id);
       }
       else {
-        chatBox.chatWith(data.conversation_id);
+        
       }
     });
     </script>

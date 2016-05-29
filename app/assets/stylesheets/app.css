@@ -533,3 +533,19 @@
     color: #006020;
 }
 
+.user_on{
+    color: #009688;
+    float: right;
+}
+
+.user_off{
+    color: #DDD;
+    float: right;
+}
+.link_white{
+    color: white !important;
+}
+.link_white:hover{
+    color: white;
+    background: inherit !important;
+}

@@ -97,4 +97,12 @@ module ApplicationHelper
     end
   end
 
+  def user_on(user)
+    if user.status == "Online"
+      "user_on"
+    else
+      "user_off"
+    end
+  end
+
 end

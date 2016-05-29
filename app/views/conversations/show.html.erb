@@ -2,7 +2,7 @@
   <div class="chatboxtitle">
     <i class="fa fa-comments"></i>
 
-    <h1><%= @reciever.name %> </h1>
+    <h1><%= link_to @reciever.name, user_path(@reciever.id), class: "link_white" %> </h1>
   </div>
 
   <div class="chatboxoptions">
