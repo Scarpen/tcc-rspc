@@ -121,4 +121,8 @@ module ApplicationHelper
     list_projets
   end
 
+  def inter(conversation)
+    current_user == conversation.recipient ? conversation.sender : conversation.recipient
+  end
+
 end

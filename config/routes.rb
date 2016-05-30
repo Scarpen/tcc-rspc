@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get 'close_window'
       get 'notifications'
+      get 'messages'
     end
   end
 

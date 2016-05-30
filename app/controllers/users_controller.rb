@@ -13,6 +13,10 @@ class UsersController < ApplicationController
     
   end
 
+  def messages
+    
+  end
+
   def close_window  
     user = User.find(current_user.id)
     user.status = "Offline"

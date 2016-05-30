@@ -1,7 +1,51 @@
 <div class="water" style="border: 1px solid #EAEAEA">
   <div class="title-blue-publication " style="padding-top: 15px;">
     <div class="row" style="text-align: left; padding-left: 15px">
-    	
+    	<div class="col-md-4">
+    		<% current_user.friends.where(status: "accept").each do |friend| %>
+    			<%= image_tag(friend.friend.avatar, style: "width: 35px; height: 35px; float: left") %>
+    			<span style="line-height: 35px;"> <%= friend.friend.name %> </span>
+    		<% end %>
+    	</div>
+    	<div class="col-md-8">
+    		<% current_user.friends.where(status: "accept").take(1).each do |friend| %>
+    			<%     conversation = Conversation.where(recipient_id: current_user.id, sender_id: friend.friend.id).first
+    					if  conversation
+    						@conversation = conversation
+    					else
+    						@conversation = Conversation.where(sender_id: current_user.id, recipient_id: friend.friend.id).first
+    					end
+					   @reciever = inter(@conversation)
+					   @messages = @conversation.messages
+					   @message = Message.new %>
+<!--
+				  <div class="chatboxhead" >
+				  <div class="chatboxtitle">
+				    <i class="fa fa-comments"></i>
+
+				    <h1><% link_to @reciever.name, user_path(@reciever.id), class: "link_white" %> </h1>
+				  </div>
+
+				  <div class="chatboxoptions">
+
+				    <%= link_to "", "#", class: "toggleChatBox link_chat glyphicon glyphicon-minus", "data-cid" => @conversation.id %>
+				    &nbsp;&nbsp;
+				    <%= link_to "".html_safe, "#", class: "closeChat link_chat glyphicon glyphicon-remove", "data-cid" => @conversation.id %>
+				  </div>
+				</div>
+			-->
+				<div class="chatboxcontent" style="width: 100%; height: 500px;">
+				  <% if @messages.any? %>
+				      <%= render @messages %>
+				  <% end %>
+				</div>
+				<div class="chatboxinput">
+				  <%= form_for([@conversation, @message], :remote => true, :html => { id: "conversation_form_#{@conversation.id}"}) do |f| %>
+				      <%= f.text_area :body, class: "chatboxtextarea", "data-cid" => @conversation.id, style: "width:100%;" %>
+				  <% end %>
+				</div>
+    		<% end %>
+    	</div>
     </div>
   </div>
 </div>

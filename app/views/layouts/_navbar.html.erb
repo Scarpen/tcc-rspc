@@ -18,7 +18,7 @@
         <li class="navbar_item <%= active_class(root_path) %>" style="font-family: 'arial'"> <%= link_to root_path do%> <span class="glyphicon glyphicon-home"> </span> <span style="font-size:14px !important;"> Inicio </span> <% end %></li>
         <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><%= link_to projects_path do %> <span class="glyphicon glyphicon-th"> </span> <span style="font-size:14px !important;"> Projetos </span> <% end %></li>
         <li class="navbar_item <%= active_class(notifications_users_path) %>" style="font-family: 'arial'"><%= link_to notifications_users_path do %> <span class="glyphicon glyphicon-bell"> </span> <span style="font-size:14px !important;"> Notificações </span><% end %></li>
-        <li class="navbar_item " style="font-family: 'arial';"><%= link_to notifications_users_path do %> <span class="glyphicon glyphicon-envelope"> </span> <span style="font-size:14px !important;"> Mensagens </span> <% end %></li>
+        <li class="navbar_item <%= active_class(messages_users_path) %>" style="font-family: 'arial';"><%= link_to messages_users_path do %> <span class="glyphicon glyphicon-envelope"> </span> <span style="font-size:14px !important;"> Mensagens </span> <% end %></li>
         
       </ul>
       

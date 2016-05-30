@@ -6,24 +6,26 @@
 #
 default: &default
   adapter: mysql2
+  host: 192.168.0.33
+  port: 3306
   pool: 5
   timeout: 5000
   encoding: utf8
-  username: root
-  password: root
+  username: tccsi7na
+  password: si7na
   socket: /var/run/mysqld/mysqld.sock
 
 development:
   <<: *default
-  database: tccsi7na_development
+  database: appRails_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: tccsi7na_test
+  database: appRails_test
 
 production:
   <<: *default
-  database: tccsi7na_production
+  database: appRails_production
