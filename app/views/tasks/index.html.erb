@@ -42,10 +42,10 @@
 
 
     <div class="row" style="padding: 6px; text-align: left;">
-      <div class="col-md-4" style="padding-left:0px;padding-right: 0px;">
-        <h5 style="text-align: left; margin-left: 5px"> A Fazer </h5>
+      <div class="col-md-4" style="padding-left:0px;padding-right: 0px; padding-top: 7px; border-top: 2px solid #0066CC">
+        <h5 style="text-align: left; margin-left: 5px; font-size: 16px; text-align: center;"> A Fazer </h5>
         <% @tasks.where(:situation => "A Fazer").each do |p| %>
-          <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid orange; border-radius: 5px; padding: 3px;">
+          <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-top: 2px solid #0066CC; border-radius: 5px; padding: 3px;">
             <div style="width:150px; float: left">
             <p style="font-size: 15px;  margin-bottom: 4px"> <%= p.description %> </p>
             <% p.users.each do |user|%>
@@ -70,10 +70,10 @@
 
       </div>
 
-      <div class="col-md-4" style="padding-left:0px;padding-right: 0px;">
-        <h5 style="text-align: left; margin-left: 5px"> Fazendo </h5>
+      <div class="col-md-4" style="padding-left:0px;padding-right: 0px; padding-top: 7px; border-top: 2px solid #FFCC66">
+        <h5 style="text-align: left; margin-left: 5px; font-size: 16px; text-align: center;"> Fazendo </h5>
         <% @tasks.where(:situation => "Fazendo").each do |p| %>
-            <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid green; border-radius: 5px; padding: 3px;">
+            <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-top: 2px solid #FFCC66; border-radius: 5px; padding: 3px;">
             <div style="width:150px; float: left">
             <p style="font-size: 15px; margin-bottom: 4px"> <%= p.description %> </p>
             <% p.users.each do |user|%>
@@ -97,10 +97,10 @@
 
       </div>
 
-        <div class="col-md-4" style="padding-left:0px;padding-right: 0px;">
-        <h5 style="text-align: left; margin-left: 5px"> Feitas </h5>
+        <div class="col-md-4" style="padding-left:0px;padding-right: 0px; padding-top: 7px; border-top: 2px solid #00CC66">
+        <h5 style="text-align: left; margin-left: 5px; font-size: 16px; text-align: center;"> Concluídas </h5>
         <% @tasks.where(:situation => "Feita").each do |p| %>
-          <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-bottom: 2px solid #0000AA; border-radius: 5px; padding: 3px;">
+          <div class="row" style="border: 1px solid #CCC; margin: 3px; margin-top: 6px; border-top: 2px solid #00CC66; border-radius: 5px; padding: 3px;">
             <div style="width:150px; float: left">
             <p style="font-size: 15px;  margin-bottom: 4px"> <%= p.description %> </p>
             <% p.users.each do |user|%>

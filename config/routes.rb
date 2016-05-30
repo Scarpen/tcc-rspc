@@ -35,7 +35,7 @@ Rails.application.routes.draw do
   resources :friends do
     collection do
       get 'friend_request'
-      delete 'cancel_request'
+      get 'cancel_request'
       delete 'refuse_request'
       get 'accept_request'
     end

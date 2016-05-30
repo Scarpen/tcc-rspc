@@ -1,16 +1,25 @@
-<div class="water" style="border: 1px solid #EAEAEA">
-    <div class="title-blue-publication " style="padding-top: 15px;">
+<% if current_user %>
+<div class="water">
     	<div class="row"> 
-    	<% Project.all.each do |project|%>
-    		<div class="col-md-12">
-	    		<div class="col-md-4">
-	    			<%= image_tag(project.avatar, style: "height: 36px; width: 36px;" ) %>
-	    		</div>
-	    		<div class="col-md-8">
-	    			asdsad
-	    		</div>
+    	<div class="col-md-12">
+
+    	PROJETOS RECENTES
+    	
+    	<hr style="margin-top: 2px; margin-bottom: 5px; border: 1px solid #DDD">
+    	<% recommends.take(4).each do |project|%>
+    		
+    		<div class="col-md-12" style="padding-left: 0px; padding-right: 0px;">
+    			<%= link_to project do%>
+	    			<%= image_tag(project.avatar, style: "height: 40px; width: 40px; float:left; margin-right: 10px;" ) %>
+	    		<% end %>
+	    		<%= link_to project do%>
+	    			<span class="user_link" style="line-height: 40px; white-space: nowrap; color: #009688 !important; background: #F6F8FA !important" > <span style="text-align: left;"> <%= project.name %> </span> <span> <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive", style: "float:right; margin-top: 10px;" %> </span> </span>
+	    		<% end %>
+	    	<hr style="margin-top: 4px; margin-bottom: 4px;">
     		</div>
+    		
     	<% end %>
     	</div>
-	</div>
+    	</div>
 </div>
+<% end %>

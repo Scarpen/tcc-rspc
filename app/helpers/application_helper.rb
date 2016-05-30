@@ -69,9 +69,9 @@ module ApplicationHelper
     if project.interests.count == 1
       return "Pertence à área de " + project.interests.first.name.to_s
     elsif project.interests.count > 1
-      result = "Percente às áreas de"
+      result = "Pertence às áreas de "
       project.interests.each do |interest|
-        result += interest.name.to_s
+        result += interest.name.to_s + ", "
       end
       return result
     else
@@ -103,6 +103,22 @@ module ApplicationHelper
     else
       "user_off"
     end
+  end
+
+  def recommends
+    list_projets = Array.new
+    Project.all.each do |project|
+      current_user.interests.each do |interest|
+        if project.interests.include?(interest)
+          unless Member.where(user_id: current_user.id, project_id: project.id).first
+            unless list_projets.include?(project)
+              list_projets << project
+            end
+          end
+        end
+      end
+    end
+    list_projets
   end
 
 end

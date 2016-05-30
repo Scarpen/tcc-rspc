@@ -53,7 +53,7 @@
                       </ul>
                     </div>
                     <% end %>
-                    <h5 style= "font-size: 14px; color: #606060; margin-bottom: 4px;"> Membro há <%= time_ago_in_words(member.updated_at) %> </h5>
+                    <h5 style= "font-size: 13px; color: #606060; margin-bottom: 4px;"> Membro há <%= time_ago_in_words(member.updated_at) %> </h5>
                     <% friendship = Friend.where(user_id: current_user.id, friend_id: member.user.id).first %>
                     <% if friendship %>
                         <% if friendship.status == "pending" %>

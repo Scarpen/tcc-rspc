@@ -119,6 +119,12 @@
 
 .actived{
     border-bottom: thick solid #009688 !important;
+
+}
+
+.actived a {
+    font-weight: bold;
+    color: #009688 !important;
 }
 
 .navbar_item{
@@ -128,7 +134,7 @@
 
 .navbar_item a{
     font-size: 16px;
-	color: #333 !important;
+	color: #333;
 }
 .navbar_item a:hover{
 	color: #009688 !important;

@@ -13,11 +13,11 @@
     	<hr style="margin-top: 5px; margin-bottom: 10px;">
     	<h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Detalhes </h5>
         <p>
-    		O Projeto é comandado por <%= link_to @project.user.name, @project.user, class: "user_link" %><br>
-    		<%= project_interests_about(@project) %><br>
-    		Possui <%= members_count(@project.members.count) %><br>
-    		Acontece em <%= @project.place %><br>
-    		Está em fase de <%= @project.phase %>
+    		<span class="glyphicon glyphicon-star"> </span> O Projeto é comandado por <%= link_to @project.user.name, @project.user, class: "user_link" %><br>
+    		<span class="glyphicon glyphicon-tags"> </span> <%= project_interests_about(@project) %><br>
+    		<span class="glyphicon glyphicon-user"> </span> Possui <%= link_to members_count(@project.members.count), members_project_path(@project), class: "user_link" %><br>
+    		<span class="glyphicon glyphicon-map-marker"> </span> Acontece em <%= @project.place %><br> 
+    		<span class="glyphicon glyphicon-flag"> </span> Está em fase de <%= @project.phase %>
             <p>
     	</div>
 	</div>
