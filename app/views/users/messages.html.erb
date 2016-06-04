@@ -3,9 +3,12 @@
     <div class="row" style="text-align: left; padding-left: 15px">
     	<div class="col-md-4">
     		<% current_user.friends.where(status: "accept").each do |friend| %>
-    			<%= image_tag(friend.friend.avatar, style: "width: 35px; height: 35px; float: left") %>
-    			<span style="line-height: 35px;"> <%= friend.friend.name %> </span>
+    			<div style="margin-bottom: 10px">
+	    			<%= image_tag(friend.friend.avatar, style: "width: 35px; height: 35px; float: left") %>
+	    			<span style="line-height: 35px;"> <%= friend.friend.name %> </span>
+    			</div>
     		<% end %>
+
     	</div>
     	<div class="col-md-8">
     		<% current_user.friends.where(status: "accept").take(1).each do |friend| %>

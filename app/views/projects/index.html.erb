@@ -15,7 +15,7 @@
         <div style="float:left; margin: 5px">
           <a href="javascript:;" onclick="showList(0)" class="user_link" ><%= image_tag("interesse.jpg", class: "img-responsive  interest_selected interest int_link_0", style: "width: 50px ; height: 50px;") %>Recentes</a>
         </div> 
-        <% Interest.all.each do |interest| %>
+        <% current_user.interests.each do |interest| %>
         <div style="float:left; margin: 5px">
           <a href = "javascript:;" onclick = "showList(<%= interest.id %>)" class="user_link"><%= image_tag("interesse.jpg", class: "img-responsive interest int_link_#{interest.id}", style: "width: 50px ; height: 50px;") %><%= interest.name %></a>
         </div>
@@ -37,7 +37,7 @@
     </div>
 
 
-    <% Interest.all.each do |interest| %>
+    <% current_user.interests.each do |interest| %>
         <div class="col-md-12 interests" id="interest_<%= interest.id %>">
           <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> <%= interest.name %></h5> 
           <hr style="margin-top: 1px; margin-bottom:10px;">
