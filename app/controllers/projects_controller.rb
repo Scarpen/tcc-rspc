@@ -4,6 +4,11 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
+    if params[:search]
+      @projects = Project.search(params[:search]).order("created_at DESC")
+    else
+      @projects = Project.all.order('created_at DESC')
+    end
   end
 
   def list_projects
@@ -102,8 +107,8 @@ class ProjectsController < ApplicationController
   def edit
   end
 
-  # POST /projects
-  # POST /projects.json
+  # Project /projects
+  # Project /projects.json
   def create
     @users = User.all
     @project = Project.new(project_params)

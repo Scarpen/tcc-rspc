@@ -3,13 +3,27 @@
 <%= render 'projectlistnav' %>
 
 
-
 <div class="water" style="border: 1px solid #EAEAEA">
   <div class="title-blue-publication ">
     <div class="row">
-      <div class="col-md-12" style="text-align: right; margin-bottom: 20px">
+      <div class="col-md-8" style="text-align: left">
+        <%= form_tag(projects_path, :method => "get") do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Search Posts" %>
+        <%= submit_tag "Search", :name => nil %>
+        <% end %>
+      </div>
+      <div class="col-md-4" style="text-align: right; margin-bottom: 20px">
       <%= link_to "Criar Projeto", new_project_path, method: :get, style: "color:#000", class: "btn btn-default button_project button_inactive"  %>
       </div>
+
+
+      <div class="col-md-12" style="margin-bottom: 15px">
+        <% @projects.each do |project| %>
+        <%= project.name%>
+        <% end %>
+      </div>
+
+
       <div class="col-md-12" style="margin-bottom: 15px;">
         <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Selecione uma área para refinar sua busca </h5> 
         <div style="float:left; margin: 5px">

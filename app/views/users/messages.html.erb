@@ -39,7 +39,7 @@
 			-->
 				<div class="chatboxcontent" style="width: 100%; height: 500px;">
 				  <% if @messages.any? %>
-				      <%= render @messages %>
+				      <%= render @messages.order('created_at DESC') %>
 				  <% end %>
 				</div>
 				<div class="chatboxinput">

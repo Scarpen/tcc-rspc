@@ -2,9 +2,14 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
 
 	def index
-		@users = User.all
+		@users = User.all.order('name ASC')
+    if params['search-input']
+      @users = User.search(params['search-input']).order('name ASC')
+    else
+      @users = User.all.order('name ASC')
+    end
 
-    @users = User.where.not("id = ?",current_user.id).order("created_at DESC")
+#    @users = User.where.not("id = ?",current_user.id).order("created_at DESC")
     @conversations = Conversation.involving(current_user).order("created_at DESC")
     @comment = Comment.new
 	end

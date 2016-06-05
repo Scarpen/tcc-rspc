@@ -26,8 +26,6 @@ class HomeeController < ApplicationController
 			end
 		end
 		@publications_feed = @publications_feed.sort_by{|e| e[:created_at]}.reverse
-
-	
 	end
 	
 
