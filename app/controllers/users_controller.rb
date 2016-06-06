@@ -10,7 +10,8 @@ class UsersController < ApplicationController
 	end
 
   def notifications
-    
+    @activities = PublicActivity::Activity.where(owner_id: current_user.id).order(created_at: :desc)
+    PublicActivity::Activity.where(owner_id: current_user.id).update_all(:visible => true)
   end
 
   def close_window  

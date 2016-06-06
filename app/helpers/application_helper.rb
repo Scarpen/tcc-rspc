@@ -105,4 +105,9 @@ module ApplicationHelper
     end
   end
 
+  def notification_count 
+    @activities = PublicActivity::Activity.where(owner_id: current_user.id).order(created_at: :desc)
+    @activities.where(:visible => false).count  
+  end
+
 end
