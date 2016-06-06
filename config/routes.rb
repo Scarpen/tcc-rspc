@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get 'close_window'
       get 'notifications'
+      get 'messages'
     end
   end
 
@@ -35,7 +36,7 @@ Rails.application.routes.draw do
   resources :friends do
     collection do
       get 'friend_request'
-      delete 'cancel_request'
+      get 'cancel_request'
       delete 'refuse_request'
       get 'accept_request'
     end
@@ -61,6 +62,7 @@ Rails.application.routes.draw do
   end
   resources :interests
   resources :abilities
+  get 'projects/search_result' => 'projects#search_result', as: :search_result
   resources :projects do
     collection do
         get 'share_publication'

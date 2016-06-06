@@ -9,28 +9,33 @@
         <span class="icon-bar"></span>
       </button>
       <div class="navbar-brand">
-      <a  href="#" style="color: #009688;" >Brand</a> 
+      <a  href="#" style="color: #009688;" >RSPC</a> 
       </div>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="z-index:1000">
       <ul class="nav navbar-nav" style="font-size: 14px;">
+        <% if current_user %>
         <li class="navbar_item <%= active_class(root_path) %>" style="font-family: 'arial'"> <%= link_to root_path do%> <span class="glyphicon glyphicon-home"> </span> <span style="font-size:14px !important;"> Inicio </span> <% end %></li>
-        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><%= link_to projects_path do %> <span class="glyphicon glyphicon-th-large"> </span> <span style="font-size:14px !important;"> Projetos </span> <% end %></li>
+        <li class="navbar_item <%= active_class(projects_path) %>" style="font-family: 'arial'"><%= link_to projects_path do %> <span class="glyphicon glyphicon-th"> </span> <span style="font-size:14px !important;"> Projetos </span> <% end %></li>
         <li class="navbar_item <%= active_class(notifications_users_path) %>" style="font-family: 'arial'"><%= link_to notifications_users_path do %> <span class="glyphicon glyphicon-bell"> </span> <span style="font-size:14px !important;"> Notificações <%= notification_count %></span><% end %></li>
-        <li class="navbar_item " style="font-family: 'arial';"><%= link_to notifications_users_path do %> <span class="glyphicon glyphicon-envelope"> </span> <span style="font-size:14px !important;"> Mensagens </span> <% end %></li>
-        
+        <li class="navbar_item <%= active_class(messages_users_path) %>" style="font-family: 'arial';"><%= link_to messages_users_path do %> <span class="glyphicon glyphicon-envelope"> </span> <span style="font-size:14px !important;"> Mensagens </span> <% end %></li>
+        <% end %>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-      <form class="navbar-form navbar-right" role="search" >
-        <button type="submit" class="btn btn-default glyphicon glyphicon-search" id="submit-button"></button>
-        <div class="form-group " style="width: 300px">
-          <input type="text" class="form-control glyphicon glyphicon-search" id="search-input" placeholder="Pesquise por projetos e pessoas">
-        </div>
+      <% if current_user %>
 
-      </form>
+      <%= form_tag(search_result_path, :method => "get", :class => 'navbar-form navbar-right') do %>
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search" id="submit-button"></button>
+          <div class="form-group " style="width: 300px">
+            <%= text_field_tag 'search-input', params[:search], placeholder: "Pesquise por projetos e pessoas", class: 'form-control glyphicon glyphicon-search' %>
+          </div>
+          
+      <% end %>
+
+      <% end %>
         </li>
         <% if current_user %>
         <li class="dropdown navbar-avatar" >

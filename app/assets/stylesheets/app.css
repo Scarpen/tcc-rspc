@@ -15,30 +15,21 @@
 
 }
 .projectpost{
-	width: 44px;
-	height: 44px;
+	width: 42px;
+	height: 42px;
 	float: left;
-	margin-left: 0px;
-	margin-top: -10px;
-	margin-right: 5px;
-}
-.avatarlist{
-	width: 50px;
-	height: 50px;
-	float: left;
-	margin-top: 9px;
-	margin-right: 5px;
-	margin-left: 9px;
 }
 
+.avatarlist{
+	width: 48px;
+	height: 48px;
+}
 
 
 .projectlist{
 	width: 24px;
 	height: 24px;
-	float: left;
 	border-radius: 0;
-
 }
 
 .imagepost{
@@ -47,13 +38,8 @@
 }
 
 .newpostavatar{
-	width: 32px;
-	height: 32px;
-	float: left;
-	margin-left: -5px;
-	margin-top: 5px;
-	margin-right: 5px;
-
+	width: 30px;
+	height: 30px;
 }
 
 .imageinput{
@@ -119,6 +105,12 @@
 
 .actived{
     border-bottom: thick solid #009688 !important;
+
+}
+
+.actived a {
+    font-weight: bold;
+    color: #009688 !important;
 }
 
 .navbar_item{
@@ -128,7 +120,7 @@
 
 .navbar_item a{
     font-size: 16px;
-	color: #333 !important;
+	color: #333;
 }
 .navbar_item a:hover{
 	color: #009688 !important;
