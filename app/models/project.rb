@@ -1,6 +1,12 @@
 class Project < ActiveRecord::Base
 	include PublicActivity::Model
 
+  def self.search(search)
+    if search
+      where('name LIKE ?', "%#{search}%")
+    end
+  end
+
 	mount_uploader :avatar, AvatarUploader
 
 	belongs_to :user, :foreign_key => :creator_id
@@ -18,10 +24,6 @@ class Project < ActiveRecord::Base
   validates :name, presence: true
   validates :place, presence: true
 
-def self.search(search)
-  if search
-    where('name LIKE ?', "%#{search}%")
-  end
-end
+
 
 end

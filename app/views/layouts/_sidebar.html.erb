@@ -1,7 +1,11 @@
       <% if current_user %>
       <div class="row" style="margin-left:0px; height: 68px; ">
         <%= link_to current_user do %>
-        <%= image_tag(current_user.avatar, class: "avatarlist") %>
+
+        <div style="width: 50x; border: 1px solid #DDD; height: 50px;line-height:47px;float:left;margin-top: 9px;margin-right: 5px;margin-left: 9px;">
+            <%= image_tag(current_user.avatar, class: "avatarlist") %>
+        </div>
+        
         <% end %>
         <br>
         <h4 style="font-size: 15px; margin-top: 3px; line-height: 1; color: #009688"><span><%= link_to current_user.name, current_user, class: "user_link" %></span><br> <%= link_to 'Editar Perfil' , edit_user_registration_path, class: "edit_avatar", style: "font-size: 12px; padding-top: -9px" %></h4>
@@ -16,9 +20,12 @@
           <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 1 && project.creator_id == current_user.id%>
           <%= link_to project do %>
           <div class="online-top elem_list" style=" margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
-            <div class="">
-              <%= image_tag(project.avatar, class: "projectlist") %>
+
+
+            <div style="width: 26x; border: 1px solid #DDD; height: 26px;line-height: 22px;float:left; margin-right: 10px;">
+                <%= image_tag(project.avatar, class: "projectlist") %>
             </div>
+
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-all;white-space: nowrap ;">
                 <%= project.name %>
@@ -41,9 +48,11 @@
           <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 1 && project.creator_id != current_user.id %>
           <%= link_to project do %>
           <div class="online-top elem_list" style=" margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
-            <div class="">
-              <%= image_tag(project.avatar, class: "projectlist") %>
+
+            <div style="width: 26x; border: 1px solid #DDD; height: 26px;line-height: 22px;float:left; margin-right: 10px;">
+                <%= image_tag(project.avatar, class: "projectlist") %>
             </div>
+
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; ">
                 <%= project.name %>
@@ -66,9 +75,11 @@
           <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 2 %>
           <%= link_to project do %>
           <div class="online-top elem_list" style=" margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
-            <div class="">
-              <%= image_tag(project.avatar, class: "projectlist") %>
+
+            <div style="width: 26x; border: 1px solid #DDD; height: 26px;line-height: 22px;float:left; margin-right: 10px;">
+                <%= image_tag(project.avatar, class: "projectlist") %>
             </div>
+
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-word;">
                 <%= project.name %>

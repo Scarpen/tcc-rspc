@@ -83,6 +83,26 @@ module ApplicationHelper
     count > 1 ? "#{count} Membros" : "#{count} Membro"
   end
 
+  def users_count(count)
+    if count == 1 
+      return "Foi encontrado o usuário:"
+    elsif count > 1
+      return "Foram encontrados os usuários:" 
+    elsif count < 1
+      return "Nenhum usuário foi encontrado"
+    end
+  end
+
+  def project_count(count)
+    if count == 1 
+      return "Foi encontrado o projeto:"
+    elsif count > 1
+      return "Foram encontrados os projetos:" 
+    elsif count < 1
+      return "Nenhum projeto foi encontrado"
+    end
+  end
+
   def topic_fixed(topic)
     topic.important ? "topic-fixed-true" : ""
   end
