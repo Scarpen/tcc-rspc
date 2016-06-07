@@ -18,6 +18,23 @@ module ApplicationHelper
   	user.save
   end
 
+  def welcome_project(user)
+    if user.gender == 'Masculino'
+      return "Seja Bem-vindo!"
+    elsif user.gender == 'Feminino'
+      return "Seja Bem-vinda!"
+    end
+  end
+
+  def interest_project(project)
+    current_user.interests.each do |interest|
+      project.interests.each do |p_interest|
+        if interest.id == p_interest.id
+          return interest.name
+        end
+      end
+    end
+  end
 
   def requests(count)
   	if count == 1 

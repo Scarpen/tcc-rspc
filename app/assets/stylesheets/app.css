@@ -20,6 +20,12 @@
 	float: left;
 }
 
+.notification{
+    width: 38px;
+    height: 38px;
+    float: left;
+}
+
 .avatarlist{
 	width: 48px;
 	height: 48px;

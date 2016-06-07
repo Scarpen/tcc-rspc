@@ -1,10 +1,18 @@
 <li class="list-group-item">
-  <span class="glyphicon glyphicon-edit"></span>
-  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
-  <strong><%= activity.owner ? activity.owner.name : 'Guest' %></strong>
-  <% if a.trackable %>
-    was following the project <%= link_to Project.find(a.trackable.project_id).name, project_path(a.trackable) %>.
-  <% else %>
-    was unfollowing the project.
+ 	
+
+   	<small style="padding-left:45px; margin-top:-10px" class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small>
+
+  	<br/>
+
+	<div style="width: 40x; border: 1px solid #DDD; height: 40px;line-height:38px;float:left; margin-left: 0px; margin-top: -16px; margin-right: 5px;">
+		<%= image_tag(a.trackable.user.avatar, class: "notification") %>
+	</div>
+
+<% if a.trackable %>
+  <strong><%= link_to a.trackable.user.name, user_path(a.trackable.user) %></strong>
+  
+    está seguindo o projeto <%= link_to Project.find(a.trackable.project_id).name, project_path(a.trackable.project_id) %>.
   <% end %>
+  <div class="clearfix"></div>
 </li>

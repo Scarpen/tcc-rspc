@@ -65,8 +65,9 @@ class ProjectsController < ApplicationController
     member.user_id = current_user.id
     member.situation = 2
     member.save
-    member.create_activity(:follow, :owner => current_user)
-    flash[:success] = 'Your are following this project!'
+    member.create_activity(:follow, :owner => User.find(project.creator_id))
+    
+    flash[:success] = 'Você está seguindo esse projeto!'
     redirect_to project_path(project)
   end
 

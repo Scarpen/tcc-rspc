@@ -24,9 +24,16 @@ class TasksController < ApplicationController
 	    respond_to do |format|
 	      if @task.save
 
-	      	Assist.where(task_id: @task.id).each do |assist|
-	      		user = assist.user_id
-				@task.create_activity(:create, :owner => User.find(user))	
+	      	@task.project.members.each do |member|
+	      		if current_user.id != member.user_id
+	      			Assist.where(task_id: @task.id).each do |assist|
+	      				if assist.user_id == member.user_id
+	      					@task.create_activity(:invite_task, :owner => User.find(assist.user_id))	
+	      				elsif assist.user_id != member.user_id
+	      					@task.create_activity(:create, :owner => User.find(member.user_id))
+	      				end
+	      			end
+	      		end
 	      	end
 
 	        format.html { redirect_to list_tasks_path(@task.project.id), notice: 'Task was successfully created.' }
