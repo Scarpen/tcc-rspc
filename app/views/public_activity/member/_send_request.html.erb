@@ -9,7 +9,7 @@
 	</div>
 
   <% if a.trackable %>
-   <strong> <%= link_to a.trackable.user.name, user_path(a.trackable.user.id) %> </strong> deseja entrar no seu projeto <strong><%= a.trackable.project.name%></strong>.  <%= link_to ' (Lista de Solicitações)', request_list_path(a.trackable.project) %>.
+   <strong> <%= link_to a.trackable.user.name, user_path(a.trackable.user.id), class: "user_link" %> </strong> deseja entrar no seu projeto <strong><%= a.trackable.project.name%></strong>.  <%= link_to ' (Lista de Solicitações)', request_list_path(a.trackable.project), class: "user_link" %>.
   <% end %>
   <div class="clearfix"> </div>
 </li>

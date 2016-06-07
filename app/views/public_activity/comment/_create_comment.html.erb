@@ -8,7 +8,7 @@
 	</div>
 
   <% if a.trackable %>
-      <%= a.trackable.user.name %> adicionou um comentário na <strong><%= link_to 'publicação', publication_path(a.trackable) %></strong> do projeto <%= a.trackable.publication.project.name %>.
+      <%= a.trackable.user.name %> adicionou um comentário na <strong><%= link_to 'publicação', publication_path(a.trackable), class: "user_link" %></strong> do projeto <%= a.trackable.publication.project.name %>.
   <% end %>
   <div class="clearfix"></div>
 </li>

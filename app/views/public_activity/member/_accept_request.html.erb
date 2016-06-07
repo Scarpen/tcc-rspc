@@ -10,7 +10,7 @@
 
   
   <% if a.trackable %>
-     Sua solicitação para entrar no projeto <strong><%= link_to a.trackable.project.name, project_path(a.trackable.project) %></strong> foi aceita. <%= welcome_project(a.trackable.user) %>
+     Sua solicitação para entrar no projeto <strong><%= link_to a.trackable.project.name, project_path(a.trackable.project), class: "user_link" %></strong> foi aceita. <%= welcome_project(a.trackable.user) %>
   <% else %>
     was unfollowing the project.
   <% end %>

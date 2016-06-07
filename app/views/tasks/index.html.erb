@@ -2,8 +2,9 @@
 
 <div class="water" style="border: 1px solid #EAEAEA">
   <div class="title-blue-publication " style="padding-top: 15px;">
-
+      <% if current_user == @project.user %>
       <div style="text-align: left; margin-left: -5px; margin-bottom: 10px;"> <a href="#" class="btn button_project button_inactive" data-toggle="modal" data-target="#newtask">  Nova Tarefa  </a> </div>
+      <% end %>
         <div class="modal fade" id="newtask" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -19,7 +20,7 @@
                     <h5 style="text-align: left; margin-top: 7px;"> Responsáveis: </h5>
                     <div class="row" style= "padding: 20px;">
                       <% @users.each do |user| %>
-                        <a href="javascript:;" onclick="setUser(<%= user.id %>)">
+                        <a href="javascript:;" onclick="setUser(<%= user.id %>)" class="user_link">
                         <div class="col-md-4" id="user_task" style="margin-bottom: 10px;padding-right: 1px;">
                           <div class="row" id="user_img_<%= user.id %>" style="margin: 0px">
                           <%= image_tag(user.avatar, class: "img-responsive", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
@@ -53,6 +54,7 @@
             <% end %>
             </div>
             <div style="width:11px; float:right">
+              <% if current_user == @project.user %>
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
@@ -61,6 +63,7 @@
                   
                   <li> <%= link_to 'Excluir', task_path(p), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
               </ul>
+              <% end %>
             </div> 
           </div>
 
@@ -81,6 +84,7 @@
             <% end %> 
             </div>
             <div style="width:11px; float:right">
+              <% if current_user == @project.user %>
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
@@ -88,6 +92,7 @@
                   <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
                   <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
               </ul>
+              <% end %>
             </div>
           </div>
 
@@ -108,6 +113,7 @@
             <% end %>
             </div>
             <div style="width:11px; float:right">
+              <% if current_user == @project.user %>
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
@@ -115,6 +121,7 @@
                   <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
                   <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
               </ul>
+              <% end %>
             </div>
           </div>
 

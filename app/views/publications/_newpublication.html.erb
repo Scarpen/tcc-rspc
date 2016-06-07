@@ -23,22 +23,28 @@
 				</div>
 			</div>
 		</div>
+		
 		<div id="publication_fields" style="display: none; ">
-			<div class="row">
-				<hr style="margin-top:3px;margin-bottom:0px; ">
-				<div style="float: left; width:50px; font-size:14px;  background: #DDD; height: 34px" id="onproject">
-					<h5 style="margin-top: 9px;"> Em: </h5>
+				<div class="row">
+					<hr style="margin-top:3px;margin-bottom:0px; ">
+					<div style="float: left; width:50px; font-size:14px;  background: #DDD; height: 34px" id="onproject">
+						<h5 style="margin-top: 9px;"> Em: </h5>
+					</div>
+					
+						
+					
+						<div style="float: left; width:460px;">
+						<%= f.association :project, collection: current_user.projects.order(:name), label: false, :include_blank => "qual o projeto que você realizou essa atividade?", input_html: {id: "combo-input", onchange: "verifyPost(this)"} %>
+						</div>
 				</div>
-				<div style="float: left; width:460px;">
-				<%= f.association :project, collection: current_user.projects.order(:name), label: false, :include_blank => "qual o projeto que você realizou essa atividade?", input_html: {id: "combo-input", onchange: "verifyPost(this)"} %>
-				</div>
+				
 
-			</div>
 				<div class="row" >
 				<hr style="margin-top:0px;margin-bottom:3px; border-top: 1px solid #DDD;">
 				<div style="width: 100px; float: right; margin-right: 0px;"  onclick="verifySubmit()">
 					<%= f.submit "Publicar", class: 'btn btn-success', id: 'publication_submit', style: "background: #009688; padding-top: 2px; padding-bottom: 2px;" %>
 				</div>
+
 
 			</div>
 		</div>
@@ -109,15 +115,6 @@ $(document).ready(function () {
                   var el = document.getElementById('onproject');
                   
               });
-
-
-			  
-
-               
-				
-
-
-
 
 
         });

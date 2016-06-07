@@ -68,8 +68,8 @@
                 <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
                 <%= project.name %><br>
 
-                <div style="width: 139x; border: 1px solid #DDD; height: 139px;line-height:137px;">
-                    <%= image_tag(project.avatar, class: "img-responsive showproject") %>
+                <div style="width: 141px; border: 1px solid #DDD; height: 141px;line-height: 137px;">
+                <%= image_tag(project.avatar, style: "width: 139px; max-height:139px;") %>
                 </div>
 
 

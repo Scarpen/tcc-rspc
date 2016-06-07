@@ -10,9 +10,9 @@
 	</div>
 
 <% if a.trackable %>
-  <strong><%= link_to a.trackable.user.name, user_path(a.trackable.user) %></strong>
+  <strong><%= link_to a.trackable.user.name, user_path(a.trackable.user), class: "user_link" %></strong>
   
-    está seguindo o seu projeto <%= link_to Project.find(a.trackable.project_id).name, project_path(a.trackable.project_id) %>.
+    está seguindo o seu projeto <%= link_to Project.find(a.trackable.project_id).name, project_path(a.trackable.project_id), class: "user_link" %>.
   <% end %>
   <div class="clearfix"></div>
 </li>

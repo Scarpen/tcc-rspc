@@ -3,7 +3,7 @@
   <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
   <strong><%= activity.owner ? activity.owner.name : 'Guest' %></strong>
   <% if a.trackable %>
-    edited the project <%= link_to a.trackable.name, project_path(a.trackable) %>.
+    edited the project <%= link_to a.trackable.name, project_path(a.trackable), class: "user_link" %>.
   <% else %>
     edited the story that is currently deleted.
   <% end %>

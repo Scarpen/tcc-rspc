@@ -9,7 +9,7 @@
 	</div>
 
   <% if a.trackable %>
-    <%= a.trackable.user.name %> realizou uma <strong><%= link_to 'nova publicação', publication_path(a.trackable)%></strong> no projeto <%= a.trackable.project.name %>.
+    <%= a.trackable.user.name %> realizou uma <strong><%= link_to 'nova publicação', publication_path(a.trackable), class: "user_link"%></strong> no projeto <%= a.trackable.project.name %>.
   <% end %>
     <div class="clearfix"></div>
 </li>
