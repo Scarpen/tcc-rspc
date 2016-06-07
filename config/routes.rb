@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   end
   resources :interests
   resources :abilities
+  get 'projects/search_result' => 'projects#search_result', as: :search_result
   resources :projects do
     collection do
         get 'share_publication'

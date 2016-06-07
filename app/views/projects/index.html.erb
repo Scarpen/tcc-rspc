@@ -3,19 +3,27 @@
 <%= render 'projectlistnav' %>
 
 
-
 <div class="water" style="border: 1px solid #EAEAEA">
   <div class="title-blue-publication ">
     <div class="row">
-      <div class="col-md-12" style="text-align: right; margin-bottom: 20px">
+      <div class="col-md-8" style="text-align: left; padding-left: 0px;">
+        <%= form_tag(projects_path, :method => "get", :class => 'navbar-form', :style => 'margin-top: 0px;') do %>
+        <button type="submit" class="btn btn-default glyphicon glyphicon-search" id="submit-button"></button>
+          <div class="form-group " style="width: 250px">
+            <%= text_field_tag 'search-input', params[:search], placeholder: "Pesquise por projetos", class: 'form-control glyphicon glyphicon-search' %>
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-4" style="text-align: right; margin-bottom: 20px; margin-top:8px">
       <%= link_to "Criar Projeto", new_project_path, method: :get, style: "color:#000", class: "btn btn-default button_project button_inactive"  %>
       </div>
+
       <div class="col-md-12" style="margin-bottom: 15px;">
         <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Selecione uma área para refinar sua busca </h5> 
         <div style="float:left; margin: 5px">
           <a href="javascript:;" onclick="showList(0)" class="user_link" ><%= image_tag("interesse.jpg", class: "img-responsive  interest_selected interest int_link_0", style: "width: 50px ; height: 50px;") %>Recentes</a>
         </div> 
-        <% Interest.all.each do |interest| %>
+        <% current_user.interests.each do |interest| %>
         <div style="float:left; margin: 5px">
           <a href = "javascript:;" onclick = "showList(<%= interest.id %>)" class="user_link"><%= image_tag("interesse.jpg", class: "img-responsive interest int_link_#{interest.id}", style: "width: 50px ; height: 50px;") %><%= interest.name %></a>
         </div>
@@ -26,28 +34,32 @@
           <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> 
             Criados Recentemente </h5> 
             <hr style="margin-top: 1px; margin-bottom:10px;">
-          <% Project.all.order(created_at: :desc).each do |project| %>
+          <% @projects.order(created_at: :desc).each do |project| %>
              <div class="col-md-4" style="margin-bottom: 10px; text-align: left; ">
               <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
                 <%= project.name %><br>
-                <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
+                <div style="width: 141px; border: 1px solid #DDD; height: 141px;line-height: 137px;">
+                <%= image_tag(project.avatar, style: "width: 139px; max-height:139px;") %>
+                </div>
               </a> 
             </div>
           <% end %>
     </div>
 
 
-    <% Interest.all.each do |interest| %>
+    <% current_user.interests.each do |interest| %>
         <div class="col-md-12 interests" id="interest_<%= interest.id %>">
           <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> <%= interest.name %></h5> 
           <hr style="margin-top: 1px; margin-bottom:10px;">
           <% interest.projects.order(created_at: :desc).each do |project| %>
-             <div class="col-md-4" style="margin-bottom: 10px; text-align: left;">
-              <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
-              <%= project.name %><br>
-              <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
-            </a>
-            </div>
+             <% if @projects.include?(project) %>
+               <div class="col-md-4" style="margin-bottom: 10px; text-align: left;">
+                <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
+                <%= project.name %><br>
+                <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
+              </a>
+              </div>
+            <% end %>
           <% end %>
         </div>
     <% end %>
@@ -56,7 +68,7 @@
 </div>
 </div>
 
-<% Project.all.each do |project| %>
+<% @projects.each do |project| %>
                 <div class="modal fade" id="modal_<%= project.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">

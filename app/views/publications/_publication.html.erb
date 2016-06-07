@@ -14,7 +14,11 @@
 				<div class="title-blue" style="margin-top:3px; border: 1px solid #EAEAEA">
 					<div class="row" style="margin-left: 0px;">
 						<div class="col-md-11" style="padding-left: 0px !important;">
-						<%= image_tag(feed.project.avatar, class: "img-responsive projectpost") %>
+
+						<div style="width: 44x; border: 1px solid #DDD; height: 44px;line-height:42px;float:left; margin-left: 0px; margin-top: -10px; margin-right: 5px;">
+							<%= image_tag(feed.project.avatar, class: "projectpost") %>
+						</div>
+
 						<h4 style="text-align:left;padding-top:-2px; margin-top: -5px;"><%= link_to feed.project.name, feed.project, class: "user_link" %> </h4>
 						<h5 style="padding-top:2px; text-align:left;">
 							<%feed.project.interests.each do |i| %> 

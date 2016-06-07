@@ -4,14 +4,29 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     @projects = Project.all
+    if params['search-input']
+      @projects = Project.search(params['search-input']).order("created_at DESC")
+    else
+      @projects = Project.all.order('created_at DESC')
+    end
+  end
+
+  def search_result
+    @users = User.all.order('name ASC')
+    @projects = Project.all.order('name ASC')
+    if params['search-input']
+      @users = User.search(params['search-input']).order('name ASC')
+      @projects = Project.search(params['search-input']).order('name ASC')
+    else
+      @users = User.all.order('name ASC')
+      @projects = Project.all.order('name ASC')
+    end
   end
 
   def list_projects
     @projects = current_user.projects
     @myprojects = Project.where(creator_id: current_user.id)
   end
-
-
 
   def accept_request
     member = Member.find(params[:member])
@@ -102,8 +117,8 @@ class ProjectsController < ApplicationController
   def edit
   end
 
-  # POST /projects
-  # POST /projects.json
+  # Project /projects
+  # Project /projects.json
   def create
     @users = User.all
     @project = Project.new(project_params)
