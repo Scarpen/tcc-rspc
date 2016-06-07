@@ -53,10 +53,10 @@
 
                     <div class="media-body" style="float: right; width: 160px; margin-top: -2px !important;">
                       <h5 style="color: #000 !important"> <%= friend.friend.name %> </h5>
-                      <%= link_to accept_request_friends_path(friend: friend), data: { confirm: 'Are you sure?'}, class: "btn btn-success request_button", style: "opacity: 1; background-color: #009688 !important; margin-top: 5px !important;" do %>
+                      <%= link_to accept_request_friends_path(friend: friend), class: "btn btn-success request_button", style: "opacity: 1; background-color: #009688 !important; margin-top: 5px !important;" do %>
                       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                       <% end %>   
-                      <%= link_to refuse_request_friends_path(friend: friend), method: :delete, data: { confirm: 'Are you sure?'}, class: "request_button btn btn-default ", style: "opacity: 1; margin-top: 5px !important;" do %>
+                      <%= link_to refuse_request_friends_path(friend: friend), method: :delete, class: "request_button btn btn-default ", style: "opacity: 1; margin-top: 5px !important;" do %>
                       <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                       <% end %>   
 

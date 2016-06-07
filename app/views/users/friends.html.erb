@@ -21,7 +21,7 @@
                         <span class="glyphicon glyphicon-chevron-down drop_icon"></span>
                       </span>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><%= link_to 'Desfazer Amizade', cancel_request_friends_path(friend: friend), method: :delete, data: { confirm: "Deseja remover o #{friend.friend.name} de seus amigos?"} %></li>
+                        <li><%= link_to 'Desfazer Amizade', cancel_request_friends_path(friend: friend), data: { confirm: "Deseja remover o #{friend.friend.name} de seus amigos?"} %></li>
                       </ul>
                     </div>
                     <% end %>

@@ -9,7 +9,7 @@
 	</div>
 
   <% if a.trackable %>
-    Você foi vinculado a uma <strong><%= link_to 'nova tarefa', list_tasks_path(a.trackable.project.id)%></strong> no projeto <%= a.trackable.project.name %>.<br>.
+    Você foi vinculado a uma <strong><%= link_to 'nova tarefa', list_tasks_path(a.trackable.project.id), class: "user_link"%></strong> no projeto <%= a.trackable.project.name %>.<br>.
   <% end %>
   <div class="clearfix"></div>
 </li>

@@ -3,7 +3,96 @@
 
 <%= render 'projectnav' %>
 
-<%= render 'publications/newpublication' %>
+<% membership = Member.where(project_id: @project.id, user_id: current_user.id).first
+if membership
+if membership.situation == 1 %>
+<div class="water" style="border: 1px solid #EAEAEA">
+  <div class="title-blue-publication ">
+    <%= simple_form_for @publication do |f| %>
+    <div class="row" >
+      <div class="col-md-1" >
+
+      <div style="width: 32x; border: 1px solid #DDD; height: 32px;line-height:28px;float:left;margin-left: -5px;margin-top: 5px;margin-right: 5px;">
+          <%= image_tag(current_user.avatar, class: "newpostavatar") %>
+      </div>
+
+      </div>
+      <div class="col-md-11 public_in" style="margin-left: -10px">
+      <%= f.input :description, label: false, input_html:{style: 'width: 440px; height: 40px; resize: none;', id: "public_textarea", placeholder: "Qual atividade você realizou hoje?"} %>
+      
+      <%= f.input :image, label: false, input_html:{class: "", id: 'fileupload-example-4', onchange:"imagePreview(this)"}  %>
+        <label id="fileupload-example-4-label " for="fileupload-example-4" style="float:right; width: 20px; margin-top: 5px">
+          <span class="glyphicon glyphicon-camera add_img" style="font-size: 32px; cursor: pointer;" ></span>
+        </label>
+
+        <div class="row "  id= "imagePrev" style="margin-top: -10px; display: none;">
+        <img id="imgDisplay" style="float: left; width: auto; height: 50px; margin-left: 16px;"/>
+        <i class="glyphicon glyphicon-remove" style="cursor: pointer;" onclick="removeImage()"> </i>
+        </div>
+      </div>
+    </div>
+    
+    <div id="publication_fields" style="display: none; ">
+        <%= f.input :project_id, :as => :hidden, :input_html => {:value =>  @project.id} %>
+        <div class="row" >
+        <div style="width: 100px; float: right; margin-right: 0px;">
+          <%= f.submit "Publicar", class: 'btn btn-success', style: "background: #009688; padding-top: 2px; padding-bottom: 2px;" %>
+        </div>
+      </div>
+    </div>
+
+    
+    
+    <% end %>
+  </div>
+
+</div>
+<script>
+function imagePreview(input){
+
+  if (input.files && input.files[0]) 
+      {
+        $("#imagePrev").show();
+        $("#publication_fields").show();
+        var filerdr = new FileReader();
+        filerdr.onload = function(e) {
+            $('#imgDisplay').attr('src', e.target.result);
+        };
+        filerdr.readAsDataURL(input.files[0]);
+      }
+};
+function removeImage(){
+  var input = document.getElementById("fileupload-example-4");
+  input.value = "";
+  $("#imagePrev").hide();
+
+};
+function showComments(id){
+  var com = "#comments_" + id;
+  $(com).slideToggle(500);
+
+};
+
+
+$(document).ready(function () {
+
+                $("#public_textarea").click(function(){
+                  var el = document.getElementById('public_textarea');
+                  el.style.height = "70px";
+                  $("#publication_fields").show();
+
+
+              });
+               $("#public_textarea").blur(function(){
+                  var el = document.getElementById('onproject');
+                  
+              });
+
+        });
+
+</script>
+<% end
+end %>
 
 <% @project.publications.order(created_at: :desc).each do |feed| %>
 

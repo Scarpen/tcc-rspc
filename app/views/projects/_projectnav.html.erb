@@ -52,8 +52,13 @@
             <li class="navbar_item <%= active_class(project_path(@project)) %>" style="font-family: 'arial'"> <%=link_to "Início", project_path(@project) %> </li>
             <li class="navbar_item <%= active_class(about_project_path(@project.id)) %>" style="font-family: 'arial'"> <%= link_to "Sobre", about_project_path(@project.id) %>   </li>
             <li class="navbar_item <%= active_class(members_project_path(@project.id)) %>" style="font-family: 'arial'"> <%= link_to "Membros", members_project_path(@project.id)%> </li>
+            <% membership = Member.where(project_id: @project.id, user_id: current_user.id).first
+            if membership
+            if membership.situation == 1%>
             <li class="navbar_item <%= active_class(list_tasks_path(@project.id)) %>" style="font-family: 'arial';"><%= link_to "Tarefas", list_tasks_path(@project.id)%></li>
-            <li class="navbar_item <%= active_class(list_topics_path(@project.id)) %>" style="font-family: 'arial';"><%= link_to "Forum", list_topics_path(@project.id)%></li>     
+            <li class="navbar_item <%= active_class(list_topics_path(@project.id)) %>" style="font-family: 'arial';"><%= link_to "Forum", list_topics_path(@project.id)%></li>   
+            <% end 
+            end%>
           </ul>
       </div>
     </div>

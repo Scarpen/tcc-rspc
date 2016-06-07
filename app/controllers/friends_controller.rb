@@ -43,8 +43,13 @@ class FriendsController < ApplicationController
   	end
 
   	def cancel_request
+
 		friend = Friend.find(params[:friend])
-		friendship = Friend.where(user_id: friend.friend_id, friend_id: friend.user_id, status: 'pending').first
+		if friend.status == "accept"
+			friendship = Friend.where(user_id: friend.friend_id, friend_id: friend.user_id, status: 'accept').first
+		else
+			friendship = Friend.where(user_id: friend.friend_id, friend_id: friend.user_id, status: 'pending').first
+		end
 		friendship.delete
 		friend.delete
 	    redirect_to root_path

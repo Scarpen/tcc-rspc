@@ -10,7 +10,7 @@
   </div>
 
   <% if a.trackable %>
-    <%= User.find(a.trackable.creator_id).name %> criou o projeto <strong><%= link_to a.trackable.name, project_path(a.trackable) %></strong> na sua área de interesse de <%= interest_project(a.trackable) %>.
+    <%= User.find(a.trackable.creator_id).name %> criou o projeto <strong><%= link_to a.trackable.name, project_path(a.trackable), class: "user_link" %></strong> na sua área de interesse de <%= interest_project(a.trackable) %>.
   <% end %>
   <div class="clearfix"></div>
 </li>
