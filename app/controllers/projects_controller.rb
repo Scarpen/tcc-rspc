@@ -45,16 +45,30 @@ class ProjectsController < ApplicationController
     redirect_to request_list_path(project)
   end
 
+  def without_project
+    
+  end
+
 
   def send_request
     project = Project.find(params[:project])
-    member = Member.new
-    member.project_id = project.id
-    member.user_id = current_user.id
-    member.save
-    member.create_activity(:send_request, :owner => User.find(project.creator_id) )
-    flash[:success] = 'Sua solicitação foi enviada!'
-    redirect_to project
+    member = Member.where(project_id: project.id, user_id: current_user.id, situation: 2).first
+
+    if member
+      member.situation = 3
+      member.save
+      member.create_activity(:send_request, :owner => User.find(project.creator_id))
+      flash[:success] = 'Sua solicitação foi enviada!'
+      redirect_to project
+    else
+      member = Member.new
+      member.project_id = project.id
+      member.user_id = current_user.id
+      member.save
+      member.create_activity(:send_request, :owner => User.find(project.creator_id) )
+      flash[:success] = 'Sua solicitação foi enviada!'
+      redirect_to project
+    end
   end
 
 
@@ -73,10 +87,18 @@ class ProjectsController < ApplicationController
 
   def unfollow
     project = Project.find(params[:project])
-    member = Member.where(project_id: project.id, user_id: current_user.id, situation: 2).first
-    member.delete
-    flash[:success] = 'Você não está mais seguindo este projeto!'
-    redirect_to project_path(project)
+    Member.where(project_id: project.id, user_id: current_user.id).each do |member|
+      if member.situation == 2
+        member.delete
+        flash[:success] = 'Você não está mais seguindo este projeto!'
+        redirect_to project_path(project)
+      elsif member.situation == 3
+        member.situation = 0
+        member.save
+        flash[:success] = 'Você não está mais seguindo este projeto!'
+        redirect_to project_path(project)        
+      end
+    end
   end
 
   def share_publication

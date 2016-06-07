@@ -9,8 +9,7 @@
             É responsável por <strong><%= count_project_adm(Project.where(creator_id: current_user.id).count) %></strong>.<br>
             <%=count_project_part%><br>
             <%=count_project_follow%><br>
-    		Cidade: <%= @user.city %>.<br>
-    		Estado: <%= @user.state %>.<br>
+    		Mora em <%= @user.city %> - <%= @user.state %>.<br>
             Aniversário:  <%= @user.date_birthday.strftime("%d/%m")%><br>
             </p>
     	</div>

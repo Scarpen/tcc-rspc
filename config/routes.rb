@@ -70,8 +70,9 @@ Rails.application.routes.draw do
         get 'send_request'
         get 'accept_request'
         get 'refuse_request'
+        get 'without_project'
         get 'follow'
-        delete 'unfollow'
+        get 'unfollow'
       end
     end
   get 'chat_refresh' => 'homee#chat_refresh', as: :chat_refresh
