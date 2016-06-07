@@ -16,7 +16,7 @@
 
 	    		<% end %>
 	    		<%= link_to project do%>
-	    			<span class="user_link" style="line-height: 40px; white-space: nowrap; color: #009688 !important; background: #F6F8FA !important" > <span style="text-align: left;"> <%= project.name %> </span> <span> <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive", style: "float:right; margin-top: 10px;" %> </span> </span>
+	    			<span class="user_link" style="line-height: 40px; white-space: nowrap; color: #009688 !important; background: #F6F8FA !important" > <span style="text-align: left;"> <%= truncate project.name, :length   => 30, :separator => /\w/,:omission => "..." %> </span> <span> <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive", style: "float:right; margin-top: 10px;" %> </span> </span>
 	    		<% end %>
 	    	<hr style="margin-top: 4px; margin-bottom: 4px;">
     		</div>

@@ -34,10 +34,10 @@
         <%= f.input :gender, collection: ["Masculino", "Feminino"], as: :radio_buttons, label: "Genêro" %>
 
 
-        <%= f.input :phone %>
+        <%= f.input :phone , label: "Telefone"%>
         <div id="datetimepicker4" class="input-append">
            <span class="add-on">
-        <%= f.input :date_birthday, as: :string, data: {format: "dd-MM-yyyy"}, style: "witdh:90%;" %>
+        <%= f.input :date_birthday, as: :string, data: {format: "dd-MM-yyyy"}, style: "witdh:90%;" , label: "Data de Aniversário"%>
     </span>
   </div>
         <script type="text/javascript">
@@ -48,43 +48,43 @@
           });
         </script>
         
-        <%= f.input :zipcode, :input_html => {
+        <%= f.input :zipcode, label: "CEP", :input_html => {
         :id => "zipcode_input",
         :onblur => "search(this)"
         } %>
 
         <div id="address_inputs" style="">
           <div class="col-md-6" style="padding:0px;">
-          <%= f.input :address, :input_html => {
+          <%= f.input :address,label: "Endereço" ,:input_html => {
               :id => "address"
             } %>
           </div>
           <div class="col-md-6" style="padding:0px;">
-          <%= f.input :neighborhood, :input_html => {
+          <%= f.input :neighborhood, label: "Bairro", :input_html => {
               :id => "neighborhood",
             } %>
           </div>
             <div class="col-md-6" style="padding:0px;">
-          <%= f.input :city, :input_html => {
+          <%= f.input :city, label: "Cidade", :input_html => {
               :id => "city",
             } %>
           </div>
             <div class="col-md-6" style="padding:0px;">
-          <%= f.input :state, :input_html => {
+          <%= f.input :state, label: "Estado", :input_html => {
               :id => "state",
             } %>
             </div>
-          <%= f.input :complement %>
+          <%= f.input :complement , label: "Complemento"%>
 
 
       </div>
       <hr style="margin-top: 5px; margin-bottom: 10px;">
-          <%= f.input :password%>
-          <%= f.input :password_confirmation %>
+          <%= f.input :password,  label: "Nova Senha"%>
+          <%= f.input :password_confirmation , label: "Confirmar Nova Senha"%>
 
        <hr style="margin-top: 5px; margin-bottom: 10px;">
 
-    <%= f.input :current_password, hint: "Forneça sua senha atual para confirmar suas mudanças", required: true %>
+    <%= f.input :current_password, hint: "Forneça sua senha atual para confirmar suas mudanças.", required: true , label: "Senha Atual"%>
 
         <%= f.submit 'Salvar', class: "btn btn-default button_project button_submit" %>
         <%= link_to 'Cancelar', root_path, class: "btn btn-default button_project " %>
@@ -97,6 +97,7 @@
 
   </div>
   </div>
+</div>
 </div>
 <% end %>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

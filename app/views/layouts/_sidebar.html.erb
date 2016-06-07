@@ -28,7 +28,8 @@
 
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-all;white-space: nowrap ;">
-                <%= project.name %>
+                <%= truncate project.name, :length   => 30, :separator => /\w/,
+                               :omission => "..."%>
               </div>
               <div class="clearfix"> </div>
             </div>
@@ -55,7 +56,8 @@
 
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; ">
-                <%= project.name %>
+                <%= truncate project.name, :length   => 30, :separator => /\w/,
+                               :omission => "..." %>
               </div>
               <div class="clearfix"> </div>
             </div>
@@ -82,7 +84,8 @@
 
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-word;">
-                <%= project.name %>
+                <%= truncate project.name, :length   => 30, :separator => /\w/,
+                               :omission => "..." %>
               </div>
               <div class="clearfix"> </div>
             </div>

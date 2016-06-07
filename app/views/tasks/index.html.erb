@@ -13,8 +13,8 @@
               </div>
               <%= simple_form_for @task do |f| %>
               <div class="modal-body">
-                  <%= f.input :description, label: false%>
-                  <%= f.input :situation, collection: ["A Fazer", "Fazendo", "Feita"], as: :select, include_blank: false %>
+                  <%= f.input :description, label: "Descrição"%>
+                  <%= f.input :situation, label: "Situação", collection: ["A Fazer", "Fazendo", "Feita"], as: :select, include_blank: false %>
                   <%= f.input :project_id, :as => :hidden, :input_html => { :value =>  @project.id } %>
                     <h5 style="text-align: left; margin-top: 7px;"> Responsáveis: </h5>
                     <div class="row" style= "padding: 20px;">

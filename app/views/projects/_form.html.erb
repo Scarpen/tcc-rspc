@@ -45,19 +45,19 @@
         <%= f.input :description, label: false, input_html:{style: "resize:none; height: 100px;" }%>
       <% if action_name == 'edit' %>
       <hr style="margin-top: 5px; margin-bottom: 10px;">
-         <span style="font-size: 14px; float:left; font-weight: bold" > Está em fase de </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução","Finalizado"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
+         <span style="font-size: 14px; float:left; font-weight: bold; margin-right: 7px" > Está em fase de: </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução","Finalizado"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
          <br>
          
-      <hr style="margin-top: 5px; margin-bottom: 10px;">
+      <hr style="margin-top: 15px; margin-bottom: 10px;">
 
        <span style="font-size: 14px; float:left; font-weight: bold" > Insatisfeito com o projeto? </span><br>
       <%= link_to "Cancelar o projeto", project_path(@project), :method => :delete, :data => { :confirm => "Deseja mesmo cancelar o projeto #{@project.name} ?"}, :class => 'btn btn-xs btn-default cancel-project' %>
       
         <% else %>
-         <span style="font-size: 14px; float:left; font-weight: bold" > Está em fase de  </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
+         <span style="font-size: 14px; float:left; font-weight: bold; margin-right: 7px" > Está em fase de:  </span> <%= f.input :phase, collection: ["Iniciação","Planejamento","Execução"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: ""} %>
         <% end %>
       <br><br>
-        <span style="font-size: 14px; float:left; font-weight: bold" > Este projeto é  </span> <%= f.input :visible_project, collection: ["Público","Privado"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: "width: 100px;"} %>
+        <span style="font-size: 14px; float:left; font-weight: bold; margin-right: 7px" > Este projeto é:  </span> <%= f.input :visible_project, collection: ["Público","Privado"], as: :select, label: false, :include_blank => false, input_html: {id: "phase-input", style: "width: 100px;"} %>
         </div>
   </div>
   </div>

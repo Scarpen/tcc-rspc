@@ -13,6 +13,7 @@ def make_important
     topic.important = true
     project = Project.find(topic.project_id)
     topic.save
+    flash[:success] = 'Tópico fixado como importante.'
     redirect_to list_topics_path(project)
 end
 
@@ -45,7 +46,7 @@ def create
             @topic.create_activity(:create, :owner => User.find(member.user_id))
           end
         end
-        format.html { redirect_to list_topics_path(@project), notice: 'Topic was successfully created.' }
+        format.html { redirect_to list_topics_path(@project), notice: 'Tópico criado com sucesso.' }
         format.json { render :show, status: :created, location: @project}
       else
         format.html { render :new }
@@ -60,13 +61,15 @@ end
 def update
   @topic = Topic.find(params[:id])
   @topic.update(topic_params)
-  redirect_to controller: 'topics', action: 'index', id: @topic.project.id, notice: 'Topic was successfully updated.'
+  flash[:success] = 'Tópico atualizado com sucesso.'
+  redirect_to controller: 'topics', action: 'index', id: @topic.project.id
 end
 
 def destroy
   project = @topic.project
   @topic.destroy
-  redirect_to controller: 'topics', action: 'index', id: project.id, notice: 'Topic was successfully destroyed.' 
+  flash[:success] = 'Tópico excluído com sucesso.'
+  redirect_to controller: 'topics', action: 'index', id: project.id 
 end
 
 

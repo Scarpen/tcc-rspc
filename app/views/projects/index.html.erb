@@ -18,15 +18,26 @@
       <%= link_to "Criar Projeto", new_project_path, method: :get, style: "color:#000", class: "btn btn-default button_project button_inactive"  %>
       </div>
 
-      <div class="col-md-12" style="margin-bottom: 15px;">
-        <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Selecione uma área para refinar sua busca </h5> 
-        <div style="float:left; margin: 5px">
-          <a href="javascript:;" onclick="showList(0)" class="user_link" ><%= image_tag("interesse.jpg", class: "img-responsive  interest_selected interest int_link_0", style: "width: 50px ; height: 50px;") %>Recentes</a>
-        </div> 
+
+      <div class="col-md-12" style= "margin-bottom: 15px;">
+        <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Procurando um projeto em qual área? </h5> 
+        <a href="javascript:;" onclick="showList(0)">
+            <div class="col-md-4" style="margin-bottom: 10px;padding-right: 1px;">
+              <div class="row" style="margin: 0px">
+                <%= image_tag("interesse.jpg", class: "img-responsive interest_selected interest int_link_0", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
+                <h5 style="text-align: left; margin-top: 7px;"> Recentes </h5>
+              </div>
+            </div>
+          </a>
         <% current_user.interests.each do |interest| %>
-        <div style="float:left; margin: 5px">
-          <a href = "javascript:;" onclick = "showList(<%= interest.id %>)" class="user_link"><%= image_tag("interesse.jpg", class: "img-responsive interest int_link_#{interest.id}", style: "width: 50px ; height: 50px;") %><%= interest.name %></a>
-        </div>
+          <a href="javascript:;" onclick="showList(<%= interest.id %>)">
+            <div class="col-md-4" style="margin-bottom: 10px;padding-right: 1px;">
+              <div class="row" style="margin: 0px">
+                <%= image_tag("interesse.jpg", class: "img-responsive interest int_link_#{interest.id}", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
+                <h5 style="text-align: left; margin-top: 7px;"> <%= interest.name %> </h5>
+              </div>
+            </div>
+          </a>
         <% end %>
       </div>
     
@@ -56,7 +67,12 @@
                <div class="col-md-4" style="margin-bottom: 10px; text-align: left;">
                 <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
                 <%= project.name %><br>
-                <%= image_tag(project.avatar, class: "img-responsive", style: "width: 141px; height: 141px") %>
+
+                <div style="width: 139x; border: 1px solid #DDD; height: 139px;line-height:137px;">
+                    <%= image_tag(project.avatar, class: "img-responsive showproject") %>
+                </div>
+
+
               </a>
               </div>
             <% end %>
@@ -122,7 +138,7 @@
                     </div>
                   </div>
                 </div>
-                <% end %>
+              <% end %>
 
 <script>
 

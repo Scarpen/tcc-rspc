@@ -18,6 +18,54 @@ module ApplicationHelper
   	user.save
   end
 
+  def count_project_adm(count)
+    if count == 1 
+      return "#{count} projeto"
+    elsif count > 1
+      return "#{count} projetos" 
+    elsif count < 1
+      return "Não é responsável por projetos"
+    end
+  end
+
+  def count_project_part()
+    count = 0
+    current_user.projects.order(name: :asc).each do |project|
+      if project.creator_id != current_user.id
+        Member.where(project_id: project.id, user_id: current_user.id, situation: '1').each do |part_user|
+          count = count + 1
+        end
+      end
+    end
+
+    if count == 1 
+      return "Participa de #{count} projeto."
+    elsif count > 1
+      return "Participa de #{count} projetos." 
+    elsif count < 1
+      return "Não participa de nenhum projeto."
+    end
+  end
+
+  def count_project_follow()
+    count = 0
+    current_user.projects.order(name: :asc).each do |project|
+      if project.creator_id != current_user.id
+        Member.where(project_id: project.id, user_id: current_user.id, situation: '2').each do |part_user|
+          count = count + 1
+        end
+      end
+    end
+
+    if count == 1 
+      return "Segue #{count} projeto."
+    elsif count > 1
+      return "Segue #{count} projetos." 
+    elsif count < 1
+      return "Não segue nenhum projeto."
+    end
+  end
+
   def welcome_project(user)
     if user.gender == 'Masculino'
       return "Seja Bem-vindo!"
@@ -164,7 +212,9 @@ module ApplicationHelper
   end
 
   def inter(conversation)
-    current_user == conversation.recipient ? conversation.sender : conversation.recipient
+    if conversation
+      current_user == conversation.recipient ? conversation.sender : conversation.recipient
+    end
   end
 
 end

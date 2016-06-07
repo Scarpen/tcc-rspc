@@ -6,12 +6,12 @@
     	<div class="col-md-12" style="margin-top: 5px; color: #333; text-align: justify">
     	<h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333;"> Detalhes </h5>
         	<p>
-            É responsável por <a class="user_link">3 projetos.</a><br>
-            Não participa de nenhum projeto.<br>
-            Não segue nenhum projeto.<br>
+            É responsável por <strong><%= count_project_adm(Project.where(creator_id: current_user.id).count) %></strong>.<br>
+            <%=count_project_part%><br>
+            <%=count_project_follow%><br>
     		Cidade: <%= @user.city %>.<br>
     		Estado: <%= @user.state %>.<br>
-            Aniversário:  07 de Abril.<br>
+            Aniversário:  <%= @user.date_birthday.strftime("%d/%m")%><br>
             </p>
     	</div>
 	</div>

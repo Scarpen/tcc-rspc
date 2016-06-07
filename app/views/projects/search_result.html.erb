@@ -27,7 +27,7 @@
                     <div class="col-md-8" style="padding: 5px !important; padding-left: 0px !important; "> 
                        <%= link_to user.name, user, class: "user_link", style: "font-weight: bold; font-size: 15px" %>
 
-                        <h5 style= "font-size: 13px; color: #606060; margin-bottom: 4px;"> Usuário desde de <%= time_ago_in_words(user.updated_at) %> </h5>
+                        <h5 style= "font-size: 13px; color: #606060; margin-bottom: 4px;"> Usuário desde <%= time_ago_in_words(user.created_at) %> </h5>
                         <% friendship = Friend.where(user_id: current_user.id, friend_id: user.id).first %>
                         <% if friendship %>
                             <% if friendship.status == "pending" %>
@@ -65,7 +65,7 @@
                     <div class="col-md-8" style="padding: 5px !important; padding-left: 0px !important; "> 
                        <%= link_to project.name, project, class: "user_link", style: "font-weight: bold; font-size: 15px" %>
 
-                        <h5 style= "font-size: 13px; color: #606060; margin-bottom: 4px;"> Projeto criado a <%= time_ago_in_words(project.updated_at) %> </h5>
+                        <h5 style= "font-size: 13px; color: #606060; margin-bottom: 4px;"> Projeto criado a <%= time_ago_in_words(project.created_at) %> </h5>
                     </div>
                 </div>
             </div>

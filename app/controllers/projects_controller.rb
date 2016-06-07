@@ -53,7 +53,7 @@ class ProjectsController < ApplicationController
     member.user_id = current_user.id
     member.save
     member.create_activity(:send_request, :owner => User.find(project.creator_id) )
-    flash[:success] = 'Your request has been sending!'
+    flash[:success] = 'Sua solicitação foi enviada!'
     redirect_to project
   end
 
@@ -75,6 +75,7 @@ class ProjectsController < ApplicationController
     project = Project.find(params[:project])
     member = Member.where(project_id: project.id, user_id: current_user.id, situation: 2).first
     member.delete
+    flash[:success] = 'Você não está mais seguindo este projeto!'
     redirect_to project_path(project)
   end
 
@@ -84,7 +85,7 @@ class ProjectsController < ApplicationController
     share.publication_id = publication.id
     share.user_id = current_user.id
     share.save
-    flash[:success] = 'The publication has shared!'
+    flash[:success] = 'Esta publicação foi compartilhada com sucesso!'
     redirect_to projects_path(publication.project_id)
   end
   # GET /projects/1
@@ -154,7 +155,7 @@ class ProjectsController < ApplicationController
 
         member.project_id = @project.id
         member.save
-        format.html { redirect_to about_project_path(@project), notice: 'Project was successfully created.' }
+        format.html { redirect_to about_project_path(@project), notice: 'Projeto criado com sucesso.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -168,7 +169,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to about_project_path(@project), notice: 'Project was successfully updated.' }
+        format.html { redirect_to about_project_path(@project), notice: 'Projeto atualizado com sucesso.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -184,7 +185,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to projects_url, notice: 'Projeto excluído com sucesso.' }
       format.json { head :no_content }
     end
   end

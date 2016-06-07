@@ -1,10 +1,14 @@
 <li class="list-group-item">
-  <span class="glyphicon glyphicon-plus"></span>
-  <small class="text-muted"><%= a.created_at.strftime('%H:%M:%S %-d %B %Y') %></small><br/>
-  <strong>New Comment</strong><br>
+   	<small style="padding-left:45px; margin-top:-10px" class="text-muted"><%= a.created_at.strftime("%d/%m/%Y %H:%M:%S") %></small>
+
+  	<br/>
+
+	<div style="width: 40x; border: 1px solid #DDD; height: 40px;line-height:38px;float:left; margin-left: 0px; margin-top: -16px; margin-right: 5px;">
+		<%= image_tag(a.trackable.user.avatar, class: "notification") %>
+	</div>
+
   <% if a.trackable %>
-      <strong><%= a.trackable.user.name %></strong> added the comment on <%= link_to 'publication', publication_path(a.trackable) %> of the project <%= a.trackable.publication.project.name %>.
-  <% else %>
-    added the story that is currently deleted.
+      <%= a.trackable.user.name %> adicionou um comentário na <strong><%= link_to 'publicação', publication_path(a.trackable) %></strong> do projeto <%= a.trackable.publication.project.name %>.
   <% end %>
+  <div class="clearfix"></div>
 </li>
