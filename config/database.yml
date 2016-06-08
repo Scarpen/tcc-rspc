@@ -7,12 +7,10 @@
 default: &default
   adapter: mysql2
   pool: 5
-  host: 192.168.0.33
-  port: 3306
   timeout: 5000
   encoding: utf8
-  username: tccsi7na
-  password: si7na
+  username: root
+  password: root
   socket: /var/run/mysqld/mysqld.sock
 
 development:
