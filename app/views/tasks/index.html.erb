@@ -54,14 +54,19 @@
             <% end %>
             </div>
             <div style="width:11px; float:right">
-              <% if current_user == @project.user %>
+              <% if current_user == @project.user || p.users.include?(current_user)%>
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
+                <% if current_user == @project.user %>
                   <li> <%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %> </li>
                   
                   <li> <%= link_to 'Excluir', task_path(p), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
+                <% end %>
+                  <li> <%= link_to 'Mover para Fazendo', move_doing_tasks_path(id_task: p.id) %> </li>
+
+                  <li> <%= link_to 'Mover para Concluído', move_done_tasks_path(id_task: p.id) %> </li>
               </ul>
               <% end %>
             </div> 
@@ -84,13 +89,19 @@
             <% end %> 
             </div>
             <div style="width:11px; float:right">
-              <% if current_user == @project.user %>
+              <% if current_user == @project.user || p.users.include?(current_user)%>
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
-                  <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
-                  <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+                <% if current_user == @project.user %>
+                  <li> <%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %> </li>
+                  
+                  <li> <%= link_to 'Excluir', task_path(p), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
+                <% end %>
+                  <li> <%= link_to 'Mover para A Fazer', move_do_tasks_path(id_task: p.id) %> </li>
+
+                  <li> <%= link_to 'Mover para Concluído', move_done_tasks_path(id_task: p.id) %> </li>
               </ul>
               <% end %>
             </div>
@@ -113,13 +124,19 @@
             <% end %>
             </div>
             <div style="width:11px; float:right">
-              <% if current_user == @project.user %>
+               <% if current_user == @project.user || p.users.include?(current_user)%>
               <span class="dropdown-toggle" style="cursor: pointer" id="dropdownMenu<%= p.id %>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 <span class="glyphicon glyphicon-pencil drop_icon" style="font-size: 12px"> </span> 
               </span>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu<%= p.id %>" style="top: auto !important; left: auto !important;">
-                  <li><%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %></li>
-                  <li><%= link_to 'Excluir', method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %></li>
+                <% if current_user == @project.user %>
+                  <li> <%= link_to 'Editar', "#", data:{toggle: 'modal', target: "#edit_task_#{p.id}"} %> </li>
+                  
+                  <li> <%= link_to 'Excluir', task_path(p), method: :delete, data: {confirm: "Tem certeza que deseja excluir essa publicação?"} %> </li>
+                <% end %>
+                  <li> <%= link_to 'Mover para A Fazer', move_do_tasks_path(id_task: p.id) %> </li>
+
+                  <li> <%= link_to 'Mover para Fazendo', move_doing_tasks_path(id_task: p.id) %> </li>
               </ul>
               <% end %>
             </div>

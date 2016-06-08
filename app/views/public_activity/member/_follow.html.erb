@@ -1,19 +1,21 @@
+<% if a.trackable %>
 <li class="list-group-item">
  	
 
    	<small style="padding-left:45px; margin-top:-10px" class="text-muted"><%= a.created_at.strftime("%d/%m/%Y %H:%M:%S") %></small>
 
   	<br/>
-<% if a.trackable %>
+
 	<div style="width: 40x; border: 1px solid #DDD; height: 40px;line-height:38px;float:left; margin-left: 0px; margin-top: -16px; margin-right: 5px;">
 		<%= image_tag(a.trackable.user.avatar, class: "notification") %>
 	</div>
 
 
-<% if a.trackable %>
   <strong><%= link_to a.trackable.user.name, user_path(a.trackable.user), class: "user_link" %></strong>
   
     está seguindo o seu projeto <%= link_to Project.find(a.trackable.project_id).name, project_path(a.trackable.project_id), class: "user_link" %>.
-  <% end %>
+
   <div class="clearfix"></div>
 </li>
+
+  <% end %>
