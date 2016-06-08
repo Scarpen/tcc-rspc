@@ -51,10 +51,14 @@ Rails.application.routes.draw do
 
   resources :tasks do
     collection do
+      get 'move_do'
+      get 'move_doing'
+      get 'move_done'
       get 'accept'
       get 'enter_request'
       get 'quit_request'
       get 'quit_accept'
+
       patch 'quit_request'
       get 'quit_refuse'
       get 'refuse'

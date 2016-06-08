@@ -15,7 +15,26 @@ class TasksController < ApplicationController
 		@task = Task.new
 	end
 
-	
+	def move_do
+		task = Task.find(params[:id_task])
+		task.situation = "A Fazer"
+		task.save
+		redirect_to list_tasks_path(task.project.id)
+	end
+
+	def move_doing
+		task = Task.find(params[:id_task])
+		task.situation = "Fazendo"
+		task.save
+		redirect_to list_tasks_path(task.project.id)
+	end
+
+	def move_done
+		task = Task.find(params[:id_task])
+		task.situation = "Feita"
+		task.save
+		redirect_to list_tasks_path(task.project.id)
+	end
 
     def create
 	    @task = Task.new(task_params)

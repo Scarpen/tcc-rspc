@@ -35,14 +35,14 @@ class ProjectsController < ApplicationController
     user = User.find(member.user_id)
     member.save
     member.create_activity(:accept_request, :owner => user)
-    redirect_to request_list_path(project)
+    redirect_to memebers_project_path(project)
   end
 
   def refuse_request
     member = Member.find(params[:member])
     project = Project.find(member.project_id)
     member.delete
-    redirect_to request_list_path(project)
+    redirect_to memebers_project_path(project)
   end
 
   def without_project

@@ -10,7 +10,7 @@
 
 
   <% if a.trackable %>
-  <%= a.trackable.user.name %> criou um <strong><%= link_to 'novo tópico', class: "user_link" %></strong> de discussão no projeto <%= a.trackable.project.name%>.
+  <%= a.trackable.user.name %> criou a discussão <strong><%= link_to a.trackable.topic_title, show_topic_path(id: a.trackable.project.id, id_topic: a.trackable.id), class: "user_link" %></strong> no forum do projeto <%= a.trackable.project.name%>.
   <% end %>
   <div class="clearfix"> </div>
 </li>
