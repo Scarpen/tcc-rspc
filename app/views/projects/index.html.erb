@@ -21,20 +21,20 @@
 
       <div class="col-md-12" style= "margin-bottom: 15px;">
         <h5 style="font-size:14px; margin-bottom: 5px; font-weight: bold; color: #333; text-align: left;"> Procurando um projeto em qual área? </h5> 
-        <a href="javascript:;" onclick="showList(0)">
+        <a href="javascript:;" onclick="showList(0)" class="user_link">
             <div class="col-md-4" style="margin-bottom: 10px;padding-right: 1px;">
               <div class="row" style="margin: 0px">
                 <%= image_tag("interesse.jpg", class: "img-responsive interest_selected interest int_link_0", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
-                <h5 style="text-align: left; margin-top: 7px;"> Recentes </h5>
+                <h5 style="text-align: left; margin-top: 7px;" class="user_link"> Recentes </h5>
               </div>
             </div>
           </a>
         <% current_user.interests.each do |interest| %>
-          <a href="javascript:;" onclick="showList(<%= interest.id %>)">
+          <a href="javascript:;" onclick="showList(<%= interest.id %>)" class="user_link">
             <div class="col-md-4" style="margin-bottom: 10px;padding-right: 1px;">
               <div class="row" style="margin: 0px">
                 <%= image_tag("interesse.jpg", class: "img-responsive interest int_link_#{interest.id}", style: "width: 30px; height: 30px; float: left; margin-right: 5px;") %>
-                <h5 style="text-align: left; margin-top: 7px;"> <%= interest.name %> </h5>
+                <h5 style="text-align: left; margin-top: 7px;" class="user_link"> <%= interest.name %> </h5>
               </div>
             </div>
           </a>
@@ -48,7 +48,8 @@
           <% @projects.order(created_at: :desc).each do |project| %>
              <div class="col-md-4" style="margin-bottom: 10px; text-align: left; ">
               <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
-                <%= project.name %><br>
+                <%= truncate project.name, :length   => 20, :separator => /\w/,
+                               :omission => "..." %><br>
                 <div style="width: 141px; border: 1px solid #DDD; height: 141px;line-height: 137px;">
                 <%= image_tag(project.avatar, style: "width: 139px; max-height:139px;") %>
                 </div>
@@ -66,7 +67,8 @@
              <% if @projects.include?(project) %>
                <div class="col-md-4" style="margin-bottom: 10px; text-align: left;">
                 <a href = "javascript:;" class="user_link"  data-toggle="modal" data-target="#modal_<%= project.id %> ">
-                <%= project.name %><br>
+                <%= truncate project.name, :length   => 20, :separator => /\w/,
+                               :omission => "..." %><br>
 
                 <div style="width: 141px; border: 1px solid #DDD; height: 141px;line-height: 137px;">
                 <%= image_tag(project.avatar, style: "width: 139px; max-height:139px;") %>
@@ -92,22 +94,26 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel"><%= link_to project.name, project, class: "user_link" %> 
                           <span style="float:right; margin-right: 50px;">
-                            <% if current_user == project.user %>
-                              <%= link_to 'Editar', edit_project_path(project), class: "btn btn-default button_project button_inactive" %>
-                            <% elsif Member.where(project_id: project.id, situation: '1').count == project.number_members %>
-                              Grupo Cheio!
-                            <%else%>
-                            <% membership = Member.where(project_id: project.id, user_id: current_user.id).first %>
-                            <% if  membership == nil %>
-                              <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive" %>
-                              <%= link_to 'Participar', send_request_projects_path(project: project.id), class: "btn button_project button_inactive " %>
-                            <% elsif membership.situation == 1 %>
-                              <%= link_to 'Deixar de Participar', send_request_projects_path(project: project.id), class: "btn btn-default button_project button_active", data:{confirm: "Tem certeza?" }  %>
-                            <% elsif membership.situation == 2 %>
-                              <%= link_to 'Parar de Seguir', unfollow_projects_path(project: project.id), method: :delete, data:{confirm: "Tem certeza?" }, class: "btn btn-default button_project button_active" %>
-                              <%= link_to 'Participar', send_request_projects_path(project: project.id), class: "btn btn-default button_project button_inactive"  %>   
-                            <% end %>   
-                          <% end %>
+                                      <% if current_user == project.user %>
+            <%= link_to 'Editar', edit_project_path(project), class: "btn btn-default button_project button_inactive" %>
+          <% elsif Member.where(project_id: project.id, situation: '1').count == project.number_members %>
+            Grupo Cheio!
+          <%else%>
+          <% membership = Member.where(project_id: project.id, user_id: current_user.id).first %>
+          <% if  membership == nil %>
+            <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive" %>
+            <%= link_to 'Participar', send_request_projects_path(project: project.id), class: "btn button_project button_inactive " %>
+          <% elsif membership.situation == 0 %>
+            <%= link_to 'Seguir', follow_projects_path(project: project.id), class: "btn btn-default button_project button_inactive" %>
+          <% elsif membership.situation == 1 %>
+            <%= link_to 'Deixar de Participar', without_project_projects_path(project: project.id, member: membership), class: "btn btn-default button_project button_active", data:{confirm: "Tem certeza?" }  %>
+          <% elsif membership.situation == 2 %>
+            <%= link_to 'Parar de Seguir', unfollow_projects_path(project: project.id), data:{confirm: "Tem certeza?" }, class: "btn btn-default button_project button_active" %>
+            <%= link_to 'Participar', send_request_projects_path(project: project.id), class: "btn btn-default button_project button_inactive"  %> 
+          <% elsif membership.situation == 3 %>
+            <%= link_to 'Parar de Seguir', unfollow_projects_path(project: project.id), data:{confirm: "Tem certeza?" }, class: "btn btn-default button_project button_active" %> 
+          <% end %>   
+        <% end %>
                         </span>
 
 

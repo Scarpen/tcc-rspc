@@ -6,12 +6,12 @@
         <%= image_tag(@project.avatar, style: "width: 78px; max-height:78px;") %>
         </div>
       </div>
-      <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+      <div class="col-md-6" style="text-align: left; margin-top: 5px; padding-right:0px">
         <span style="font-size: 18px;"> <%= @project.name %> </span><br>
         <span style="font-size: 15px;"> <%= project_interests(@project) %> </span><br>
         <span style="font-size: 15px;"> <%= @project.place %> </span>
       </div>
-      <div class="col-md-4" style="text-align: right; padding-top: 60px;">
+      <div class="col-md-4" style="text-align: right; padding-top: 60px; padding-left: 0px; padding-right: 8px">
           <% if current_user == @project.user %>
             <%= link_to 'Editar', edit_project_path(@project), class: "btn btn-default button_project button_inactive" %>
           <% elsif Member.where(project_id: @project.id, situation: '1').count == @project.number_members %>
@@ -21,8 +21,10 @@
           <% if  membership == nil %>
             <%= link_to 'Seguir', follow_projects_path(project: @project.id), class: "btn btn-default button_project button_inactive" %>
             <%= link_to 'Participar', send_request_projects_path(project: @project.id), class: "btn button_project button_inactive " %>
+          <% elsif membership.situation == 0 %>
+            <%= link_to 'Seguir', follow_projects_path(project: @project.id), class: "btn btn-default button_project button_inactive" %>
           <% elsif membership.situation == 1 %>
-            <%= link_to 'Deixar de Participar', without_project_projects_path(project: @project.id), class: "btn btn-default button_project button_active", data:{confirm: "Tem certeza?" }  %>
+            <%= link_to 'Deixar de Participar', without_project_projects_path(project: @project.id, member: membership), class: "btn btn-default button_project button_active", data:{confirm: "Tem certeza?" }  %>
           <% elsif membership.situation == 2 %>
             <%= link_to 'Parar de Seguir', unfollow_projects_path(project: @project.id), data:{confirm: "Tem certeza?" }, class: "btn btn-default button_project button_active" %>
             <%= link_to 'Participar', send_request_projects_path(project: @project.id), class: "btn btn-default button_project button_inactive"  %> 

@@ -19,7 +19,7 @@
           <% current_user.projects.order(name: :asc).each do |project| %>
           <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 1 && project.creator_id == current_user.id%>
           <%= link_to project do %>
-          <div class="online-top elem_list" style=" margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
+          <div class="online-top elem_list" style="<%= current_project(project, project_on) %> margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
 
 
             <div style="width: 26x; border: 1px solid #DDD; height: 26px;line-height: 22px;float:left; margin-right: 10px;">
@@ -28,7 +28,7 @@
 
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-all;white-space: nowrap ;">
-                <%= truncate project.name, :length   => 30, :separator => /\w/,
+                <%= truncate project.name, :length   => 25, :separator => /\w/,
                                :omission => "..."%>
               </div>
               <div class="clearfix"> </div>
@@ -48,7 +48,7 @@
           <% current_user.projects.order(name: :asc).each do |project| %>
           <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 1 && project.creator_id != current_user.id %>
           <%= link_to project do %>
-          <div class="online-top elem_list" style=" margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
+          <div class="online-top elem_list" style="<%= current_project(project, project_on) %> margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
 
             <div style="width: 26x; border: 1px solid #DDD; height: 26px;line-height: 22px;float:left; margin-right: 10px;">
                 <%= image_tag(project.avatar, class: "projectlist") %>
@@ -56,7 +56,7 @@
 
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; ">
-                <%= truncate project.name, :length   => 30, :separator => /\w/,
+                <%= truncate project.name, :length   => 25, :separator => /\w/,
                                :omission => "..." %>
               </div>
               <div class="clearfix"> </div>
@@ -76,7 +76,7 @@
           <% current_user.projects.order(name: :asc).each do |project| %>
           <% if Member.where(project_id: project.id, user_id: current_user.id).first.situation == 2 || Member.where(project_id: project.id, user_id: current_user.id).first.situation == 3%>
           <%= link_to project do %>
-          <div class="online-top elem_list" style=" margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
+          <div class="online-top elem_list" style="<%= current_project(project, project_on) %> margin-left: 14px;padding: 1px; padding-top: 3px; padding-bottom: 3px ">
 
             <div style="width: 26x; border: 1px solid #DDD; height: 26px;line-height: 22px;float:left; margin-right: 10px;">
                 <%= image_tag(project.avatar, class: "projectlist") %>
@@ -84,7 +84,7 @@
 
             <div class="top-on" >
               <div class="top-on1" style="margin-left: -40px; margin-top:-5px; font-size: 13px; color: #000; width:170px; word-wrap:break-word;">
-                <%= truncate project.name, :length   => 30, :separator => /\w/,
+                <%= truncate project.name, :length   => 25, :separator => /\w/,
                                :omission => "..." %>
               </div>
               <div class="clearfix"> </div>

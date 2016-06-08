@@ -217,4 +217,12 @@ module ApplicationHelper
     end
   end
 
+  def current_project(project, project_on)
+    if project.id == project_on
+      return "background: #DDD !important;"
+    else
+      return ""
+    end
+  end
+
 end

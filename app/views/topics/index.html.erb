@@ -12,7 +12,7 @@
 
 <%= render 'new_topic', topic: Topic.new, project: @project %>
 
-<% @topics.order(important: :desc).each do |p| %>
+<% @topics.order(important: :desc, updated_at: :desc).each do |p| %>
 
   <div class="col-md-12">
   <div style="width: 18px; height: 30px; float: left;"> 

@@ -136,11 +136,9 @@ class TasksController < ApplicationController
     def destroy
 	    project = @task.project
 	    @task.destroy
-	    respond_to do |format|
-	      format.html { redirect_to project, notice: 'Tarefa excluída com sucesso.' }
-	      format.json { head :no_content }
-	    end
-    end
+	    redirect_to list_tasks_path(project.id)
+	    flash[:success] = 'Tarefa excluída com sucesso.'
+	end
 
     def show
     	@task = Task.find(params[:id_task])

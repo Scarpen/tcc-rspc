@@ -7,8 +7,8 @@
       </div>
       <%= simple_form_for topic do |f| %>
       <div class="modal-body">
-          <%= f.input :topic_title%>
-          <%= f.input :description%>
+          <%= f.input :topic_title, label: "Título do Tópico"%>
+          <%= f.input :description, label: "Descrição"%>
           <%= f.input :project_id, :as => :hidden, :input_html => { :value =>  project.id } %>
       </div>
 

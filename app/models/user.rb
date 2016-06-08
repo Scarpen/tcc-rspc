@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
     end
   end
 
-
   mount_uploader :avatar, AvatarUploader
   
   devise :database_authenticatable, :registerable,
@@ -21,18 +20,16 @@ class User < ActiveRecord::Base
  		self.confirmed_at = Time.now
 	 end
 
-
-
 	has_and_belongs_to_many :abilities
 	has_and_belongs_to_many :interests
 
-  has_many :members
+  has_many :members, dependent: :destroy
   has_many :projects, :through => :members
 
-  has_many :assists
+  has_many :assists, dependent: :destroy
   has_many :tasks, :through => :assists
 
-  has_many :friends
+  has_many :friends, dependent: :destroy
   has_many :users, through: :friends
 
   has_many :topics

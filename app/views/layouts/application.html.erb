@@ -24,7 +24,11 @@
     <% else %>
     <div class="col-md-3" >
     <% end %>
-      <%= render 'layouts/sidebar' %>
+      <% if @project %>
+      <%= render 'layouts/sidebar', project_on: @project.id %>
+      <% else %>
+      <%= render 'layouts/sidebar', project_on: 0 %>
+      <% end %>
     </div>
 
     <div class="col-md-6" style="margin-top: 10px">

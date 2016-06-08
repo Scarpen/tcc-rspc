@@ -70,17 +70,22 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Selecionar Áreas do Projeto</h4>
       </div>
-      <div class="modal-body">
-        <div class="row"> 
-          <% Interest.all.each do |interest| %>  
-            <div class="col-md-2">
-              <a href="javascript:;" onclick="setInterest(<%= interest.id %>)">
-                <%= image_tag("interesse.jpg", class: "img-responsive interest_img", id: "img_interest_#{interest.id}") %>
-                <h5 style="text-align: center;" class="user_link"> <%= interest.name %> </h5>
-              </a>
+      <div class="row" style="padding: 0px">
+        <br>
+
+      <div class="col-md-12" style= "margin-bottom: 15px;">
+        <% Interest.all.each do |interest| %>
+          <a href="javascript:;" onclick="setInterest(<%= interest.id %>)" class="user_link">
+            <div class="col-md-4" style="margin-bottom: 10px;padding-right: 1px;">
+              <div class="row" style="margin: 0px">
+                <%= image_tag("interesse.jpg", class: "img-responsive interest", style: "width: 30px; height: 30px; float: left; margin-right: 5px;", id: "img_interest_#{interest.id}") %>
+                <h5 style="text-align: left; margin-top: 7px;" class="user_link"> <%= interest.name %> </h5>
+              </div>
             </div>
-          <% end %>
-        </div>
+          </a>
+        <% end %>
+      </div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal"> Concluir </button>

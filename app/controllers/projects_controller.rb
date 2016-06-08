@@ -46,14 +46,17 @@ class ProjectsController < ApplicationController
   end
 
   def without_project
-    
+    member = Member.find(params[:member])
+    project = Project.find(member.project_id)
+    member.delete
+    flash[:success] = 'Você deixou de participar do projeto!'
+    redirect_to project
   end
 
 
   def send_request
     project = Project.find(params[:project])
     member = Member.where(project_id: project.id, user_id: current_user.id, situation: 2).first
-
     if member
       member.situation = 3
       member.save
@@ -74,15 +77,23 @@ class ProjectsController < ApplicationController
 
   def follow
     project = Project.find(params[:project])
-    member = Member.new
-    member.project_id = project.id
-    member.user_id = current_user.id
-    member.situation = 2
-    member.save
-    member.create_activity(:follow, :owner => User.find(project.creator_id))
-    
-    flash[:success] = 'Você está seguindo esse projeto!'
-    redirect_to project_path(project)
+    member = Member.where(project_id: project.id, user_id: current_user.id, situation: 0).first
+    if member
+      member.situation = 3
+      member.save
+      member.create_activity(:follow, :owner => User.find(project.creator_id))
+      flash[:success] = 'Você está seguindo esse projeto!'
+      redirect_to project_path(project)
+    else
+      member = Member.new
+      member.project_id = project.id
+      member.user_id = current_user.id
+      member.situation = 2
+      member.save
+      member.create_activity(:follow, :owner => User.find(project.creator_id))
+      flash[:success] = 'Você está seguindo esse projeto!'
+      redirect_to project_path(project)
+    end
   end
 
   def unfollow
@@ -177,7 +188,8 @@ class ProjectsController < ApplicationController
 
         member.project_id = @project.id
         member.save
-        format.html { redirect_to about_project_path(@project), notice: 'Projeto criado com sucesso.' }
+        flash[:success] = 'Seu projeto foi criado!'
+        format.html { redirect_to about_project_path(@project) }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
